@@ -15,9 +15,10 @@ function HomeHeader({ img, children }) {
 
 function PageHeader({ img, children }) {
   return (
-    <DefaultHeaderWrapper img={img.replace("http://:8000/", "")}>
+    <PageHeaderWrapper img={img}>
+      <Img fluid={img} />
       {children}
-    </DefaultHeaderWrapper>
+    </PageHeaderWrapper>
   );
 }
 
@@ -33,7 +34,7 @@ const IndexHeaderWrapper = styled.header`
   align-items: center;
 `;
 
-const DefaultHeaderWrapper = styled(IndexHeaderWrapper)`
+const PageHeaderWrapper = styled(IndexHeaderWrapper)`
   min-height: 60vh;
 `;
 

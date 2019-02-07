@@ -4,9 +4,9 @@ import SEO from "../components/seo";
 import { HomeHeader, Banner, BannerButton } from "../utils";
 // import img from "../images/bcg/homeBcg.jpeg";
 import QuickInfo from "../components/homePageComponents/QuickInfo";
-import Gallery from "../components/homePageComponents/Gallery-1";
+import Gallery from "../components/homePageComponents/Gallery";
 import Menu from "../components/homePageComponents/Menu";
-import { StaticQuery, graphql } from "gatsby";
+import { StaticQuery, graphql, Link } from "gatsby";
 
 // const img1 = "/static/fc80c1b58ec75bbadcd6912d9d503e82/8484e/homeBcg.jpeg";
 // console.log(img1);
@@ -49,12 +49,14 @@ export default function IndexPage() {
           return (
             <HomeHeader img={data.getImage.childImageSharp.fluid}>
               <Banner
-                title="eatery"
-                subtitle="11 signal Hill Terr, Calgary, AB"
+                title="Hey! I am ARIANA BRAVING"
+                subtitle="Curious to Know Who I am?"
               >
-                <BannerButton style={{ margin: "2rem auto" }}>
-                  about
-                </BannerButton>
+                <Link to="/about" style={{ textDecoration: "none" }}>
+                  <BannerButton style={{ margin: "1rem auto" }}>
+                    About Ariana
+                  </BannerButton>
+                </Link>
               </Banner>
             </HomeHeader>
           );

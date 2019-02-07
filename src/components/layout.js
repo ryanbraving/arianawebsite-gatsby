@@ -1,23 +1,23 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import {createGlobalStyle} from 'styled-components'
-import Navbar from '../components/globals/navbar'
-import Footer from '../components/globals/Footer'
+import React from "react";
+import PropTypes from "prop-types";
+import { createGlobalStyle } from "styled-components";
+import Navbar from "../components/globals/navbar";
+import Footer from "../components/globals/Footer";
 
 // import './bootstrap.min.css'
-// import './layout.css'
+// import "./layout.css";
 // import '../sass/layout.scss'
 
-const Layout = ({children}) => {
-  return(
+const Layout = ({ children }) => {
+  return (
     <React.Fragment>
       <GlobalStyle />
       <Navbar />
       {children}
       <Footer />
     </React.Fragment>
-  )
-}
+  );
+};
 
 const GlobalStyle = createGlobalStyle`
   *{
@@ -31,7 +31,7 @@ const GlobalStyle = createGlobalStyle`
       color: black;
       background: #fff;
   }
-`
+`;
 
 // const Layout = ({ children }) => (
 //   <StaticQuery
@@ -68,7 +68,7 @@ const GlobalStyle = createGlobalStyle`
 // )
 
 Layout.propTypes = {
-  children: PropTypes.node.isRequired,
-}
+  children: PropTypes.node.isRequired
+};
 
-export default Layout
+export default Layout;

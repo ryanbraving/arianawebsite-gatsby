@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { StaticQuery, graphql } from "gatsby";
 import { Section } from "../../utils";
 import ArticleGrid from "./ArticleGrid";
+import QuickInfo from "../homePageComponents/QuickInfo";
 
 const GET_POSTS = graphql`
   query {
@@ -15,13 +16,13 @@ const GET_POSTS = graphql`
           createdAt
           content {
             childMarkdownRemark {
-              excerpt(pruneLength: 300)
+              excerpt(pruneLength: 200)
               html
             }
           }
           image {
-            fixed(width: 400, height: 250) {
-              ...GatsbyContentfulFixed_tracedSVG
+            fluid(maxWidth: 900) {
+              ...GatsbyContentfulFluid_tracedSVG
             }
           }
         }
@@ -33,12 +34,13 @@ const GET_POSTS = graphql`
 export default function Posts() {
   return (
     <Section>
+      <QuickInfo />
       <PostsWrapper>
         <StaticQuery
           query={GET_POSTS}
           render={data => {
             return data.getEnPosts.edges.map(({ node }) => {
-              return <ArticleGrid article={node} />;
+              return <ArticleGrid article={node} key={node.id} />;
             });
           }}
         />
@@ -48,5 +50,28 @@ export default function Posts() {
 }
 
 const PostsWrapper = styled.div`
-  background: red;
+  /* background: red; */
+  margin: 3rem 0;
+  display: grid;
+  /* grid-template-columns: auto; */
+  grid-template-columns: 100%;
+  grid-row-gap: 2rem;
+  justify-content: center;
+
+  @media (min-width: 576px) {
+    grid-template-columns: 95%;
+  }
+  @media (min-width: 676px) {
+    grid-template-columns: 90%;
+  }
+  @media (min-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 2rem;
+  }
+  @media (min-width: 1092px) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  @media (min-width: 1392px) {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
 `;

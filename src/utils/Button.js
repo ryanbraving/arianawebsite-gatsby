@@ -26,11 +26,4 @@ const SectionButton = styled(BannerButton)`
     color: ${styles.colors.mainYellow};
   }
 `;
-const BlogButton = styled(SectionButton)`
-  display: inline;
-  font-size: 0.75rem;
-  letter-spacing: 0rem;
-  font-weight: 700;
-  padding: 0.3rem 0.5rem;
-`;
-export { BannerButton, SectionButton, BlogButton };
+export { BannerButton, SectionButton };

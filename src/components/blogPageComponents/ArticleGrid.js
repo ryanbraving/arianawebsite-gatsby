@@ -29,13 +29,20 @@ export default function Article({ article }) {
 }
 
 const ArticleGridWrapper = styled.ul`
+/* height: 33rem; */
 padding: 1rem;
+border-radius: 5px 5px 5px 5px;
+-moz-border-radius: 5px 5px 5px 5px;
+-webkit-border-radius: 5px 5px 5px 5px;
 ${styles.border({ width: "0.2rem", color: "#ddd" })};
 ${styles.transition({ time: "1s" })};
 &:hover {
+  border-radius: 40px 40px 40px 40px;
+-moz-border-radius: 40px 40px 40px 40px;
+-webkit-border-radius: 40px 40px 40px 40px;
   background: ${styles.colors.mainBlack};
   color: ${styles.colors.mainWhite};
-  cursor: pointer;
+  /* cursor: pointer; */
   ${styles.border({ width: "0.2rem", color: `${styles.colors.mainYellow}` })};
   .article-link{
     color: ${styles.colors.mainWhite};
@@ -57,6 +64,9 @@ ${styles.transition({ time: "1s" })};
   .article-link {
     text-decoration: none;
     color: ${styles.colors.mainBlack};
+    &:hover{
+      cursor: pointer;
+    }
     
   }
   .image {
@@ -85,7 +95,6 @@ ${styles.transition({ time: "1s" })};
   }
   button{
     margin: 1rem 0 0 0;
-    display: inline;
     color: ${styles.colors.mainBlack};
     ${styles.border({ color: `${styles.colors.mainBlack}` })};
     background: transparent;

@@ -1,23 +1,78 @@
-import React from "react";
+// import React from "react";
+import React, { Component } from "react";
+
 import PropTypes from "prop-types";
 import { createGlobalStyle } from "styled-components";
 import Navbar from "../components/globals/navbar";
 import Footer from "../components/globals/Footer";
-
+import { AppContext } from "../utils";
 // import './bootstrap.min.css'
 // import "./layout.css";
 // import '../sass/layout.scss'
 
-const Layout = ({ children }) => {
-  return (
-    <React.Fragment>
-      <GlobalStyle />
-      <Navbar />
-      {children}
-      <Footer />
-    </React.Fragment>
-  );
-};
+class Layout extends Component {
+  // constructor(props) {
+  //   super(props)
+
+  //   this.state = {
+  //       navbarOpen: false,
+  //       isFarsi: true
+  //     }
+  // }
+
+  state = {
+    navbarOpen: false,
+    isFarsi: false
+  };
+  handleNavbar = () => {
+    this.setState(() => {
+      return { navbarOpen: !this.state.navbarOpen };
+    });
+  };
+  handleLanguage = () => {
+    this.setState(() => {
+      return { isFarsi: !this.state.isFarsi };
+    });
+  };
+  render() {
+    const children = React.Children.map(this.props.children, child => {
+      return React.cloneElement(child, {
+        isFarsi: this.state.isFarsi,
+        ryan: "green"
+        // handleLanguage: () => this.setState({ isFarsi: !this.state.isFarsi })
+      });
+    });
+    // console.log(children);
+    return (
+      <React.Fragment>
+        <GlobalStyle />
+        <AppContext.Provider
+          value={{
+            navbarOpen: this.state.navbarOpen,
+            isFarsi1: this.state.isFarsi,
+            handleNavbar: this.handleNavbar,
+            handleLanguage: this.handleLanguage
+          }}
+        >
+          <Navbar />
+        </AppContext.Provider>
+        {children}
+        <Footer />
+      </React.Fragment>
+    );
+  }
+}
+
+// const Layout = ({ children }) => {
+//   return (
+//     <React.Fragment>
+//       <GlobalStyle />
+//       <Navbar />
+//       {children}
+//       <Footer />
+//     </React.Fragment>
+//   );
+// };
 
 const GlobalStyle = createGlobalStyle`
   *{

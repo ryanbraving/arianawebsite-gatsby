@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "gatsby";
 import styled from "styled-components";
-import { styles } from "../../../utils";
+import { styles, AppContext } from "../../../utils";
 
 export default class NavbarLinks extends Component {
   state = {
@@ -9,38 +9,47 @@ export default class NavbarLinks extends Component {
       {
         id: 0,
         path: "/",
-        name: "home"
+        nameEn: "home",
+        nameFr: "صفحه اصلی"
       },
       {
         id: 1,
         path: "/about",
-        name: "about"
+        nameEn: "about",
+        nameFr: "درباره آریانا"
       },
       {
         id: 2,
         path: "/blog",
-        name: "blog"
+        nameEn: "blog",
+        nameFr: "وبلاگ"
       },
       {
         id: 3,
         path: "/contact",
-        name: "contact"
+        nameEn: "contact",
+        nameFr: "تماس با آریانا"
       }
     ]
   };
   render() {
     return (
-      <LinkWrapper open={this.props.navbarOpen}>
-        {this.state.links.map(item => {
-          return (
-            <li key={item.id}>
-              <Link to={item.path} className="nav-link">
-                {item.name}
-              </Link>
-            </li>
-          );
-        })}
-      </LinkWrapper>
+      <AppContext.Consumer>
+        {({ isFarsi, navbarOpen }) => (
+          <LinkWrapper open={navbarOpen}>
+            {this.state.links.map(item => {
+              return (
+                <li key={item.id}>
+                  <Link to={item.path} className="nav-link">
+                    {isFarsi ? item.nameFr : item.nameEn}
+                    {item.name}
+                  </Link>
+                </li>
+              );
+            })}
+          </LinkWrapper>
+        )}
+      </AppContext.Consumer>
     );
   }
 }

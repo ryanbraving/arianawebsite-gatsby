@@ -60,10 +60,8 @@ export default function ArticleTemplate({ data }) {
 }
 
 const TemplateWrapper = styled.div`
-  /* display: flex; */
   margin: 5rem auto;
   h1 {
-    /* display: block; */
     margin: 1rem auto;
     text-shadow: 3px 0px 1px grey;
     text-align: center;
@@ -78,37 +76,23 @@ const TemplateWrapper = styled.div`
   }
   .postedBy {
     margin: 1rem auto 0.5rem auto;
-    /* text-shadow: 3px 0px 1px grey; */
     text-align: center;
-    /* text-transform: capitalize; */
-    /* font-size: 3rem; */
     letter-spacing: 0.1rem;
-    /* font-weight: 700; */
   }
   .ariana {
     text-decoration: none;
     color: ${styles.colors.mainBlack};
-    /* text-shadow: 3px 0px 1px grey; */
-    /* font-size: 3rem; */
     letter-spacing: 0rem;
     font-weight: 700;
   }
   .text {
-    /* display: block; */
     color: ${styles.colors.mainGrey};
 
     background: transparent;
-    /* font-size: 1.3rem; */
-    /* letter-spacing: 0.1rem; */
-    /* font-weight: 700; */
-    /* text-indent: 50px; */
     line-height: 2rem;
     word-spacing: 0.2rem;
     text-align: justify;
-    /* text-justify: inter-word; */
-    /* width: 90%; */
     margin: 2rem auto;
-
     @media (min-width: 768px) {
       width: 90%;
     }

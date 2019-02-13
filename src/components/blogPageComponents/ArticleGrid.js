@@ -13,15 +13,13 @@ export default function Article({ article }) {
     <ArticleGridWrapper>
       <Link to={`/${slug}`} className="article-link">
         <li>
-          <h3>{title}</h3>
+          <h3 className="title">{title}</h3>
           <Img className="image" fluid={fluid} />
           <p
             className="excerpt"
             dangerouslySetInnerHTML={{ __html: excerpt }}
           />
-          {/* <Link to={`/${slug}`} style={{ textDecoration: "none" }}> */}
           <button> read more </button>
-          {/* </Link> */}
         </li>
       </Link>
     </ArticleGridWrapper>
@@ -29,71 +27,56 @@ export default function Article({ article }) {
 }
 
 const ArticleGridWrapper = styled.ul`
-/* height: 33rem; */
-padding: 1rem;
-border-radius: 5px 5px 5px 5px;
--moz-border-radius: 5px 5px 5px 5px;
--webkit-border-radius: 5px 5px 5px 5px;
-${styles.border({ width: "0.2rem", color: "#ddd" })};
-${styles.transition({ time: "1s" })};
-&:hover {
-  border-radius: 40px 40px 40px 40px;
--moz-border-radius: 40px 40px 40px 40px;
--webkit-border-radius: 40px 40px 40px 40px;
-  background: ${styles.colors.mainBlack};
-  color: ${styles.colors.mainWhite};
-  /* cursor: pointer; */
-  ${styles.border({ width: "0.2rem", color: `${styles.colors.mainYellow}` })};
-  .article-link{
+  padding: 1rem;
+  border-radius: 5px 5px 5px 5px;
+  -moz-border-radius: 5px 5px 5px 5px;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  ${styles.border({ width: "0.2rem", color: "#ddd" })};
+  ${styles.transition({ time: "1s" })};
+  &:hover {
+    border-radius: 40px 40px 40px 40px;
+    -moz-border-radius: 40px 40px 40px 40px;
+    -webkit-border-radius: 40px 40px 40px 40px;
+    background: ${styles.colors.mainBlack};
     color: ${styles.colors.mainWhite};
-    ${styles.transition({ time: "1s" })};
-  }
-  button{
-    color: ${styles.colors.mainWhite};
-    ${styles.border({ color: `${styles.colors.mainWhite}` })};
-    ${styles.transition({ time: "1s" })};
-  }
-}
-
-
-  li {
-    list-style-type: none;
-    /* margin-top: 1rem; */
-    /* background: red; */
+    ${styles.border({ width: "0.2rem", color: `${styles.colors.mainYellow}` })};
+    .article-link {
+      color: ${styles.colors.mainWhite};
+      ${styles.transition({ time: "1s" })};
+    }
+    button {
+      color: ${styles.colors.mainWhite};
+      ${styles.border({ color: `${styles.colors.mainWhite}` })};
+      ${styles.transition({ time: "1s" })};
+    }
+    .title {
+      text-align: center;
+    }
   }
   .article-link {
     text-decoration: none;
     color: ${styles.colors.mainBlack};
-    &:hover{
+    &:hover {
       cursor: pointer;
     }
-    
+  }
+  li {
+    list-style-type: none;
+  }
+  .title {
+    text-transform: capitalize;
+    letter-spacing: 0rem;
   }
   .image {
     margin: 1rem 0rem;
-    min-height:250px;
-    /* max-height:300px; */
-    /* height: 330px; */
+    min-height: 250px;
     border-radius: 20px;
-    /* ${styles.border({
-      width: "5px",
-      type: "solid",
-      color: "#ddd"
-    })}; */
-    /* border: 5px solid #ddd; */
-
-
-    
   }
   .excerpt {
     line-height: 1.5rem;
-    /* color: ${styles.colors.mainGrey}; */
-    /* word-spacing: 0.2rem; */
     text-align: justify;
-    /* display:block; */
-
   }
-  button{
+  button {
     margin: 1rem 0 0 0;
     color: ${styles.colors.mainBlack};
     ${styles.border({ color: `${styles.colors.mainBlack}` })};
@@ -101,16 +84,13 @@ ${styles.transition({ time: "1s" })};
     padding: 0.3rem 0.5rem;
     text-transform: uppercase;
     font-size: 0.75rem;
-    letter-spacing: 0.0rem;
+    letter-spacing: 0rem;
     font-weight: 700;
-    /* ${styles.transition({ time: "1s" })}; */
     &:hover {
       background: ${styles.colors.mainWhite};
       color: ${styles.colors.mainBlack};
       ${styles.border({ color: `${styles.colors.mainYellow}` })};
       cursor: pointer;
-
-
     }
   }
 `;

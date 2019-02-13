@@ -4,23 +4,26 @@ import NavbarLinks from "./NavbarLinks";
 import NavbarIcons from "./NavbarIcons";
 import styled from "styled-components";
 import { styles } from "../../../utils";
-
 export default class Navbar extends Component {
-  state = {
-    navbarOpen: false
-  };
-
-  handleNavbar = () => {
-    this.setState(() => {
-      return { navbarOpen: !this.state.navbarOpen };
-    });
-  };
-
+  // state = {
+  //   navbarOpen: false,
+  //   isFarsi: false
+  // };
+  // handleNavbar = () => {
+  //   this.setState(() => {
+  //     return { navbarOpen: !this.state.navbarOpen };
+  //   });
+  // };
+  // handleLanguage = () => {
+  //   this.setState(() => {
+  //     return { isFarsi: !this.state.isFarsi };
+  //   });
+  // };
   render() {
     return (
       <NavbWrapper>
-        <NavbarHeader handleNavbar={this.handleNavbar} />
-        <NavbarLinks navbarOpen={this.state.navbarOpen} />
+        <NavbarHeader />
+        <NavbarLinks />
         <NavbarIcons />
       </NavbWrapper>
     );
@@ -35,7 +38,7 @@ const NavbWrapper = styled.nav`
     display: flex;
     align-items: center;
   }
-  padding: 0.3rem 2rem;
+  padding: 0rem 0.2rem 0rem 0rem;
   position: fixed;
   z-index: 1030;
   background-color: ${styles.colors.mainWhite};

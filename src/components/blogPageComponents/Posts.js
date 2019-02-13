@@ -50,14 +50,11 @@ export default function Posts() {
 }
 
 const PostsWrapper = styled.div`
-  /* background: red; */
   margin: 3rem 0;
   display: grid;
-  /* grid-template-columns: auto; */
   grid-template-columns: 100%;
   grid-row-gap: 2rem;
   justify-content: center;
-
   @media (min-width: 576px) {
     grid-template-columns: 95%;
   }
@@ -71,7 +68,4 @@ const PostsWrapper = styled.div`
   @media (min-width: 1192px) {
     grid-template-columns: 1fr 1fr 1fr;
   }
-  /* @media (min-width: 1392px) {
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-  } */
 `;

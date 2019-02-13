@@ -14,6 +14,7 @@ export default class NavbarHeader extends Component {
           <HeaderWrapper>
             <div className="leftside">
               <h3
+                className="toggle-language"
                 onClick={() => {
                   // this.props.handleNavbar()
                   handleLanguage();
@@ -60,5 +61,8 @@ const HeaderWrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+  }
+  .toggle-language {
+    color: green;
   }
 `;

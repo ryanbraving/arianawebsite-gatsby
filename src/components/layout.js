@@ -37,8 +37,7 @@ class Layout extends Component {
   render() {
     const children = React.Children.map(this.props.children, child => {
       return React.cloneElement(child, {
-        isFarsi: this.state.isFarsi,
-        ryan: "green"
+        isFarsi: this.state.isFarsi
         // handleLanguage: () => this.setState({ isFarsi: !this.state.isFarsi })
       });
     });
@@ -49,7 +48,7 @@ class Layout extends Component {
         <AppContext.Provider
           value={{
             navbarOpen: this.state.navbarOpen,
-            isFarsi1: this.state.isFarsi,
+            isFarsi: this.state.isFarsi,
             handleNavbar: this.handleNavbar,
             handleLanguage: this.handleLanguage
           }}

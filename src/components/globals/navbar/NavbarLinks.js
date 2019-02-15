@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "gatsby";
 import styled from "styled-components";
-import { styles, AppContext } from "../../../utils";
+import { styles } from "../../../utils";
+import ContextConsumer from "../../Context";
 
 export default class NavbarLinks extends Component {
   state = {
@@ -34,8 +35,8 @@ export default class NavbarLinks extends Component {
   };
   render() {
     return (
-      <AppContext.Consumer>
-        {({ isFarsi, navbarOpen }) => (
+      <ContextConsumer>
+        {({ navbarOpen, isFarsi }) => (
           <LinkWrapper open={navbarOpen}>
             {this.state.links.map(item => {
               return (
@@ -49,7 +50,7 @@ export default class NavbarLinks extends Component {
             })}
           </LinkWrapper>
         )}
-      </AppContext.Consumer>
+      </ContextConsumer>
     );
   }
 }

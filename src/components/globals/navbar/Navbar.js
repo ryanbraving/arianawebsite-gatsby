@@ -5,20 +5,6 @@ import NavbarIcons from "./NavbarIcons";
 import styled from "styled-components";
 import { styles } from "../../../utils";
 export default class Navbar extends Component {
-  // state = {
-  //   navbarOpen: false,
-  //   isFarsi: false
-  // };
-  // handleNavbar = () => {
-  //   this.setState(() => {
-  //     return { navbarOpen: !this.state.navbarOpen };
-  //   });
-  // };
-  // handleLanguage = () => {
-  //   this.setState(() => {
-  //     return { isFarsi: !this.state.isFarsi };
-  //   });
-  // };
   render() {
     return (
       <NavbWrapper>

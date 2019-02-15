@@ -3,14 +3,15 @@ import { Link } from "gatsby";
 import logo from "../../../images/logo.svg";
 import { FaAlignRight } from "react-icons/fa";
 import styled from "styled-components";
-import { styles, AppContext } from "../../../utils";
+import { styles } from "../../../utils";
+import ContextConsumer from "../../Context";
 
 export default class NavbarHeader extends Component {
   render() {
     const logoPath = logo.replace("http://:8000/", "");
     return (
-      <AppContext.Consumer>
-        {({ isFarsi, handleLanguage, handleNavbar }) => (
+      <ContextConsumer>
+        {({ isFarsi, handleNavbar, handleLanguage }) => (
           <HeaderWrapper>
             <div className="leftside">
               <h3
@@ -20,7 +21,7 @@ export default class NavbarHeader extends Component {
                   handleLanguage();
                 }}
               >
-                {isFarsi ? "Farsi" : "English"}
+                {isFarsi ? "English" : "Farsi"}
               </h3>
               <Link to="/">
                 <img src={logoPath} alt="company name" />
@@ -36,7 +37,7 @@ export default class NavbarHeader extends Component {
             />
           </HeaderWrapper>
         )}
-      </AppContext.Consumer>
+      </ContextConsumer>
     );
   }
 }

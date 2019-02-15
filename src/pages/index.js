@@ -1,6 +1,7 @@
 import React from "react";
-import Layout from "../components/layout";
+// import Pages from "../components/Pages";
 import SEO from "../components/seo";
+import Layout from "../components/layout";
 import { HomeHeader, Banner, BannerButton } from "../utils";
 // import img from "../images/bcg/homeBcg.jpeg";
 import QuickInfo from "../components/homePageComponents/QuickInfo";

@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import { styles, AppContext } from "../../../utils";
+import { styles } from "../../../utils";
 import { FaFacebook, FaInstagram, FaTelegram, FaYoutube } from "react-icons/fa";
 import aparatIcon from "../../../images/aparat.svg";
+import ContextConsumer from "../../Context";
 
 export default class NavbarIcons extends Component {
   state = {
@@ -57,7 +58,7 @@ export default class NavbarIcons extends Component {
   };
   render() {
     return (
-      <AppContext.Consumer>
+      <ContextConsumer>
         {({ isFarsi }) => (
           <IconWrapper>
             {isFarsi
@@ -87,7 +88,7 @@ export default class NavbarIcons extends Component {
                 })}
           </IconWrapper>
         )}
-      </AppContext.Consumer>
+      </ContextConsumer>
     );
   }
 }
@@ -96,7 +97,7 @@ const IconWrapper = styled.div`
   padding: 0rem 1rem 0rem 0rem;
   .icon {
     font-size: 1.5rem;
-    coursor: pointer;
+    cursor: pointer;
     ${styles.transObject({})};
     &:hover {
       color: ${styles.colors.mainYellow};

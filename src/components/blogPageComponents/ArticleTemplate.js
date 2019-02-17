@@ -1,4 +1,6 @@
-import React from "react";
+// import React from "react";
+import React, { Component } from "react";
+
 import Layout from "../layout";
 import { graphql, Link } from "gatsby";
 import Img from "gatsby-image";
@@ -9,10 +11,11 @@ import {
   styles
 } from "../../utils";
 import styled from "styled-components";
+import ContextConsumer from "../Context";
 
 export const GET_ARTICLE = graphql`
   query ArticleTemplate($id: String!) {
-    getArticle: contentfulArticleEn(id: { eq: $id }) {
+    getEnArticle: contentfulArticleEn(id: { eq: $id }) {
       id
       title
       createdAt
@@ -27,35 +30,99 @@ export const GET_ARTICLE = graphql`
         }
       }
     }
+    getFrArticle: contentfulArticleFr(id: { eq: $id }) {
+      id
+      title
+      createdAt
+      image {
+        fluid {
+          ...GatsbyContentfulFluid_tracedSVG
+        }
+      }
+      childContentfulArticleFrContentTextNode {
+        childMarkdownRemark {
+          html
+        }
+      }
+    }
   }
 `;
 
-export default function ArticleTemplate({ data }) {
+export default class ArticleTemplate extends Component {
+  render() {
+    const { language } = this.props.pageContext; // this is comming from gatsby-node.js
+    return (
+      <ContextConsumer>
+        {({ setLanguageInvisible, setFarsi, setEnglish }) => (
+          <Layout>
+            <Section>
+              <TemplateWrapper
+                onLoad={() => {
+                  setLanguageInvisible();
+                  language === "farsi" ? setFarsi() : setEnglish();
+                }}
+              >
+                {language === "farsi"
+                  ? FarsiTemplate(this.props.data)
+                  : EnglishTemplate(this.props.data)}
+                <SectionButton style={{ margin: "2rem auto" }}>
+                  {" "}
+                  about{" "}
+                </SectionButton>
+              </TemplateWrapper>
+            </Section>
+          </Layout>
+        )}
+      </ContextConsumer>
+    );
+  }
+}
+
+export function FarsiTemplate(data) {
   return (
-    <Layout>
-      <Section>
-        <TemplateWrapper>
-          <h1> {data.getArticle.title}</h1>
-          <p className="postedBy">
-            Posted by{" "}
-            <Link to="/about" className="ariana">
-              ARIANA BRAVING
-            </Link>
-            , {timeDifferenceForDate(data.getArticle.createdAt)}
-          </p>
-          <Img className="image" fluid={data.getArticle.image.fluid} />
-          <p
-            className="text"
-            dangerouslySetInnerHTML={{
-              __html:
-                data.getArticle.childContentfulArticleEnContentTextNode
-                  .childMarkdownRemark.html
-            }}
-          />
-          <SectionButton style={{ margin: "2rem auto" }}> about </SectionButton>
-        </TemplateWrapper>
-      </Section>
-    </Layout>
+    <div>
+      <h1> {data.getFrArticle.title}</h1>
+      <p className="postedBy">
+        Posted by{" "}
+        <Link to="/about" className="ariana">
+          ARIANA BRAVING
+        </Link>
+        , {timeDifferenceForDate(data.getFrArticle.createdAt)}
+      </p>
+      <Img className="image" fluid={data.getFrArticle.image.fluid} />
+      <p
+        className="text farsibody"
+        dangerouslySetInnerHTML={{
+          __html:
+            data.getFrArticle.childContentfulArticleFrContentTextNode
+              .childMarkdownRemark.html
+        }}
+      />
+    </div>
+  );
+}
+
+export function EnglishTemplate(data) {
+  return (
+    <div>
+      <h1> {data.getEnArticle.title}</h1>
+      <p className="postedBy">
+        Posted by{" "}
+        <Link to="/about" className="ariana">
+          ARIANA BRAVING
+        </Link>
+        , {timeDifferenceForDate(data.getEnArticle.createdAt)}
+      </p>
+      <Img className="image" fluid={data.getEnArticle.image.fluid} />
+      <p
+        className="text"
+        dangerouslySetInnerHTML={{
+          __html:
+            data.getEnArticle.childContentfulArticleEnContentTextNode
+              .childMarkdownRemark.html
+        }}
+      />
+    </div>
   );
 }
 
@@ -108,5 +175,8 @@ const TemplateWrapper = styled.div`
     @media (min-width: 1592px) {
       width: 50%;
     }
+  }
+  .farsibody {
+    direction: rtl;
   }
 `;

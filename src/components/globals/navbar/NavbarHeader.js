@@ -5,24 +5,17 @@ import { FaAlignRight } from "react-icons/fa";
 import styled from "styled-components";
 import { styles } from "../../../utils";
 import ContextConsumer from "../../Context";
+import Language from "./Language";
 
 export default class NavbarHeader extends Component {
   render() {
     const logoPath = logo.replace("http://:8000/", "");
     return (
       <ContextConsumer>
-        {({ isFarsi, handleNavbar, handleLanguage }) => (
+        {({ handleNavbar }) => (
           <HeaderWrapper>
             <div className="leftside">
-              <h3
-                className="toggle-language"
-                onClick={() => {
-                  // this.props.handleNavbar()
-                  handleLanguage();
-                }}
-              >
-                {isFarsi ? "English" : "Farsi"}
-              </h3>
+              <Language />
               <Link to="/">
                 <img src={logoPath} alt="company name" />
               </Link>

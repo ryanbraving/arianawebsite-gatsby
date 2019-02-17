@@ -3,26 +3,45 @@ import Img from "gatsby-image";
 import styled from "styled-components";
 import { Link } from "gatsby";
 import { styles } from "../../utils";
+import ContextConsumer from "../Context";
 
 export default function Article({ article }) {
-  const { slug } = article;
-  const { title } = article;
+  const { slug, title } = article;
   const { fluid } = article.image;
   const { excerpt } = article.content.childMarkdownRemark;
   return (
-    <ArticleGridWrapper>
-      <Link to={`/${slug}`} className="article-link">
-        <li>
-          <h3 className="title">{title}</h3>
-          <Img className="image" fluid={fluid} />
-          <p
-            className="excerpt"
-            dangerouslySetInnerHTML={{ __html: excerpt }}
-          />
-          <button> read more </button>
-        </li>
-      </Link>
-    </ArticleGridWrapper>
+    <ContextConsumer>
+      {({ isFarsi }) => (
+        <ArticleGridWrapper>
+          <Link to={`/${slug}`} className="article-link">
+            <li>
+              <h3
+                className={isFarsi ? "title titleFarsi" : " title titleEnglish"}
+              >
+                {title}
+              </h3>
+              <Img className="image" fluid={fluid} />
+              <p
+                className={
+                  isFarsi ? "excerpt excerptFarsi" : " excerpt excerptEnglish"
+                }
+                dangerouslySetInnerHTML={{ __html: excerpt }}
+              />
+              <div
+                className={
+                  isFarsi ? "flexContainerFarsi" : " flexContainerEnglish"
+                }
+              >
+                <button className={isFarsi ? "btnFarsi" : " btnEnglish"}>
+                  {" "}
+                  {isFarsi ? "ادامه مطلب" : "read more"}{" "}
+                </button>
+              </div>
+            </li>
+          </Link>
+        </ArticleGridWrapper>
+      )}
+    </ContextConsumer>
   );
 }
 
@@ -49,9 +68,6 @@ const ArticleGridWrapper = styled.ul`
       ${styles.border({ color: `${styles.colors.mainWhite}` })};
       ${styles.transition({ time: "1s" })};
     }
-    .title {
-      text-align: center;
-    }
   }
   .article-link {
     text-decoration: none;
@@ -64,8 +80,12 @@ const ArticleGridWrapper = styled.ul`
     list-style-type: none;
   }
   .title {
+    text-align: center;
     text-transform: capitalize;
     letter-spacing: 0rem;
+  }
+  .titleFarsi {
+    direction: rtl;
   }
   .image {
     margin: 1rem 0rem;
@@ -75,6 +95,17 @@ const ArticleGridWrapper = styled.ul`
   .excerpt {
     line-height: 1.5rem;
     text-align: justify;
+  }
+  .excerptFarsi {
+    direction: rtl;
+  }
+  .flexContainerFarsi {
+    display: flex;
+    justify-content: flex-end;
+  }
+  .flexContainerEnglish {
+    display: flex;
+    justify-content: flex-start;
   }
   button {
     margin: 1rem 0 0 0;

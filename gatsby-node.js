@@ -54,7 +54,7 @@ exports.createPages = ({ actions, graphql }) => {
         context: {
           id: node.id,
           slug: node.slug,
-          ryan: "i am ok,"
+          language: "english"
           // Add optional context data to be inserted
           // as props into the page component..
           //
@@ -63,6 +63,38 @@ exports.createPages = ({ actions, graphql }) => {
           //
           // The page "path" is always available as a GraphQL
           // argument.
+        }
+      });
+    });
+  });
+
+  const getFarsiArticles = makeRequest(
+    graphql,
+    `
+    {
+        allContentfulArticleFr {
+          edges {
+            node {
+              id
+              slug
+            }
+          }
+        }
+      }
+      
+      `
+  ).then(result => {
+    // Create pages for each article.
+    result.data.allContentfulArticleFr.edges.forEach(({ node }) => {
+      createPage({
+        path: `/${node.slug}`,
+        component: path.resolve(
+          `src/components/blogPageComponents/ArticleTemplate.js`
+        ),
+        context: {
+          id: node.id,
+          slug: node.slug,
+          language: "farsi"
         }
       });
     });
@@ -96,5 +128,5 @@ exports.createPages = ({ actions, graphql }) => {
 
   // Queries for articles and authors nodes to use in creating pages.
   //   return Promise.all([getArticles, getAuthors]);
-  return Promise.all([getEnglishArticles]);
+  return Promise.all([getEnglishArticles, getFarsiArticles]);
 };

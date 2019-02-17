@@ -4,6 +4,7 @@ import { StaticQuery, graphql } from "gatsby";
 import { Section } from "../../utils";
 import ArticleGrid from "./ArticleGrid";
 import QuickInfo from "../homePageComponents/QuickInfo";
+import ContextConsumer from "../Context";
 
 const GET_POSTS = graphql`
   query {
@@ -16,7 +17,28 @@ const GET_POSTS = graphql`
           createdAt
           content {
             childMarkdownRemark {
-              excerpt(pruneLength: 200)
+              excerpt(pruneLength: 200, truncate: false)
+              html
+            }
+          }
+          image {
+            fluid(maxWidth: 900) {
+              ...GatsbyContentfulFluid_tracedSVG
+            }
+          }
+        }
+      }
+    }
+    getFrPosts: allContentfulArticleFr {
+      edges {
+        node {
+          id
+          slug
+          title
+          createdAt
+          content {
+            childMarkdownRemark {
+              excerpt(pruneLength: 200, truncate: true)
               html
             }
           }
@@ -33,21 +55,43 @@ const GET_POSTS = graphql`
 
 export default function Posts() {
   return (
-    <Section>
-      <QuickInfo />
-      <PostsWrapper>
-        <StaticQuery
-          query={GET_POSTS}
-          render={data => {
-            return data.getEnPosts.edges.map(({ node }) => {
-              return <ArticleGrid article={node} key={node.id} />;
-            });
-          }}
-        />
-      </PostsWrapper>
-    </Section>
+    <ContextConsumer>
+      {({ isFarsi, setLanguageVisible }) => (
+        <Section>
+          <QuickInfo />
+          <PostsWrapper
+            onLoad={() => {
+              setLanguageVisible();
+            }}
+          >
+            {isFarsi ? FarsiQuery : EnglishQuery}
+          </PostsWrapper>
+        </Section>
+      )}
+    </ContextConsumer>
   );
 }
+
+function withData(WrappedComponent) {
+  return (
+    <StaticQuery
+      query={GET_POSTS}
+      render={data => <WrappedComponent data={data} />}
+    />
+  );
+}
+
+export const FarsiQuery = withData(({ data }) =>
+  data.getFrPosts.edges.map(({ node }) => {
+    return <ArticleGrid article={node} key={node.id} />;
+  })
+);
+
+export const EnglishQuery = withData(({ data }) =>
+  data.getEnPosts.edges.map(({ node }) => {
+    return <ArticleGrid article={node} key={node.id} />;
+  })
+);
 
 const PostsWrapper = styled.div`
   margin: 3rem 0;

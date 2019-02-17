@@ -17,7 +17,7 @@ const { Provider, Consumer } = React.createContext(defaultContextValue);
 class ContextProviderComponent extends React.Component {
   state = {
     navbarOpen: false,
-    isFarsi: true,
+    isFarsi: false,
     btnVisible: true
   };
   handleNavbar = () => {

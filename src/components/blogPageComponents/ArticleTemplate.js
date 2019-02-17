@@ -12,6 +12,7 @@ import {
 } from "../../utils";
 import styled from "styled-components";
 import ContextConsumer from "../Context";
+import renderHTML from "react-render-html";
 
 export const GET_ARTICLE = graphql`
   query ArticleTemplate($id: String!) {
@@ -90,14 +91,12 @@ export function FarsiTemplate(data) {
         , {timeDifferenceForDate(data.getFrArticle.createdAt)}
       </p>
       <Img className="image" fluid={data.getFrArticle.image.fluid} />
-      <p
-        className="text farsibody"
-        dangerouslySetInnerHTML={{
-          __html:
-            data.getFrArticle.childContentfulArticleFrContentTextNode
-              .childMarkdownRemark.html
-        }}
-      />
+      <p className="text farsibody">
+        {renderHTML(
+          data.getFrArticle.childContentfulArticleFrContentTextNode
+            .childMarkdownRemark.html
+        )}
+      </p>
     </div>
   );
 }
@@ -114,14 +113,12 @@ export function EnglishTemplate(data) {
         , {timeDifferenceForDate(data.getEnArticle.createdAt)}
       </p>
       <Img className="image" fluid={data.getEnArticle.image.fluid} />
-      <p
-        className="text"
-        dangerouslySetInnerHTML={{
-          __html:
-            data.getEnArticle.childContentfulArticleEnContentTextNode
-              .childMarkdownRemark.html
-        }}
-      />
+      <p className="text">
+        {renderHTML(
+          data.getEnArticle.childContentfulArticleEnContentTextNode
+            .childMarkdownRemark.html
+        )}
+      </p>
     </div>
   );
 }

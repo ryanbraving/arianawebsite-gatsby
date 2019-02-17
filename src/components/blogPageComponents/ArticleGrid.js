@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { Link } from "gatsby";
 import { styles } from "../../utils";
 import ContextConsumer from "../Context";
+import renderHTML from "react-render-html";
 
 export default function Article({ article }) {
   const { slug, title } = article;
@@ -15,24 +16,19 @@ export default function Article({ article }) {
         <ArticleGridWrapper>
           <Link to={`/${slug}`} className="article-link">
             <li>
-              <h3
-                className={isFarsi ? "title titleFarsi" : " title titleEnglish"}
-              >
+              <h3 className={isFarsi ? "title titleFarsi" : "title"}>
                 {title}
               </h3>
               <Img className="image" fluid={fluid} />
-              <p
-                className={
-                  isFarsi ? "excerpt excerptFarsi" : " excerpt excerptEnglish"
-                }
-                dangerouslySetInnerHTML={{ __html: excerpt }}
-              />
+              <p className={isFarsi ? "excerpt excerptFarsi" : "excerpt"}>
+                {renderHTML(excerpt)}
+              </p>
               <div
                 className={
-                  isFarsi ? "flexContainerFarsi" : " flexContainerEnglish"
+                  isFarsi ? "flexContainerFarsi" : "flexContainerEnglish"
                 }
               >
-                <button className={isFarsi ? "btnFarsi" : " btnEnglish"}>
+                <button className={isFarsi ? "btnFarsi" : "btnEnglish"}>
                   {" "}
                   {isFarsi ? "ادامه مطلب" : "read more"}{" "}
                 </button>

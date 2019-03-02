@@ -4,7 +4,8 @@ import SEO from "../components/seo";
 import Layout from "../components/layout";
 import { HomeHeader, Banner, BannerButton } from "../utils";
 // import img from "../images/bcg/homeBcg.jpeg";
-import QuickInfo from "../components/homePageComponents/QuickInfo";
+// import QuickInfo from "../components/homePageComponents/QuickInfo";
+import SubscribeInfo from "../components/homePageComponents/SubscribeInfo";
 import Gallery from "../components/homePageComponents/Gallery";
 import Menu from "../components/homePageComponents/Menu";
 import { StaticQuery, graphql, Link } from "gatsby";
@@ -64,7 +65,8 @@ export default function IndexPage() {
         }}
       />
 
-      <QuickInfo />
+      {/* <QuickInfo /> */}
+      <SubscribeInfo />
       <Gallery />
       <Menu />
     </Layout>

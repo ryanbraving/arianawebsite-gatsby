@@ -41,7 +41,11 @@ export default class NavbarLinks extends Component {
             {this.state.links.map(item => {
               return (
                 <li key={item.id}>
-                  <Link to={item.path} className="nav-link">
+                  <Link
+                    activeClassName="active"
+                    to={item.path}
+                    className="nav-link"
+                  >
                     {isFarsi ? item.nameFr : item.nameEn}
                     {item.name}
                   </Link>
@@ -60,6 +64,7 @@ const LinkWrapper = styled.ul`
     list-style-type: none;
   }
   .nav-link{
+    border: transparent 0.15rem solid;
     display: block;
     text-decoration: none;
     padding: 0.5rem 1rem 0.5rem 1rem;
@@ -73,7 +78,14 @@ const LinkWrapper = styled.ul`
       color: ${styles.colors.mainYellow};
       padding: 0.5rem 1rem 0.5rem 1.3rem;
     }
+    
   }
+  .active{
+      background: transparent;
+      ${styles.border({ color: "grey", width: "0.15rem" })};
+      color: ${styles.colors.mainYellow};
+      border-radius: 0px 0px 10px 10px;
+    }
   height: ${props => (props.open ? "152px" : "0px")};
   overflow: hidden;
   ${styles.transObject({ time: "1s", type: "ease" })};

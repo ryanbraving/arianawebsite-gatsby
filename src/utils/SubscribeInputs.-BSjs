@@ -1,0 +1,87 @@
+import React, { Component } from "react";
+
+import { styles } from "../utils";
+import styled from "styled-components";
+import { SubscribeButton } from "../utils";
+import Form from "react-bootstrap/Form";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
+
+export default class SubscribeInputs extends Component {
+  state = {
+    name: "",
+    email: ""
+  };
+
+  handleChange = event => {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+  };
+
+  handleSubmit = e => {
+    e.preventDefault();
+    console.log("hiiiiiiiii");
+
+    this.setState({
+      name: "",
+      email: ""
+    });
+  };
+
+  render() {
+    return (
+      // <SubscribeWrapper>
+      <div>
+        <Form onSubmit={e => this.handleSubmit(e)}>
+          <Row>
+            <Col lg={4} md={6}>
+              <Form.Control size="lg" placeholder="Full name" type="text" />
+            </Col>
+            <Col lg={6} md={6}>
+              <Form.Control size="lg" placeholder="Email" type="email" />
+            </Col>
+            <Col lg={2}>
+              <SubscribeButton type="submit">Subscribe</SubscribeButton>
+            </Col>
+          </Row>
+        </Form>
+      </div>
+      //
+      // </SubscribeWrapper>
+    );
+  }
+}
+
+// const SubscribeWrapper = styled.div`
+//   /* display: flex;
+//   justify-content: space-between; */
+// `;
+
+// <SubscribeWrapper onSubmit={this.addEmail}>
+//         <input
+//           type="text"
+//           name="name"
+//           placeholder="Full name"
+//           onChange={this.handleChange}
+//           value={this.state.name}
+//           required
+//         />
+//         <input
+//           type="email"
+//           name="email"
+//           placeholder="Email"
+//           onChange={this.handleChange}
+//           value={this.state.email}
+//           required
+//         />
+//         <div>
+//           <SubscribeButton type="submit">Submit</SubscribeButton>
+//           {/* <SubscribeButton type="submit">Submit</SubscribeButton> */}
+//           <Button variant="primary">
+//             Profile <Badge variant="light">9</Badge>
+//             <span className="sr-only">unread messages</span>
+//           </Button>
+//         </div>
+//       </SubscribeWrapper>

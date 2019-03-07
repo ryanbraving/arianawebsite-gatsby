@@ -5,11 +5,3 @@
  */
 
 // You can delete this file if you're not using it
-
-import React from "react";
-
-import { ContextProviderComponent } from "./src/components/Context";
-
-export const wrapRootElement = ({ element }) => (
-  <ContextProviderComponent>{element}</ContextProviderComponent>
-);

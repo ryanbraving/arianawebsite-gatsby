@@ -6,7 +6,9 @@
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
     "@material-ui/core": "^3.9.2",
+    "aws-sdk": "^2.419.0",
     "babel-plugin-styled-components": "^1.10.0",
+    "firebase": "^5.8.6",
     "gatsby": "^2.0.111",
     "gatsby-image": "^2.0.29",
     "gatsby-plugin-manifest": "^2.0.17",

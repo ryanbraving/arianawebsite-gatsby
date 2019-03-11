@@ -6,7 +6,10 @@ import TextField from "@material-ui/core/TextField";
 import purple from "@material-ui/core/colors/purple";
 import styled from "styled-components";
 import { styles, SubscribeButton } from "../utils";
+import firebase from "../firebase/FirebaseConfigs";
+import SendVerificationEmail from "../aws/AWS-SendVerificationEmail";
 
+const db = firebase.firestore();
 // const colorPick = yellow[800];
 const colorPick = styles.colors.mainYellow;
 const stylesMaterialui = theme => ({
@@ -52,12 +55,10 @@ class OutlinedTextFields extends React.Component {
   state = {
     name: "",
     email: "",
+    thankName: "",
     hideSubscribe: true
   };
 
-  hideSubscribe = () => {
-    console.log("hidemeeee");
-  };
   handleChange = arg => event => {
     this.setState({
       [arg]: event.target.value
@@ -66,15 +67,45 @@ class OutlinedTextFields extends React.Component {
 
   addEmail = e => {
     e.preventDefault();
-    console.log(this.state.name);
-    console.log(this.state.email);
+    const dbName = this.state.name;
+    const dbEmail = this.state.email;
     this.setState({
+      thankName: this.state.name,
       name: "",
       email: "",
       hideSubscribe: false
     });
 
-    this.hideSubscribe();
+    const timeNow = firebase.firestore.FieldValue.serverTimestamp();
+    var refDoc = db.collection("unverifiedUsers").doc(dbEmail.toLowerCase());
+    refDoc
+      .update({
+        name: dbName,
+        updatedAt: timeNow
+      })
+      .then(function() {
+        // console.log("Document successfully updated!")
+      })
+      .catch(function(error) {
+        // The document probably doesn't exist.
+        // console.error("Error updating document: ", error);
+        refDoc
+          .set({
+            docId: refDoc.id,
+            name: dbName,
+            // email: this.state.dbEmail.toLowerCase(),
+            createdAt: timeNow
+            // updatedAt: timeNow,
+          })
+          .then(function() {
+            // console.log("Document successfully set!");
+          });
+      });
+    this.sendEmail(dbName, dbEmail);
+  };
+
+  sendEmail = (name, email) => {
+    SendVerificationEmail(email);
   };
 
   render() {
@@ -169,8 +200,8 @@ class OutlinedTextFields extends React.Component {
               : "thanks thanks-show"
           }
         >
-          Thanks {this.state.name} for subscribing. <br /> An email has been
-          sent to your mailbox.
+          Thanks <span className="thanks-name">{this.state.thankName}</span> for
+          subscribing. <br /> An email has been sent to your mailbox.
           <br />
           Please verify the email to complete the process.
         </h1>
@@ -206,7 +237,7 @@ const FormWrapper = styled.div`
   .thanks{
     margin: 1rem auto;
     color: ${styles.colors.mainGrey};
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     letter-spacing: 0rem;
     text-align: center;
     line-height: 4.7rem;
@@ -223,5 +254,9 @@ const FormWrapper = styled.div`
     transition: 2s;
     opacity: 1;
     visibility: visible; 
+  }
+  .thanks-name{
+    text-transform: capitalize;
+    color: ${styles.colors.mainYellow};
   }
 `;

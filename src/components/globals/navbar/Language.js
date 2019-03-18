@@ -12,7 +12,7 @@ export default function Language() {
             handleLanguage();
           }}
         >
-          {isFarsi ? "English" : "Farsi"}
+          {isFarsi ? "English" : "فارسی"}
         </LanguageWrapper>
       )}
     </ContextConsumer>

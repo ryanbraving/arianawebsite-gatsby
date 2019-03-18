@@ -175,5 +175,6 @@ const TemplateWrapper = styled.div`
   }
   .farsibody {
     direction: rtl;
+    /* font-family: Vazir; */
   }
 `;

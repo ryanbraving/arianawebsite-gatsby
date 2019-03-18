@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { createGlobalStyle } from "styled-components";
 import Navbar from "../components/globals/navbar";
 import Footer from "../components/globals/Footer";
+import "../components/fonts.css";
 
 const Layout = ({ children }) => {
   return (
@@ -25,9 +26,22 @@ const GlobalStyle = createGlobalStyle`
   }
   
   body{
-      font-family: 'Open Sans', sans-serif;
+    font-family: 'Vazir', 'Segoe UI', sans-serif;
+    font-display: 'Segoe UI';
+      /* font-family: 'Open Sans', sans-serif; */
+      /* font-family: 'Caveat', cursive; */
       color: black;
       background: #fff;
+      /* @font-face {
+    font-family: Vazir;
+    src: url('Vazir.eot');
+    src: url('Vazir.eot?#iefix') format('embedded-opentype'),
+         url('Vazir.woff2') format('woff2'),
+         url('Vazir.woff') format('woff'),
+         url('Vazir.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+} */
   }
 `;
 

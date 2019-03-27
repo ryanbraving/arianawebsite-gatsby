@@ -30,6 +30,12 @@ export default class NavbarLinks extends Component {
         path: "/contact",
         nameEn: "contact",
         nameFr: "تماس با آریانا"
+      },
+      {
+        id: 4,
+        path: "/coaching",
+        nameEn: "coaching",
+        nameFr: "کوچینگ"
       }
     ]
   };

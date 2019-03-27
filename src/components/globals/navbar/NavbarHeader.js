@@ -16,7 +16,8 @@ export default class NavbarHeader extends Component {
           <HeaderWrapper>
             <div className="leftside">
               <Language />
-              <Link to="/">
+              <Link to="/" style={{ textDecoration: "none" }}>
+                {/* <h1>Ariana Braving</h1> */}
                 <img src={logoPath} alt="company name" />
               </Link>
             </div>

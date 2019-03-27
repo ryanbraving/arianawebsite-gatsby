@@ -5,7 +5,9 @@ import { BannerButton, SectionButton, SubscribeButton } from "./Button";
 import { Section } from "./Section";
 import { Title } from "./Title";
 import { timeDifferenceForDate } from "./TimeDiff";
-import SubscribeForm from "./SubscribeForm";
+import SubscribeInfo from "./SubscribeInfo";
+import SubscribeFormFR from "./SubscribeFormFR";
+import SubscribeFormEN from "./SubscribeFormEN";
 export {
   styles,
   HomeHeader,
@@ -17,5 +19,7 @@ export {
   SectionButton,
   timeDifferenceForDate,
   SubscribeButton,
-  SubscribeForm
+  SubscribeInfo,
+  SubscribeFormFR,
+  SubscribeFormEN
 };

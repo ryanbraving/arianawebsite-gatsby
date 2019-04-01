@@ -8,11 +8,6 @@ import {
 } from "../utils";
 import styled from "styled-components";
 import ContextConsumer from "../components/Context";
-var ip = require("ip");
-console.log(ip.address());
-// var geoip = require("geoip-lite");
-// var geo = geoip.lookup(ip.address());
-// console.log(geo);
 
 export default class SubscribeInfo extends Component {
   render() {

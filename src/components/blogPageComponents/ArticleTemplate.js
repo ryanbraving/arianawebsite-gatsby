@@ -12,7 +12,7 @@ import {
 } from "../../utils";
 import styled from "styled-components";
 import ContextConsumer from "../Context";
-import renderHTML from "react-render-html";
+// import renderHTML from "react-render-html";
 
 export const GET_ARTICLE = graphql`
   query ArticleTemplate($id: String!) {
@@ -50,6 +50,15 @@ export const GET_ARTICLE = graphql`
 `;
 
 export default class ArticleTemplate extends Component {
+  constructor(props) {
+    super(props);
+    this.myRef = React.createRef();
+  }
+
+  componentDidMount() {
+    this.myRef.current.click();
+  }
+
   render() {
     const { language } = this.props.pageContext; // this is comming from gatsby-node.js
     return (
@@ -58,7 +67,8 @@ export default class ArticleTemplate extends Component {
           <Layout>
             <Section>
               <TemplateWrapper
-                onLoad={() => {
+                ref={this.myRef}
+                onClick={() => {
                   setLanguageInvisible();
                   language === "farsi" ? setFarsi() : setEnglish();
                 }}
@@ -91,12 +101,20 @@ export function FarsiTemplate(data) {
         , {timeDifferenceForDate(data.getFrArticle.createdAt)}
       </p>
       <Img className="image" fluid={data.getFrArticle.image.fluid} />
-      <p className="text farsibody">
+      {/* <p className="text farsibody">
         {renderHTML(
           data.getFrArticle.childContentfulArticleFrContentTextNode
             .childMarkdownRemark.html
         )}
-      </p>
+      </p> */}
+      <p
+        className="text farsibody"
+        dangerouslySetInnerHTML={{
+          __html:
+            data.getFrArticle.childContentfulArticleFrContentTextNode
+              .childMarkdownRemark.html
+        }}
+      />
     </div>
   );
 }
@@ -113,12 +131,20 @@ export function EnglishTemplate(data) {
         , {timeDifferenceForDate(data.getEnArticle.createdAt)}
       </p>
       <Img className="image" fluid={data.getEnArticle.image.fluid} />
-      <p className="text">
+      {/* <p className="text">
         {renderHTML(
           data.getEnArticle.childContentfulArticleEnContentTextNode
             .childMarkdownRemark.html
         )}
-      </p>
+      </p> */}
+      <p
+        className="text"
+        dangerouslySetInnerHTML={{
+          __html:
+            data.getEnArticle.childContentfulArticleEnContentTextNode
+              .childMarkdownRemark.html
+        }}
+      />
     </div>
   );
 }

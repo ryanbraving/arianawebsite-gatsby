@@ -17,34 +17,9 @@ admin.initializeApp();
 const TelegramBot = require("node-telegram-bot-api");
 const token = functions.config().bot.token;
 const bot = new TelegramBot(token, { polling: false });
-// exports.telegramEN = functions.firestore
-//   .document("emailSubscriptionEN/{docId}")
-//   .onWrite((change, context) => {
-//     // Get an object with the current document value.
-//     // If the document does not exist, it has been deleted.
-//     const document = change.after.exists
-//       ? change.after.data()
-//       : change.before.data();
-
-//     // Get an object with the previous document value (for update or delete)
-//     // const oldDocument = change.before.data();
-
-//     const email = document.docId;
-//     const name = document.name;
-//     // Listen for any kind of message. There are different kinds of
-//     // messages.
-//     // bot.on("message", msg => {
-//     //   const chatId = msg.chat.id;
-
-//     // send a message to the chat acknowledging receipt of their message
-//     bot.sendMessage(functions.config().bot.chatid, email);
-//     bot.sendMessage(functions.config().bot.chatid, name);
-//     return null;
-//   });
-
 const nodemailer = require("nodemailer");
-// const cors = require('cors');
 const cors = require("cors")({ origin: true });
+const htmlTemplate = require("./components/email.templates");
 
 const credentials = {
   host: "smtp.gmail.com",
@@ -62,92 +37,53 @@ const CLIENT_ORIGIN =
   "https://us-central1-ariana-website.cloudfunctions.net/confirmEmail";
 const transporter = nodemailer.createTransport(credentials);
 
-exports.sendEmail = functions.firestore
-  .document("emailSubscriptionEN/{docId}")
+exports.sendEmailEN = functions.firestore
+  .document("Unverified-Emails-EN/{docId}")
   .onCreate((snap, context) => {
-    const document = snap.data();
-    const emailTo = document.docId;
-    const name = document.name;
+    const docId = snap.id;
+    const emailTo = snap.data().email;
+    // var doc = JSON.stringify(document); //obj is converted to str
+    // doc = encodeURIComponent(doc);
+    const url = CLIENT_ORIGIN + "?docId=" + docId + "&language=EN";
     let mailOptions = {
       from: '"Ariana Braving" <arianabraving.verifyemail@gmail.com>', // sender address
-      // from: "arianabraving.verifyemail@gmail.com",
       to: emailTo, // list of receivers
       subject: "Please Verify Your Email", // Subject line
-      // text: "Hello world?", // plain text body
-      // html: "<b>Hello world?</b>" // html body
-      html: `
-      <!DOCTYPE html>
-      <html>
-        <head>
-            <title>Title of the document</title>
-            <style>
-              .button {
-              background-color: #E9831D;
-              border: none;
-              border-radius: 10px;
-              color: white;
-              padding: 10px 20px;
-              text-align: center;
-              text-decoration: none;
-              display: inline-block;
-              font-size: 18px;
-              color: white;
-              margin: 10px 2px;
-              cursor: pointer;
-              }
-              .fixLinkColorIssue a {
-                color: white;
-              }
-            </style>
-        </head>
-        <body>
-          
-            <p style="text-align: center; font-size: 18px;">Thanks for subscribing to my newsletter.</p>
-            <p style="text-align: center; font-size: 18px;">Please confirm your email address.</p>
-            <p style="text-align:center; font-size: 18px;">
-              Thank you &hearts;
-          </p>
-          <p style="text-align:center; font-weight:bold; font-size: 18px;">
-              Ariana Braving
-          </p>
-          <p style="text-align: center;"><span class="fixLinkColorIssue"><a href="${CLIENT_ORIGIN}?email=${emailTo}&amp;name=${name}" class="button"> Confirm My Email</a></span></p>
-            <p>&nbsp;</p>
-            
-          
-          <p style="text-align: center; font-size: 12px">© 2019 Braving Academy Ltd, All Rights Reserved</p>
-          
-        </body>
-      </html>
-    `,
-      text: `Copy and paste this link: ${CLIENT_ORIGIN}?email=${emailTo}&name=${name}`
+      html: htmlTemplate.english(url),
+      text: `Copy and paste this link: ${url}`
     };
-    // const content = "test";
     // const email = Object.assign({}, content, contacts);
     try {
       transporter.sendMail(mailOptions);
-      // transporter.sendMail(mailOptions);
     } catch (error) {
       console.error("There was an error while sending the email:", error);
     }
     return null;
   });
 
-// exports.confirmEmail = functions.https.onRequest((req, res) => {
-//   // Grab the text parameter.
-//   const email = req.query.text;
-//   // Push the new message into the Realtime Database using the Firebase Admin SDK.
-//   return admin
-//     .database()
-//     .ref("/messages")
-//     .push({ original: email })
-//     .then(snapshot => {
-//       // Redirect with 303 SEE OTHER to the URL of the pushed object in the Firebase console.
-//       // return res.redirect(303, snapshot.ref.toString());
-//       return res.redirect(
-//         "https://staging.arianabraving.com/verification-success/"
-//       );
-//     });
-// });
+exports.sendEmailFR = functions.firestore
+  .document("Unverified-Emails-FR/{docId}")
+  .onCreate((snap, context) => {
+    const docId = snap.id;
+    const emailTo = snap.data().email;
+    // var doc = JSON.stringify(document); //obj is converted to str
+    // doc = encodeURIComponent(doc);
+    const url = CLIENT_ORIGIN + "?docId=" + docId + "&language=FR";
+    let mailOptions = {
+      from: '"Ariana Braving" <arianabraving.verifyemail@gmail.com>', // sender address
+      to: emailTo, // list of receivers
+      subject: "لطفا ایمیل خود را تایید کنید", // Subject line
+      html: htmlTemplate.farsi(url),
+      text: `لطفا این لینک را کپی و در مرورگر خود وارد کنید ${url}`
+    };
+    // const email = Object.assign({}, content, contacts);
+    try {
+      transporter.sendMail(mailOptions);
+    } catch (error) {
+      console.error("There was an error while sending the email:", error);
+    }
+    return null;
+  });
 
 exports.confirmEmail = functions.https.onRequest((req, res) => {
   return cors(req, res, () => {
@@ -157,33 +93,166 @@ exports.confirmEmail = functions.https.onRequest((req, res) => {
         message2: "But this request method is: " + req.method
       });
     }
-    // Grab the name & email parameters from req.query object.
-    const name = req.query.name;
-    const email = req.query.email;
-    const timeNow = admin.firestore.FieldValue.serverTimestamp();
-    var docRef = admin
+    // Grab docId parameters from req.query object.
+    const { docId, language } = req.query;
+    // var doc1 = JSON.parse(doc);
+
+    // const millis =
+    //   doc1.createdAt._seconds * 1000 + doc1.createdAt._nanoseconds / 1000000;
+    // doc1.createdAt = admin.firestore.Timestamp.fromMillis(millis);
+    // myDoc.createdAt = new Date(dbTime);
+    // const timeNow = admin.firestore.FieldValue.serverTimestamp();
+    // const timeNow = new Date();
+    const urlRedirect = "https://staging.arianabraving.com/";
+    var unverifiedCollection = "Unverified-Emails-EN";
+    var verifiedCollection = "Verified-Emails-EN";
+    var urlSuccess = "verification.success.EN";
+    var urlFailed = "verification.failed.EN";
+
+    if (language === "FR") {
+      unverifiedCollection = "Unverified-Emails-FR";
+      verifiedCollection = "Verified-Emails-FR";
+      urlSuccess = "verification.success.FR";
+      urlFailed = "verification.failed.FR";
+    }
+    var unVerifiedDocRef = admin
       .firestore()
-      .collection("emailSubscriptionEN")
-      .doc(email);
-    return docRef
-      .update({
-        verified: true,
-        verifiedAt: timeNow
-      })
-      .then(function() {
-        console.log("Document successfully updated!");
-        bot.sendMessage(functions.config().bot.chatid, name + " " + email);
-        // bot.sendMessage(functions.config().bot.chatid, email);
-        return res.redirect(
-          "https://staging.arianabraving.com/verification-success/"
-        );
+      .collection(unverifiedCollection)
+      .doc(docId);
+
+    unVerifiedDocRef
+      .get()
+      .then(function(doc) {
+        if (doc.exists) {
+          var newDoc = doc.data();
+          newDoc.verified = true;
+          newDoc.verifiedAt = admin.firestore.FieldValue.serverTimestamp();
+
+          admin
+            .firestore()
+            .collection(verifiedCollection)
+            .doc(newDoc.email)
+            .set(newDoc)
+            .then(function() {
+              console.log("Document successfully updated!");
+              const { name } = newDoc;
+              const { country_name, region, city } = newDoc.clientInfo;
+              var botMessage =
+                "Name: " +
+                name +
+                "\n" +
+                "Country: " +
+                country_name +
+                "\n" +
+                "Region: " +
+                region +
+                "\n" +
+                "City: " +
+                city;
+              if (language === "FR") {
+                botMessage =
+                  "نام: " +
+                  name +
+                  "\n" +
+                  "کشور: " +
+                  country_name +
+                  "\n" +
+                  "ایالت: " +
+                  region +
+                  "\n" +
+                  "شهر: " +
+                  city;
+              }
+              bot.sendMessage(functions.config().bot.chatid, botMessage);
+              return res.redirect(urlRedirect + urlSuccess);
+            })
+            .catch(function(error) {
+              // The document probably doesn't exist.
+              console.error("Error setting document: ", error);
+              return res.redirect(urlRedirect + urlFailed);
+            });
+        } else {
+          // doc.data() will be undefined in this case
+          console.log("No such document!");
+          return res.redirect(urlRedirect + urlFailed);
+        }
       })
       .catch(function(error) {
-        // The document probably doesn't exist.
-        console.error("Error updating document: ", error);
-        return res.redirect(
-          "https://staging.arianabraving.com/verification-failed/"
-        );
+        console.log("Error getting document:", error);
+        return res.redirect(urlRedirect + urlFailed);
       });
   });
 });
+
+const executeOnce = (change, context, task) => {
+  const eventRef = admin
+    .firestore()
+    .collection("events")
+    .doc(context.eventId);
+
+  return admin.firestore().runTransaction(t =>
+    t
+      .get(eventRef)
+      .then(docSnap => (docSnap.exists ? null : task(t)))
+      .then(() => t.set(eventRef, { processed: true }))
+  );
+};
+
+const documentCounter = (collectionName, docName, language) => (
+  change,
+  context
+) =>
+  executeOnce(change, context, t => {
+    // on create
+    if (!change.before.exists && change.after.exists) {
+      return t
+        .get(
+          admin
+            .firestore()
+            .collection(collectionName)
+            .doc(docName)
+        )
+        .then(docSnap => {
+          t.set(docSnap.ref, {
+            count: ((docSnap.data() && docSnap.data().count) || 0) + 1
+          });
+          // send a telegram message
+          var count = "Count= ";
+          if (language === "FR") {
+            count = "تعداد= ";
+          }
+          let botMessage = count + (docSnap.data().count + 1).toString();
+          bot.sendMessage(functions.config().bot.chatid, botMessage);
+        });
+      // on delete
+    } else if (change.before.exists && !change.after.exists) {
+      return t
+        .get(
+          admin
+            .firestore()
+            .collection(collectionName)
+            .doc(docName)
+        )
+        .then(docSnap => {
+          t.set(docSnap.ref, {
+            count: docSnap.data().count - 1
+          });
+          var count = "Count= ";
+          if (language === "FR") {
+            count = "تعداد= ";
+          }
+          // send a telegram message
+          let botMessage = count + (docSnap.data().count - 1).toString();
+          bot.sendMessage(functions.config().bot.chatid, botMessage);
+        });
+      //on update
+    }
+    return null;
+  });
+exports.docCounterEN = functions.firestore
+  .document("Verified-Emails-EN/{docId}")
+  .onWrite(documentCounter("metadatas", "Counter-Verified-EN", "EN"));
+
+exports.docCounterFR = functions.firestore
+  .document("Verified-Emails-FR/{docId}")
+  .onWrite(documentCounter("metadatas", "Counter-Verified-FR", "FR"));

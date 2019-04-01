@@ -12,7 +12,7 @@ import purple from "@material-ui/core/colors/purple";
 import styled from "styled-components";
 import { styles, SubscribeButton } from "../utils";
 import firebase from "../firebase/FirebaseConfigs";
-import SendVerificationEmail from "../aws/AWS-SendVerificationEmail";
+// import SendVerificationEmail from "../aws/AWS-SendVerificationEmail";
 
 const db = firebase.firestore();
 // const colorPick = yellow[800];
@@ -65,8 +65,35 @@ class OutlinedTextFields extends React.Component {
     name: "",
     email: "",
     thankName: "",
-    hideSubscribe: true
+    hideSubscribe: true,
+    clientInfo: null
   };
+
+  componentDidMount() {
+    // var request = new Request("https://api.ipdata.co/?api-key=test");
+    // const proxyurl = "https://cors-anywhere.herokuapp.com/";
+    const url2 = "https://ipinfo.io/json";
+    const url1 = "https://api.ipdata.co/?api-key=test";
+    // fetch(proxyurl + url)
+    // fetch(request, { mode: "no-cors" })
+    fetch(url1)
+      .then(response => response.json())
+      .then(data => {
+        //if url1 return null then try url2
+        if (!data.ip) {
+          fetch(url2)
+            .then(response => response.json())
+            .then(data => {
+              data.provider = "url2: ipinfo";
+              data.country_name = data.country;
+              this.setState({ clientInfo: data });
+            });
+        } else {
+          data.provider = "url1: ipdata";
+          this.setState({ clientInfo: data });
+        }
+      });
+  }
 
   handleChange = arg => event => {
     this.setState({
@@ -78,6 +105,7 @@ class OutlinedTextFields extends React.Component {
     e.preventDefault();
     const dbName = this.state.name;
     const dbEmail = this.state.email;
+    const dbClientInfo = this.state.clientInfo;
     this.setState({
       thankName: this.state.name,
       name: "",
@@ -86,36 +114,31 @@ class OutlinedTextFields extends React.Component {
     });
 
     const timeNow = firebase.firestore.FieldValue.serverTimestamp();
-    var refDoc = db.collection("unverifiedUsersFR").doc(dbEmail.toLowerCase());
+    var refDoc = db
+      .collection("Unverified-Emails-FR")
+      // .doc(dbEmail.toLowerCase());
+      .doc();
     refDoc
-      .update({
+      .set({
+        docId: refDoc.id,
+        email: dbEmail,
         name: dbName,
-        updatedAt: timeNow
+        verified: false,
+        createdAt: timeNow,
+        clientInfo: dbClientInfo
       })
       .then(function() {
-        // console.log("Document successfully updated!")
+        // console.log("Document successfully written!");
       })
       .catch(function(error) {
-        // The document probably doesn't exist.
-        // console.error("Error updating document: ", error);
-        refDoc
-          .set({
-            docId: refDoc.id,
-            name: dbName,
-            // email: this.state.dbEmail.toLowerCase(),
-            createdAt: timeNow
-            // updatedAt: timeNow,
-          })
-          .then(function() {
-            // console.log("Document successfully set!");
-          });
+        console.error("Error writing document: ", error);
       });
-    this.sendEmail(dbName, dbEmail);
+    // this.sendEmail(dbName, dbEmail);
   };
 
-  sendEmail = (name, email) => {
-    SendVerificationEmail(email);
-  };
+  // sendEmail = (name, email) => {
+  //   SendVerificationEmail(email);
+  // };
 
   render() {
     const { classes } = this.props;
@@ -220,11 +243,16 @@ class OutlinedTextFields extends React.Component {
               : "thanks thanks-show"
           }
         >
-          Thanks <span className="thanks-name">{this.state.thankName}</span> for
-          subscribing. <br /> An email has been sent to your mailbox.
+          تشکر <span className="thanks-name">{this.state.thankName}</span> برای
+          درخواست اشتراک. <br /> یک ایمیل هم اکنون برای شما ارسال شد.
           <br />
-          Please verify the email to complete the process.
+          برای تکمیل مراحل اشتراک، لطفا به ایمیل خود مراجعه کنید.
         </h1>
+
+        <p className={this.state.hideSubscribe ? "thanks-hide" : "thanks-show"}>
+          اگر برای اشتراک و دریافت ایمیل با مشکلی مواجه شدید، لطفا توسط این
+          ایمیل اطلاع دهید: info@ArianaBraving.com
+        </p>
       </FormWrapper>
     );
   }
@@ -255,6 +283,7 @@ const FormWrapper = styled.div`
     /* overflow:hiden; */
   }
   .thanks{
+    direction: rtl;
     margin: 1rem auto;
     color: ${styles.colors.mainGrey};
     font-size: 1.3rem;
@@ -278,5 +307,11 @@ const FormWrapper = styled.div`
   .thanks-name{
     text-transform: capitalize;
     color: ${styles.colors.mainYellow};
+  }
+  p{
+    font-style:italic;
+    font-size: 0.9rem;
+    text-align: center;
+    direction: rtl;
   }
 `;

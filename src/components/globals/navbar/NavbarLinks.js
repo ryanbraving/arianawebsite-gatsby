@@ -6,58 +6,94 @@ import ContextConsumer from "../../Context";
 
 export default class NavbarLinks extends Component {
   state = {
-    links: [
+    linksEN: [
       {
         id: 0,
         path: "/",
-        nameEn: "home",
-        nameFr: "صفحه اصلی"
+        name: "home"
       },
       {
         id: 1,
-        path: "/about",
-        nameEn: "about",
-        nameFr: "درباره آریانا"
+        path: "/coaching",
+        name: "coaching"
       },
       {
         id: 2,
         path: "/blog",
-        nameEn: "blog",
-        nameFr: "وبلاگ"
+        name: "blog"
       },
       {
         id: 3,
-        path: "/contact",
-        nameEn: "contact",
-        nameFr: "تماس با آریانا"
+        path: "/about",
+        name: "about"
       },
       {
         id: 4,
+        path: "/contact",
+        name: "contact"
+      }
+    ],
+    linksFR: [
+      {
+        id: 0,
+        path: "/contact",
+        name: "تماس با آریانا"
+      },
+      {
+        id: 1,
+        path: "/about",
+        name: "درباره آریانا"
+      },
+      {
+        id: 2,
+        path: "/blog",
+        name: "وبلاگ"
+      },
+      {
+        id: 3,
         path: "/coaching",
-        nameEn: "coaching",
-        nameFr: "کوچینگ"
+        name: "کوچینگ"
+      },
+      {
+        id: 4,
+        path: "/",
+        name: "صفحه اصلی"
       }
     ]
   };
   render() {
+    const { linksFR, linksEN } = this.state;
     return (
       <ContextConsumer>
         {({ navbarOpen, isFarsi }) => (
           <LinkWrapper open={navbarOpen}>
-            {this.state.links.map(item => {
-              return (
-                <li key={item.id}>
-                  <Link
-                    activeClassName="active"
-                    to={item.path}
-                    className="nav-link"
-                  >
-                    {isFarsi ? item.nameFr : item.nameEn}
-                    {item.name}
-                  </Link>
-                </li>
-              );
-            })}
+            {isFarsi
+              ? linksFR.map(item => {
+                  return (
+                    <li key={item.id}>
+                      <Link
+                        activeClassName="active"
+                        to={item.path}
+                        className="nav-link"
+                      >
+                        {item.name}
+                      </Link>
+                    </li>
+                  );
+                })
+              : linksEN.map(item => {
+                  return (
+                    <li key={item.id}>
+                      <Link
+                        activeClassName="active"
+                        to={item.path}
+                        className="nav-link"
+                      >
+                        {item.name}
+                      </Link>
+                    </li>
+                  );
+                })}
           </LinkWrapper>
         )}
       </ContextConsumer>

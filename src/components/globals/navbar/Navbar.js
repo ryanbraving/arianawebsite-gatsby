@@ -4,14 +4,33 @@ import NavbarLinks from "./NavbarLinks";
 import NavbarIcons from "./NavbarIcons";
 import styled from "styled-components";
 import { styles } from "../../../utils";
+import ContextConsumer from "../../../components/Context";
 export default class Navbar extends Component {
+  constructor(props) {
+    super(props);
+    this.myRef = React.createRef();
+  }
+
+  componentDidMount() {
+    this.myRef.current.click();
+  }
+
   render() {
     return (
-      <NavbWrapper>
-        <NavbarHeader />
-        <NavbarLinks />
-        <NavbarIcons />
-      </NavbWrapper>
+      <ContextConsumer>
+        {({ setLanguageVisible }) => (
+          <NavbWrapper
+            ref={this.myRef}
+            onClick={() => {
+              setLanguageVisible();
+            }}
+          >
+            <NavbarHeader />
+            <NavbarLinks />
+            <NavbarIcons />
+          </NavbWrapper>
+        )}
+      </ContextConsumer>
     );
   }
 }

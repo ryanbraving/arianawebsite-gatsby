@@ -56,16 +56,10 @@ const GET_POSTS = graphql`
 export default function Posts() {
   return (
     <ContextConsumer>
-      {({ isFarsi, setLanguageVisible }) => (
+      {({ isFarsi }) => (
         <Section>
           <QuickInfo />
-          <PostsWrapper
-            onLoad={() => {
-              setLanguageVisible();
-            }}
-          >
-            {isFarsi ? FarsiQuery : EnglishQuery}
-          </PostsWrapper>
+          <PostsWrapper>{isFarsi ? FarsiQuery : EnglishQuery}</PostsWrapper>
         </Section>
       )}
     </ContextConsumer>

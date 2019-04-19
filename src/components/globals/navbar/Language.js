@@ -21,5 +21,7 @@ export default function Language() {
 
 const LanguageWrapper = styled.h3`
   color: green;
+  cursor: pointer;
+  font-size: 1.2rem;
   visibility: ${props => (props.visible ? "visible" : "hidden")};
 `;

@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import { styles } from "../../../utils";
 import { FaFacebook, FaInstagram, FaTelegram, FaYoutube } from "react-icons/fa";
-import aparatIcon from "../../../images/aparat.svg";
+import aparatIcon from "../../../assets/aparat.svg";
 import ContextConsumer from "../../Context";
+import Language from "./Language";
 
 export default class NavbarIcons extends Component {
   state = {
@@ -86,6 +87,7 @@ export default class NavbarIcons extends Component {
                     </a>
                   );
                 })}
+            <Language className="language" />
           </IconWrapper>
         )}
       </ContextConsumer>
@@ -126,9 +128,10 @@ const IconWrapper = styled.div`
   }
 
   display: none;
-  @media (min-width: 768px) {
+  @media (min-width: ${styles.navbarHandle.length}) {
     display: flex;
-    width: 10rem;
+    width: 15rem;
     justify-content: space-around;
   }
+  
 `;

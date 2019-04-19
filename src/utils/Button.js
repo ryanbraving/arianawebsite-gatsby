@@ -27,12 +27,12 @@ const SectionButton = styled(BannerButton)`
     color: ${styles.colors.mainYellow};
   }
 `;
-const SubscribeButton = styled(SectionButton)`
+const ServiceButton = styled(SectionButton)`
   /* text-transform: capitalize; */
-  /* padding: 0.5rem 0.5rem;
-  font-size: 1rem;
-  letter-spacing: 0.2rem;
-  font-weight: 700; */
+  padding: 0.3rem 0.5rem;
+  font-size: 0.9rem;
+  letter-spacing: 0.1rem;
+  font-weight: 700;
   /* color: ${styles.colors.mainBlack};
   ${styles.border({ color: `${styles.colors.mainBlack}` })};
   &:hover {
@@ -40,4 +40,4 @@ const SubscribeButton = styled(SectionButton)`
     color: ${styles.colors.mainYellow};
   } */
 `;
-export { BannerButton, SectionButton, SubscribeButton };
+export { BannerButton, SectionButton, ServiceButton };

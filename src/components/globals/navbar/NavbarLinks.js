@@ -6,6 +6,7 @@ import ContextConsumer from "../../Context";
 
 export default class NavbarLinks extends Component {
   state = {
+    windowWidth: undefined,
     linksEN: [
       {
         id: 0,
@@ -61,13 +62,49 @@ export default class NavbarLinks extends Component {
       }
     ]
   };
+
+  handleResize = () => {
+    this.setState({
+      windowWidth: window.innerWidth
+    });
+  };
+
+  componentDidMount() {
+    this.handleResize();
+    window.addEventListener("resize", this.handleResize);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.handleResize);
+  }
+
   render() {
     const { linksFR, linksEN } = this.state;
     return (
       <ContextConsumer>
-        {({ navbarOpen, isFarsi }) => (
+        {({ closeNavbar, navbarOpen, isFarsi }) => (
           <LinkWrapper open={navbarOpen}>
-            {isFarsi
+            {isFarsi && this.state.windowWidth <= 980
+              ? linksFR
+                  .slice(0)
+                  .reverse()
+                  .map(item => {
+                    return (
+                      <li key={item.id}>
+                        <Link
+                          activeClassName="active"
+                          to={item.path}
+                          className="nav-link"
+                          onClick={() => {
+                            closeNavbar();
+                          }}
+                        >
+                          {item.name}
+                        </Link>
+                      </li>
+                    );
+                  })
+              : isFarsi && this.state.windowWidth > 980
               ? linksFR.map(item => {
                   return (
                     <li key={item.id}>
@@ -75,6 +112,9 @@ export default class NavbarLinks extends Component {
                         activeClassName="active"
                         to={item.path}
                         className="nav-link"
+                        onClick={() => {
+                          closeNavbar();
+                        }}
                       >
                         {item.name}
                       </Link>
@@ -88,6 +128,9 @@ export default class NavbarLinks extends Component {
                         activeClassName="active"
                         to={item.path}
                         className="nav-link"
+                        onClick={() => {
+                          closeNavbar();
+                        }}
                       >
                         {item.name}
                       </Link>
@@ -106,15 +149,20 @@ const LinkWrapper = styled.ul`
     list-style-type: none;
   }
   .nav-link{
+    white-space: nowrap;
     border: transparent 0.15rem solid;
     display: block;
+    /* float: right;
+    clear: right; */
     text-decoration: none;
     padding: 0.5rem 1rem 0.5rem 1rem;
     color: ${styles.colors.mainGrey};
     font-weight: 700;
     text-transform: capitalize;
     cursor: pointer;
+
     ${styles.transDefault};  
+  
     &:hover{
       background: ${styles.colors.mainGrey};
       color: ${styles.colors.mainYellow};
@@ -128,10 +176,10 @@ const LinkWrapper = styled.ul`
       color: ${styles.colors.mainYellow};
       border-radius: 0px 0px 10px 10px;
     }
-  height: ${props => (props.open ? "152px" : "0px")};
+  height: ${props => (props.open ? "242px" : "0px")};
   overflow: hidden;
   ${styles.transObject({ time: "1s", type: "ease" })};
-  @media (min-width: 768px) {
+  @media (min-width: ${styles.navbarHandle.length}) {
     height: auto;
     display: flex;
     margin: 0 auto;
@@ -140,6 +188,5 @@ const LinkWrapper = styled.ul`
       // color: ${styles.colors.mainYellow};
       padding: 0.5rem 1rem 0.5rem 1rem;
     }
-
   }
 `;

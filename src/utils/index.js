@@ -1,7 +1,7 @@
 import * as styles from "./styles";
-import { HomeHeader, PageHeader } from "./Header";
+import { HomeHeader, PageHeader, GalleryHeader } from "./Header";
 import Banner from "./Banner";
-import { BannerButton, SectionButton, SubscribeButton } from "./Button";
+import { BannerButton, SectionButton, ServiceButton } from "./Button";
 import { Section } from "./Section";
 import { Title } from "./Title";
 import { timeDifferenceForDate } from "./TimeDiff";
@@ -12,13 +12,14 @@ export {
   styles,
   HomeHeader,
   PageHeader,
+  GalleryHeader,
   Banner,
   BannerButton,
   Section,
   Title,
   SectionButton,
   timeDifferenceForDate,
-  SubscribeButton,
+  ServiceButton,
   SubscribeInfo,
   SubscribeFormFR,
   SubscribeFormEN

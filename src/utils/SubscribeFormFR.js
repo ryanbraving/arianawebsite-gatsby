@@ -10,7 +10,7 @@ import TextField from "@material-ui/core/TextField";
 import RTL from "./RTL";
 import purple from "@material-ui/core/colors/purple";
 import styled from "styled-components";
-import { styles, SubscribeButton } from "../utils";
+import { styles, SectionButton } from "../utils";
 import firebase from "../firebase/FirebaseConfigs";
 // import SendVerificationEmail from "../aws/AWS-SendVerificationEmail";
 
@@ -213,7 +213,7 @@ class OutlinedTextFields extends React.Component {
             </MuiThemeProvider>
           </RTL>
 
-          <SubscribeButton
+          <SectionButton
             type="submit"
             // className="subscribeBtn"
             style={{
@@ -224,7 +224,7 @@ class OutlinedTextFields extends React.Component {
             }}
           >
             اشتراک
-          </SubscribeButton>
+          </SectionButton>
 
           {/* <Button
             type="submit"

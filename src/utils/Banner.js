@@ -16,13 +16,14 @@ const BannerWrapper = styled.div`
   margin-bottom: 3rem;
   text-align: center;
   .title {
-    color: ${styles.colors.mainWhite};
+    color: ${styles.colors.mainGrey};
     font-size: 2.5rem;
     ${styles.letterSpacing({ spacing: "0.2rem" })};
+    /* text-shadow: 3px 0px 1px grey; */
   }
   .subtitle {
     margin-top: 2.5rem;
-    color: ${styles.colors.mainWhite};
+    color: ${styles.colors.mainGrey};
     ${styles.textSlanted};
     ${styles.letterSpacing({ spacing: "0.15rem" })};
     text-transform: capitalize;

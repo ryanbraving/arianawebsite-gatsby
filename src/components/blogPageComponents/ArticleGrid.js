@@ -50,8 +50,8 @@ const ArticleGridWrapper = styled.ul`
   ${styles.transition({ time: "1s" })};
   &:hover {
     -webkit-box-shadow: 12px 12px 5px 0px rgba(0,0,0,0.75);
--moz-box-shadow: 12px 12px 5px 0px rgba(0,0,0,0.75);
-box-shadow: 12px 12px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 12px 12px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 12px 12px 5px 0px rgba(0,0,0,0.75);
     /* border-radius: 40px 40px 40px 40px;
     -moz-border-radius: 40px 40px 40px 40px;
     -webkit-border-radius: 40px 40px 40px 40px;

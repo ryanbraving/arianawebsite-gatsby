@@ -39,7 +39,7 @@ const NavbWrapper = styled.nav`
   -webkit-box-shadow: -1px 9px 35px 0px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: -1px 9px 35px 0px rgba(0, 0, 0, 0.75);
   box-shadow: -1px 9px 35px 0px rgba(0, 0, 0, 0.75);
-  @media (min-width: 768px) {
+  @media (min-width: ${styles.navbarHandle.length}) {
     display: flex;
     align-items: center;
   }

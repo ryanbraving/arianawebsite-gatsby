@@ -5,6 +5,7 @@ const defaultContextValue = {
   isFarsi: false,
   btnVisible: true,
   handleNavbar: () => {},
+  closeNavbar: () => {},
   handleLanguage: () => {},
   setFarsi: () => {},
   setEnglish: () => {},
@@ -23,6 +24,11 @@ class ContextProviderComponent extends React.Component {
   handleNavbar = () => {
     this.setState(() => {
       return { navbarOpen: !this.state.navbarOpen };
+    });
+  };
+  closeNavbar = () => {
+    this.setState(() => {
+      return { navbarOpen: false };
     });
   };
   handleLanguage = () => {
@@ -57,6 +63,7 @@ class ContextProviderComponent extends React.Component {
     const { navbarOpen, isFarsi, btnVisible } = this.state;
     const {
       handleNavbar,
+      closeNavbar,
       handleLanguage,
       setFarsi,
       setEnglish,
@@ -73,6 +80,7 @@ class ContextProviderComponent extends React.Component {
           setFarsi,
           setEnglish,
           handleNavbar,
+          closeNavbar,
           handleLanguage,
           setLanguageVisible,
           setLanguageInvisible

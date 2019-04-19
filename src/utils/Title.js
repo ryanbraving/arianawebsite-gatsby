@@ -23,6 +23,7 @@ Title.defaultProps = {
 };
 
 const TitleWrapper = styled.div`
+  margin: 2rem 0 3rem 0;
   text-align: center;
   .message {
     line-height: 3rem;

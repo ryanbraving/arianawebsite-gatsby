@@ -9,7 +9,7 @@ import Posts from "../components/blogPageComponents/Posts";
 
 const GET_IMAGE = graphql`
   query {
-    getImage: file(relativePath: { eq: "bcg/arianaBcg.JPG" }) {
+    getImage: file(relativePath: { eq: "bcg/home0.JPG" }) {
       childImageSharp {
         fluid(maxWidth: 2000) {
           ...GatsbyImageSharpFluid_tracedSVG

@@ -1,8 +1,8 @@
 // import firebase from "firebase";
-import firebase from "firebase/app";
+import firebase from "firebase";
 
 // These imports load individual services into the firebase namespace.
-import "firebase/auth";
+import "firebase/app";
 import "firebase/firestore";
 // require("firebase/firestore");
 // global.XMLHttpRequest = require("xhr2");

@@ -23,7 +23,7 @@ const GET_POSTS = graphql`
           }
           image {
             fluid(maxWidth: 900) {
-              ...GatsbyContentfulFluid_tracedSVG
+              ...GatsbyContentfulFluid_withWebp
             }
           }
         }
@@ -44,7 +44,7 @@ const GET_POSTS = graphql`
           }
           image {
             fluid(maxWidth: 900) {
-              ...GatsbyContentfulFluid_tracedSVG
+              ...GatsbyContentfulFluid_withWebp
             }
           }
         }

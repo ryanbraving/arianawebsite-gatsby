@@ -7,10 +7,6 @@ yarn-error.log*
 
 # API Credentials
 .env.development
-
-# Firebase functions - Conflict with Netlify
-# src/firebase/cloudFunctions
-
 # Runtime data
 pids
 *.pid

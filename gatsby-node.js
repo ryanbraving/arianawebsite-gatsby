@@ -6,10 +6,10 @@
 
 // You can delete this file if you're not using it
 
-// Implement the Gatsby API “createPages”. This is called once the
+// Implement the Gatsby API ï¿½createPagesï¿½. This is called once the
 // data layer is bootstrapped to let plugins create pages from data.
 
-const path = require(`path`);
+const path = require(`path`)
 
 const makeRequest = (graphql, request) =>
   new Promise((resolve, reject) => {
@@ -17,16 +17,16 @@ const makeRequest = (graphql, request) =>
     resolve(
       graphql(request).then(result => {
         if (result.errors) {
-          reject(result.errors);
+          reject(result.errors)
         }
 
-        return result;
+        return result
       })
-    );
-  });
+    )
+  })
 
 exports.createPages = ({ actions, graphql }) => {
-  const { createPage } = actions;
+  const { createPage } = actions
 
   const getEnglishArticles = makeRequest(
     graphql,
@@ -54,7 +54,7 @@ exports.createPages = ({ actions, graphql }) => {
         context: {
           id: node.id,
           slug: node.slug,
-          language: "english"
+          language: "english",
           // Add optional context data to be inserted
           // as props into the page component..
           //
@@ -63,10 +63,10 @@ exports.createPages = ({ actions, graphql }) => {
           //
           // The page "path" is always available as a GraphQL
           // argument.
-        }
-      });
-    });
-  });
+        },
+      })
+    })
+  })
 
   const getFarsiArticles = makeRequest(
     graphql,
@@ -94,11 +94,11 @@ exports.createPages = ({ actions, graphql }) => {
         context: {
           id: node.id,
           slug: node.slug,
-          language: "farsi"
-        }
-      });
-    });
-  });
+          language: "farsi",
+        },
+      })
+    })
+  })
 
   //   const getAuthors = makeRequest(
   //     graphql,
@@ -128,5 +128,5 @@ exports.createPages = ({ actions, graphql }) => {
 
   // Queries for articles and authors nodes to use in creating pages.
   //   return Promise.all([getArticles, getAuthors]);
-  return Promise.all([getEnglishArticles, getFarsiArticles]);
-};
+  return Promise.all([getEnglishArticles, getFarsiArticles])
+}

@@ -9,8 +9,8 @@ import {
 import TextField from "@material-ui/core/TextField";
 import purple from "@material-ui/core/colors/purple";
 import styled from "styled-components";
-import { styles, SectionButton } from "../utils";
-import firebase from "../firebase/FirebaseConfigs";
+import { styles, SectionButton } from "../../utils";
+import firebase from "../../firebase/FirebaseConfigs";
 // import SendVerificationEmail from "../aws/AWS-SendVerificationEmail";
 
 const db = firebase.firestore();

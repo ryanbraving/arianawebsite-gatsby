@@ -7,11 +7,10 @@ import {
   createMuiTheme
 } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import RTL from "./RTL";
 import purple from "@material-ui/core/colors/purple";
 import styled from "styled-components";
-import { styles, SectionButton } from "../utils";
-import firebase from "../firebase/FirebaseConfigs";
+import { styles, SectionButton, RTL } from "../../utils";
+import firebase from "../../firebase/FirebaseConfigs";
 // import SendVerificationEmail from "../aws/AWS-SendVerificationEmail";
 
 const db = firebase.firestore();

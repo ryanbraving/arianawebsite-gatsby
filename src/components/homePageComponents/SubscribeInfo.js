@@ -2,13 +2,12 @@ import React, { Component } from "react";
 import {
   styles,
   Section,
-  Title,
-  SubscribeFormFR,
-  SubscribeFormEN
-} from "../utils";
+  Title
+} from "../../utils";
 import styled from "styled-components";
-import ContextConsumer from "../components/Context";
-
+import ContextConsumer from "../Context";
+import SubscribeFormFR from "./SubscribeFormFR";
+import SubscribeFormEN from "./SubscribeFormEN";
 export default class SubscribeInfo extends Component {
   render() {
     return (

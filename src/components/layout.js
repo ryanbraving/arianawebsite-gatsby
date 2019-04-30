@@ -5,6 +5,7 @@ import Navbar from "../components/globals/navbar";
 import Footer from "../components/globals/Footer";
 import "./fonts.css";
 
+
 const Layout = ({ children }) => {
   return (
     <React.Fragment>

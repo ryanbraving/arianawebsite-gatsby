@@ -1,19 +1,26 @@
-import React from "react";
+import React from "react"
 // import Image from "../components/image";
-import SEO from "../components/seo";
-import Layout from "../components/layout";
+import SEO from "../components/seo"
+import Layout from "../components/layout"
 // import Img from "gatsby-image";
-import styled from "styled-components";
-import { styles, SubscribeInfo } from "../utils";
+import styled from "styled-components"
+import { styles } from "../utils"
 // import img from "../images/bcg/homeBcg.jpeg";
 // import QuickInfo from "../components/homePageComponents/QuickInfo";
-import Ariana from "../components/homePageComponents/Ariana";
+import Ariana from "../components/homePageComponents/Ariana"
+// import Testimony from "../components/homePageComponents/Testimony"
+import Testimony1 from "../components/homePageComponents/Testimony1"
+import Testimony2 from "../components/homePageComponents/Testimony2"
 // import Gallery2 from "../components/homePageComponents/Gallery2";
 // import Gallery1 from "../components/homePageComponents/Gallery1";
 // import Gallery from "../components/homePageComponents/Gallery";
 // import Menu from "../components/homePageComponents/Menu";
-import Services from "../components/homePageComponents/Services";
-import { graphql } from "gatsby";
+import Services from "../components/homePageComponents/Services"
+import { graphql } from "gatsby"
+import Insta from "../components/homePageComponents/Insta"
+import Favourite from "../components/homePageComponents/Favourite"
+import ContextConsumer from "../components/Context"
+import SubscribeInfo from "../components/homePageComponents/SubscribeInfo"
 
 // const img1 = "/static/fc80c1b58ec75bbadcd6912d9d503e82/8484e/homeBcg.jpeg";
 // console.log(img1);
@@ -37,7 +44,14 @@ import { graphql } from "gatsby";
 
 export const query = graphql`
   query {
-    getImage: file(relativePath: { eq: "bcg/home13.JPG" }) {
+    getImageEN: file(relativePath: { eq: "bcg/HomeEN.JPG" }) {
+      childImageSharp {
+        fluid(maxWidth: 3000) {
+          ...GatsbyImageSharpFluid_tracedSVG
+        }
+      }
+    }
+    getImageFR: file(relativePath: { eq: "bcg/HomeFR.JPG" }) {
       childImageSharp {
         fluid(maxWidth: 3000) {
           ...GatsbyImageSharpFluid_tracedSVG
@@ -45,37 +59,68 @@ export const query = graphql`
       }
     }
   }
-`;
+`
 
 const IndexPage = ({ data }) => {
-  const image = data.getImage.childImageSharp.fluid;
+  const imageEN = data.getImageEN.childImageSharp.fluid
+  const imageFR = data.getImageFR.childImageSharp.fluid
   return (
-    <Layout>
-      <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
-      <IndexWrapper img={image}>
-        <div className="hero-text">
-          <p>
-            Life is a messy, tough and complicated journey... But we have made
-            for it!
-          </p>
-          <h1>Welcome my fellow Travellers</h1>
-          <p>
-            Let's crack the code of living full on the road trip of life... I
-            call it IDEAL LIFE journey and it's a creative one.
-          </p>
-          <h1 style={{ color: "white" }}>
-            ARE YOU READY TO <span style={{ color: "red" }}>CREATE YOURS?</span>
-          </h1>
-        </div>
-      </IndexWrapper>
-      <SubscribeInfo />
-      <Ariana />
-      <Services />
-    </Layout>
-  );
-};
+    <ContextConsumer>
+      {({ isFarsi }) => (
+        <Layout>
+          <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
+          {isFarsi ? (
+            <IndexWrapper img={imageFR}>
+              <div className="hero-text" style={{ direction: "rtl" }}>
+                <h1>زندگی تو‌ طراحی توست...</h1>
+                <h1>قلموی طراحی ات را بردار...</h1>
+                <p>
+                  اینجا جایی است که طرح یک زندگی سرشار از آرامش و رضایت، زندگی
+                  که من اسمش را می گذارم{" "}
+                  <span style={{ color: "red" }}>زندگی ایده آل</span>، کشیده و
+                  خلق می شود.
+                </p>
+                <h1 style={{ color: "white" }}>
+                  آیا آماده خلق یک اثر یگانه هنری:{" "}
+                  <span style={{ color: "red" }}>خلق زندگی ایده آلت</span>
+                  هستی؟
+                </h1>
+              </div>
+            </IndexWrapper>
+          ) : (
+            <IndexWrapper img={imageEN}>
+              <div className="hero-text">
+                <p>
+                  Life is a messy, tough and complicated journey... But we have
+                  made for it!
+                </p>
+                <h1>Welcome my fellow Travellers</h1>
+                <p>
+                  Let's crack the code of living full on the road trip of
+                  life... I call it IDEAL LIFE journey and it's a creative one.
+                </p>
+                <h1 style={{ color: "white" }}>
+                  ARE YOU READY TO{" "}
+                  <span style={{ color: "red" }}>CREATE YOURS?</span>
+                </h1>
+              </div>
+            </IndexWrapper>
+          )}
+          <Services />
+          {/* <Testimony /> */}
+          <Testimony2 />
+          <Ariana />
+          <SubscribeInfo />
 
-export default IndexPage;
+          {/* <Insta /> */}
+          <Favourite />
+        </Layout>
+      )}
+    </ContextConsumer>
+  )
+}
+
+export default IndexPage
 
 const IndexWrapper = styled.div`
   background: linear-gradient(
@@ -110,6 +155,7 @@ const IndexWrapper = styled.div`
     }
   }
   .hero-text {
+    margin-top: 2rem;
     text-align: center;
     position: absolute;
     top: 50%;
@@ -148,7 +194,7 @@ const IndexWrapper = styled.div`
   }
   @media (min-width: ${styles.navbarHandle.length}) {
     .hero-text {
-      max-width: 450px;
+      max-width: 550px;
       text-align: center;
       position: absolute;
       top: 50%;
@@ -170,4 +216,50 @@ const IndexWrapper = styled.div`
       font-weight: 700;
     }
   }
-`;
+  @media (max-height: 760px), (max-width: ${styles.navbarHandle.length}) {
+    .hero-text p {
+      margin: auto;
+      font-size: 1.2rem;
+    }
+    .hero-text h1 {
+      margin: 1.5rem auto;
+      color: ${styles.colors.mainWhite};
+      text-transform: uppercase;
+      font-size: 2.2rem;
+      line-height: 3rem;
+      letter-spacing: 0.2rem;
+      font-weight: 700;
+    }
+  }
+  @media (max-height: 600px) {
+    .hero-text p {
+      margin: auto;
+      font-size: 1rem;
+    }
+    .hero-text h1 {
+      margin: 1.5rem auto;
+      color: ${styles.colors.mainWhite};
+      text-transform: uppercase;
+      font-size: 2rem;
+      line-height: 2.5rem;
+      letter-spacing: 0.2rem;
+      font-weight: 700;
+    }
+  }
+  @media (max-height: 480px) {
+    .hero-text p {
+      margin: auto;
+      font-size: 0.9rem;
+      line-height: 1rem;
+    }
+    .hero-text h1 {
+      margin: 1.5rem auto;
+      color: ${styles.colors.mainWhite};
+      text-transform: uppercase;
+      font-size: 1.5rem;
+      line-height: 1.5rem;
+      letter-spacing: 0.2rem;
+      font-weight: 700;
+    }
+  }
+`

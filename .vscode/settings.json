@@ -1,0 +1,13 @@
+{
+    "git.ignoreMissingGitWarning": true,
+    "editor.formatOnSave": true,
+    "emmet.syntaxProfiles": {
+        "javascript": "jsx",
+        "javascript": "html"
+    },
+    "emmet.triggerExpansionOnTab": true,
+    "emmet.showSuggestionsAsSnippets": true,
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "window.zoomLevel": 0,
+
+}

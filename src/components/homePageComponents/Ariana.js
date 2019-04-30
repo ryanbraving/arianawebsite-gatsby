@@ -1,9 +1,10 @@
-import React from "react";
+import React from "react"
 // import Image from "../components/image";
-import styled from "styled-components";
-import { styles } from "../../utils";
+import styled from "styled-components"
+import { styles } from "../../utils"
 // import img from "../images/bcg/homeBcg.jpeg";
-import { StaticQuery, graphql, Link } from "gatsby";
+import { StaticQuery, graphql, Link } from "gatsby"
+import ContextConsumer from "../Context"
 
 const GET_IMAGE = graphql`
   query {
@@ -15,39 +16,67 @@ const GET_IMAGE = graphql`
       }
     }
   }
-`;
+`
 
 export default function Ariana() {
   return (
-    <StaticQuery
-      query={GET_IMAGE}
-      render={data => {
-        const image = data.getImage2.childImageSharp.fluid;
-        return (
-          <GalleryWrapper img={image}>
-            <div className="hero-text">
-              <h1>
-                HEY! I AM{" "}
-                <span
-                  style={{
-                    whiteSpace: "nowrap",
-                    color: `${styles.colors.mainYellow}`
-                  }}
-                >
-                  ARIANA BRAVING
-                </span>
-              </h1>
-              <p>and I am a life and wellness coach</p>
-              <h1>Are you curious to know me?</h1>
-              <Link to="/about" style={{ textDecoration: "none" }}>
-                <button>About Ariana</button>
-              </Link>
-            </div>
-          </GalleryWrapper>
-        );
-      }}
-    />
-  );
+    <ContextConsumer>
+      {({ isFarsi }) => (
+        <StaticQuery
+          query={GET_IMAGE}
+          render={data => {
+            const image = data.getImage2.childImageSharp.fluid
+            return (
+              <GalleryWrapper img={image}>
+                {isFarsi ? (
+                  <div className="hero-text" style={{ direction: "rtl" }}>
+                    <h1>
+                      سلام!{" "}
+                      <span
+                        style={{
+                          whiteSpace: "nowrap",
+                          color: `${styles.colors.mainYellow}`,
+                        }}
+                      >
+                        آریانا بریوینگ
+                      </span>{" "}
+                      هستم
+                    </h1>
+                    <h2>کوچ زندگی و سلامت!</h2>
+                    <h2 style={{ margin: "2rem 0rem" }}>
+                      آیا علاقمندید که من را بیشتر بشناسید؟
+                    </h2>
+                    <Link to="/about" style={{ textDecoration: "none" }}>
+                      <button>درباره آریانا</button>
+                    </Link>
+                  </div>
+                ) : (
+                  <div className="hero-text">
+                    <h1>
+                      HEY! I AM{" "}
+                      <span
+                        style={{
+                          whiteSpace: "nowrap",
+                          color: `${styles.colors.mainYellow}`,
+                        }}
+                      >
+                        ARIANA BRAVING
+                      </span>
+                    </h1>
+                    <p>and I am a life and wellness coach</p>
+                    <h1>Are you curious to know me?</h1>
+                    <Link to="/about" style={{ textDecoration: "none" }}>
+                      <button>About Ariana</button>
+                    </Link>
+                  </div>
+                )}
+              </GalleryWrapper>
+            )
+          }}
+        />
+      )}
+    </ContextConsumer>
+  )
 }
 
 const GalleryWrapper = styled.div`
@@ -128,4 +157,19 @@ const GalleryWrapper = styled.div`
       font-weight: 700;
     }
   }
-`;
+  @media (max-height: 500px), (max-width: ${styles.navbarHandle.length}) {
+    .hero-text p {
+      margin: auto;
+      font-size: 1rem;
+    }
+    .hero-text h1 {
+      margin: 1.5rem auto;
+      color: ${styles.colors.mainWhite};
+      text-transform: uppercase;
+      font-size: 1.8rem;
+      line-height: 2.5rem;
+      letter-spacing: 0.2rem;
+      font-weight: 700;
+    }
+  }
+`

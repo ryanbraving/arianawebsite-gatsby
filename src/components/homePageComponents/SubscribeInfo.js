@@ -1,13 +1,9 @@
-import React, { Component } from "react";
-import {
-  styles,
-  Section,
-  Title
-} from "../../utils";
-import styled from "styled-components";
-import ContextConsumer from "../Context";
-import SubscribeFormFR from "./SubscribeFormFR";
-import SubscribeFormEN from "./SubscribeFormEN";
+import React, { Component } from "react"
+import { styles, Section, Title } from "../../utils"
+import styled from "styled-components"
+import ContextConsumer from "../Context"
+import SubscribeFormFR from "./SubscribeFormFR"
+import SubscribeFormEN from "./SubscribeFormEN"
 export default class SubscribeInfo extends Component {
   render() {
     return (
@@ -17,7 +13,7 @@ export default class SubscribeInfo extends Component {
             {isFarsi ? (
               <Title
                 title="مشترک شوید"
-                message="برای ارتباط با آریانا و دریافت کارهای رایگان"
+                message="برای ارتباط و دریافت کارهای رایگان"
               />
             ) : (
               <Title
@@ -39,7 +35,7 @@ export default class SubscribeInfo extends Component {
           </Section>
         )}
       </ContextConsumer>
-    );
+    )
   }
 }
 
@@ -64,4 +60,4 @@ const SubscriptionWrapper = styled.div`
   @media (min-width: 1700px) {
     width: 30%;
   }
-`;
+`

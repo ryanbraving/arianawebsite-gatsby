@@ -1,10 +1,9 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { createGlobalStyle } from "styled-components";
-import Navbar from "../components/globals/navbar";
-import Footer from "../components/globals/Footer";
-import "./fonts.css";
-
+import React from "react"
+import PropTypes from "prop-types"
+import { createGlobalStyle } from "styled-components"
+import Navbar from "../components/globals/navbar"
+import Footer from "../components/globals/Footer"
+import "./fonts.css"
 
 const Layout = ({ children }) => {
   return (
@@ -16,8 +15,8 @@ const Layout = ({ children }) => {
       <Footer />
       {/* </ContextProviderComponent> */}
     </React.Fragment>
-  );
-};
+  )
+}
 
 const GlobalStyle = createGlobalStyle`
   *{
@@ -44,7 +43,7 @@ const GlobalStyle = createGlobalStyle`
     font-style: normal;
 } */
   }
-`;
+`
 
 // const Layout = ({ children }) => (
 //   <StaticQuery
@@ -81,7 +80,7 @@ const GlobalStyle = createGlobalStyle`
 // )
 
 Layout.propTypes = {
-  children: PropTypes.node.isRequired
-};
+  children: PropTypes.node.isRequired,
+}
 
-export default Layout;
+export default Layout

@@ -1,6 +1,6 @@
 require("dotenv").config({
-  path: `.env.${process.env.NODE_ENV}`
-});
+  path: `.env.${process.env.NODE_ENV}`,
+})
 
 module.exports = {
   siteMetadata: {
@@ -25,14 +25,14 @@ module.exports = {
       options: {
         spaceId: process.env.GATSBY_CONTENTFUL_SPACE_ID,
         // Learn about environment variables: https://gatsby.app/env-vars
-        accessToken: process.env.GATSBY_CONTENTFUL_ACCESS_TOKEN
-      }
+        accessToken: process.env.GATSBY_CONTENTFUL_ACCESS_TOKEN,
+      },
     },
     {
       resolve: `gatsby-plugin-styled-components`,
       options: {
         // Add any options here
-      }
+      },
     },
     {
       resolve: `gatsby-plugin-manifest`,
@@ -44,6 +44,32 @@ module.exports = {
         theme_color: `#663399`,
         display: `minimal-ui`,
         icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+      },
+    },
+    {
+      resolve: "gatsby-plugin-web-font-loader",
+      options: {
+        google: {
+          families: [
+            "Dancing Script",
+            "Righteous",
+            "Gloria Hallelujah",
+            "Permanent Marker",
+            "Courgette",
+            "Fredoka One",
+            "Merienda",
+            "Lobster Two",
+            "Kalam",
+            "Fugaz One",
+            "Bevan",
+            "Titan One",
+            "Shrikhand",
+            "Sacramento",
+            "Megrim",
+            "Major Mono Display",
+
+          ],
+        },
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality

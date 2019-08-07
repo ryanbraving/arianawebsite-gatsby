@@ -1,28 +1,28 @@
-import React, { Component } from "react";
-import NavbarHeader from "./NavbarHeader";
-import NavbarLinks from "./NavbarLinks";
-import NavbarIcons from "./NavbarIcons";
-import styled from "styled-components";
-import { styles } from "../../../utils";
-import ContextConsumer from "../../../components/Context";
+import React, { Component } from "react"
+import NavbarHeader from "./NavbarHeader"
+import NavbarLinks from "./NavbarLinks"
+import NavbarIcons from "./NavbarIcons"
+import styled from "styled-components"
+import { styles } from "../../../utils"
+import ContextConsumer from "../../../components/Context"
 export default class Navbar extends Component {
   constructor(props) {
-    super(props);
-    this.myRef = React.createRef();
+    super(props)
+    this.myRef = React.createRef()
   }
 
   componentDidMount() {
-    this.myRef.current.click();
+    this.myRef.current.click()
   }
 
   render() {
     return (
       <ContextConsumer>
-        {({ setLanguageVisible }) => (
+        {({ isFarsi, setLanguageVisible }) => (
           <NavbWrapper
             ref={this.myRef}
             onClick={() => {
-              setLanguageVisible();
+              setLanguageVisible()
             }}
           >
             <NavbarHeader />
@@ -31,7 +31,7 @@ export default class Navbar extends Component {
           </NavbWrapper>
         )}
       </ContextConsumer>
-    );
+    )
   }
 }
 
@@ -48,4 +48,4 @@ const NavbWrapper = styled.nav`
   z-index: 1030;
   background-color: ${styles.colors.mainWhite};
   min-width: 100vw;
-`;
+`

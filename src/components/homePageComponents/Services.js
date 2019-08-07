@@ -4,6 +4,7 @@ import { StaticQuery, graphql } from "gatsby"
 import { Section, Title, ServiceButton } from "../../utils"
 import styled from "styled-components"
 import ContextConsumer from "../Context"
+import truncatise from "truncatise"
 
 const GET_IMAGES = graphql`
   query {
@@ -24,6 +25,13 @@ const GET_IMAGES = graphql`
   }
 `
 export default function Service() {
+  var options = {
+    TruncateBy: "words", // Options are 'words', 'characters' or 'paragraphs'
+    TruncateLength: 190, // The count to be used with TruncatedBy
+    StripHTML: false, // Whether or not the truncated text should contain HTML tags
+    Strict: true, // If set to false the truncated text finish at the end of the word
+    Suffix: " ...", // Text to be appended to the end of the truncated text
+  }
   return (
     <ContextConsumer>
       {({ isFarsi }) => (
@@ -52,7 +60,7 @@ export default function Service() {
                         <Img fluid={node.childImageSharp.fluid} />
                         {index === 1 && isFarsi ? (
                           <div>
-                            <h2 className="service"> کوچینگ و مشاوره خصوصی </h2>
+                            <h2 className="service"> دوره های آنلاین </h2>
                             <p className="text">
                               Amet eiusmod est ut Lorem incididunt ex aute nulla
                               qui duis ullamco tempor. Laborum adipisicing minim
@@ -70,7 +78,7 @@ export default function Service() {
                           </div>
                         ) : index === 1 && !isFarsi ? (
                           <div>
-                            <h2 className="service"> One on One Coaching </h2>
+                            <h2 className="service"> Online Courses </h2>
                             <p className="text">
                               Amet eiusmod est ut Lorem incididunt ex aute nulla
                               qui duis ullamco tempor. Laborum adipisicing minim
@@ -83,12 +91,18 @@ export default function Service() {
                           </div>
                         ) : index === 2 && isFarsi ? (
                           <div>
-                            <h2 className="service"> دوره های آنلاین </h2>
-                            <p className="text">
-                              Amet eiusmod est ut Lorem incididunt ex aute nulla
-                              qui duis ullamco tempor. Laborum adipisicing minim
-                              nulla duis commodo ut pariatur minim consectetur
-                              exercitation ex laboris excepteur.
+                            <h2 className="service"> کوچینگ گروهی </h2>
+                            <p className="text textFR">
+                              {truncatise(
+                                ` برای برخی از افراد کوچینگ گروهی موثرتر و مفیدتر از
+                              کوچینگ خصوصی است! قرار گرفتن در کنار چند همسفر که
+                              مشکلات نسبتاً مشابهی دارند و می خواهند به مقصد
+                              مشترکی برسند می تواند بسیار مفید و قدرت بخش باشد.
+                              خیلی اوقات شنیدن مشکلات و درک افکار محدود کننده
+                              دیگران چون زنگ بیدار باشی است که باعث شناسایی
+                              افکار محدود کننده و نقاط کور خود ما می شود.`,
+                                options
+                              )}
                             </p>
                             <ServiceButton
                               style={{
@@ -101,7 +115,7 @@ export default function Service() {
                           </div>
                         ) : index === 2 && !isFarsi ? (
                           <div>
-                            <h2 className="service"> Online Courses </h2>
+                            <h2 className="service"> Group Coaching </h2>
                             <p className="text">
                               Amet eiusmod est ut Lorem incididunt ex aute nulla
                               qui duis ullamco tempor. Laborum adipisicing minim
@@ -114,12 +128,20 @@ export default function Service() {
                           </div>
                         ) : index === 3 && isFarsi ? (
                           <div>
-                            <h2 className="service"> منابع رایگان </h2>
-                            <p className="text">
-                              Amet eiusmod est ut Lorem incididunt ex aute nulla
-                              qui duis ullamco tempor. Laborum adipisicing minim
-                              nulla duis commodo ut pariatur minim consectetur
-                              exercitation ex laboris excepteur.
+                            <h2 className="service"> کوچینگ خصوصی </h2>
+                            <p className="text textFR">
+                              {truncatise(
+                                `
+                              چه چیزی را با همه وجودت، با تک تک سلولهای بدنت، می
+                              خواهی در زندگیت تجربه کنی؟ آرامش بیشتر؟ اعتماد به
+                              نفس بیشتر؟ عشق بیشتر؟ موفقیت بیشتر؟ انرژی بیشتر؟
+                              پول بیشتر؟ یا... جواب شما هر چه که هست تمام یا
+                              بخشی از زندگی ایده آل شماست و کار آریانا به عنوان
+                              یک کوچ این است که به شما یاد می دهد چطور زندگی
+                              ایده آلتان را برای خود خلق کنید. چه معامله ای از
+                              این بهتر؟`,
+                                options
+                              )}
                             </p>
                             <ServiceButton
                               style={{
@@ -132,7 +154,7 @@ export default function Service() {
                           </div>
                         ) : (
                           <div>
-                            <h2 className="service"> Free Resources </h2>
+                            <h2 className="service"> Private Sessions </h2>
                             <p className="text">
                               Amet eiusmod est ut Lorem incididunt ex aute nulla
                               qui duis ullamco tempor. Laborum adipisicing minim
@@ -169,6 +191,9 @@ const ServiceWrapper = styled.div`
   .text {
     padding: 1rem 2rem;
     text-align: justify;
+  }
+  .textFR {
+    direction: rtl;
   }
   @media (min-width: 600px) {
     grid-template-columns: repeat(2, 1fr);

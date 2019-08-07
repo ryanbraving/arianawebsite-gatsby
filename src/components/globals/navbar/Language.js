@@ -1,6 +1,6 @@
-import React from "react";
-import styled from "styled-components";
-import ContextConsumer from "../../Context";
+import React from "react"
+import styled from "styled-components"
+import ContextConsumer from "../../Context"
 
 export default function Language() {
   return (
@@ -9,14 +9,14 @@ export default function Language() {
         <LanguageWrapper
           visible={btnVisible}
           onClick={() => {
-            handleLanguage();
+            handleLanguage()
           }}
         >
           {isFarsi ? "English" : "فارسی"}
         </LanguageWrapper>
       )}
     </ContextConsumer>
-  );
+  )
 }
 
 const LanguageWrapper = styled.h3`
@@ -24,4 +24,4 @@ const LanguageWrapper = styled.h3`
   cursor: pointer;
   font-size: 1.2rem;
   visibility: ${props => (props.visible ? "visible" : "hidden")};
-`;
+`

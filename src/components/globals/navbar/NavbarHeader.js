@@ -1,15 +1,15 @@
-import React, { Component } from "react";
-import { Link } from "gatsby";
+import React, { Component } from "react"
+import { Link } from "gatsby"
 // import logo from "../../../assets/logo.svg";
 // import logo from "../../../assets/ariana.png";
 // import logo from "../../../assets/Logo2.png";
 // import logo from "../../../assets/logo3.png";
 
-import { FaAlignRight } from "react-icons/fa";
-import styled from "styled-components";
-import { styles } from "../../../utils";
-import ContextConsumer from "../../Context";
-import Language from "./Language";
+import { FaAlignRight } from "react-icons/fa"
+import styled from "styled-components"
+import { styles } from "../../../utils"
+import ContextConsumer from "../../Context"
+import Language from "./Language"
 
 export default class NavbarHeader extends Component {
   render() {
@@ -31,14 +31,14 @@ export default class NavbarHeader extends Component {
                 className="toggle-icon"
                 onClick={() => {
                   // this.props.handleNavbar()
-                  handleNavbar();
+                  handleNavbar()
                 }}
               />
             </div>
           </HeaderWrapper>
         )}
       </ContextConsumer>
-    );
+    )
   }
 }
 
@@ -82,9 +82,18 @@ const HeaderWrapper = styled.div`
     border-radius: 15px; */
   }
   .brand {
+    white-space: nowrap;
     color: ${styles.colors.mainGrey};
     text-shadow: 1px 0px 1px grey;
-    letter-spacing: 0.1rem;
+    letter-spacing: 0.15rem;
+    /* font-size: 1.9rem; */
+    font-variant: small-caps;
+    /* text-transform: uppercase; */
+    /* font-family:Dancing Script; */
+    /* font-family: Righteous; */
+    /* font-family: Sacramento; */
+    /* font-family: Megrim; */
+    /* font-family: Major Mono Display; */
     /* border: 3px solid grey; */
     padding: 2px 10px;
     ${styles.transObject({ time: "1s", type: "ease" })};
@@ -100,4 +109,4 @@ const HeaderWrapper = styled.div`
     }
     /* font-weight: 700; */
   }
-`;
+`

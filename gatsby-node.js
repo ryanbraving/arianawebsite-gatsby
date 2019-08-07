@@ -28,11 +28,11 @@ const makeRequest = (graphql, request) =>
 exports.createPages = ({ actions, graphql }) => {
   const { createPage } = actions
 
-  const getEnglishArticles = makeRequest(
+  const createAllPages = makeRequest(
     graphql,
     `
-    {
-        allContentfulArticleEn {
+      {
+        allArticlesEn: allContentfulArticleEn {
           edges {
             node {
               id
@@ -40,12 +40,47 @@ exports.createPages = ({ actions, graphql }) => {
             }
           }
         }
+        allArticlesFr: allContentfulArticleFr {
+          edges {
+            node {
+              id
+              slug
+            }
+          }
+        }
+        allTagsArticlesEn: allContentfulArticleEn {
+          edges {
+            node {
+              tags
+            }
+          }
+        }
+        allTagsArticlesFr: allContentfulArticleFr {
+          edges {
+            node {
+              tags
+            }
+          }
+        }
+        allVideosFr:allContentfulVideocastFr {
+          edges {
+            node {
+              id
+            }
+          }
+        }
+        allTagsVideosFr:allContentfulVideocastFr {
+          edges {
+            node {
+              tags
+            }
+          }
+        }
       }
-      
-      `
+    `
   ).then(result => {
     // Create pages for each article.
-    result.data.allContentfulArticleEn.edges.forEach(({ node }) => {
+    result.data.allArticlesEn.edges.forEach(({ node }) => {
       createPage({
         path: `/${node.slug}`,
         component: path.resolve(
@@ -55,37 +90,11 @@ exports.createPages = ({ actions, graphql }) => {
           id: node.id,
           slug: node.slug,
           language: "english",
-          // Add optional context data to be inserted
-          // as props into the page component..
-          //
-          // The context data can also be used as
-          // arguments to the page GraphQL query.
-          //
-          // The page "path" is always available as a GraphQL
-          // argument.
         },
       })
     })
-  })
 
-  const getFarsiArticles = makeRequest(
-    graphql,
-    `
-    {
-        allContentfulArticleFr {
-          edges {
-            node {
-              id
-              slug
-            }
-          }
-        }
-      }
-      
-      `
-  ).then(result => {
-    // Create pages for each article.
-    result.data.allContentfulArticleFr.edges.forEach(({ node }) => {
+    result.data.allArticlesFr.edges.forEach(({ node }) => {
       createPage({
         path: `/${node.slug}`,
         component: path.resolve(
@@ -98,7 +107,198 @@ exports.createPages = ({ actions, graphql }) => {
         },
       })
     })
+
+    var tagList = []
+    result.data.allTagsArticlesEn.edges.forEach(({ node }) => {
+      const newTag = node.tags
+      for (var item of newTag) {
+        item = item.toLowerCase()
+        tagList.indexOf(item) === -1 ? tagList.push(item) : null
+      }
+    })
+    tagList.forEach(item => {
+      createPage({
+        path: `/tag/${item}`,
+        component: path.resolve(
+          `src/components/blogPageComponents/QueryTags.js`
+        ),
+        context: {
+          tag: item,
+          language: "english",
+          tagType: "article",
+        },
+      })
+    })
+
+    var tagList = []
+    result.data.allTagsArticlesFr.edges.forEach(({ node }) => {
+      const newTag = node.tags
+      for (var item of newTag) {
+        item = item.toLowerCase()
+        tagList.indexOf(item) === -1
+          ? tagList.push(item)
+          : console.log("This item already exsists")
+      }
+    })
+    tagList.forEach(item => {
+      createPage({
+        path: `/tag/${item}`,
+        component: path.resolve(
+          `src/components/blogPageComponents/QueryTags.js`
+        ),
+        context: {
+          tag: item,
+          language: "farsi",
+          tagType: "article",
+        },
+      })
+    })
+
+    result.data.allVideosFr.edges.forEach(({ node }) => {
+      createPage({
+        path: `/videocast/${node.id}`,
+        component: path.resolve(
+          `src/components/podcastPageComponents/Video.js`
+        ),
+        context: {
+          id: node.id,
+          language: "farsi",
+        },
+      })
+    })
+
+    var tagList = []
+    result.data.allTagsVideosFr.edges.forEach(({ node }) => {
+      const newTag = node.tags
+      for (var item of newTag) {
+        item = item.toLowerCase()
+        tagList.indexOf(item) === -1
+          ? tagList.push(item)
+          : console.log("This item already exsists")
+      }
+    })
+    tagList.forEach(item => {
+      createPage({
+        path: `/tag/${item}`,
+        component: path.resolve(
+          `src/components/blogPageComponents/QueryTags.js`
+        ),
+        context: {
+          tag: item,
+          language: "farsi",
+          tagType: "video",
+        },
+      })
+    })
   })
+
+  // const getEnglishTags = makeRequest(
+  //   graphql,
+  //   `
+  //   {
+  //       allTagsArticlesEn: allContentfulArticleEn {
+  //         edges {
+  //           node {
+  //             tags
+  //           }
+  //         }
+  //       }
+  //     }
+
+  //     `
+  // ).then(result => {
+  //   // create an array of unique tags
+  //   var tagList = []
+  //   result.data.allTagsArticlesEn.edges.forEach(({ node }) => {
+  //     const newTag = node.tags
+  //     for (var item of newTag) {
+  //       item = item.toLowerCase()
+  //       tagList.indexOf(item) === -1 ? tagList.push(item) : null
+  //     }
+  //   })
+  //   tagList.forEach(item => {
+  //     createPage({
+  //       path: `/tag/${item}`,
+  //       component: path.resolve(
+  //         `src/components/blogPageComponents/QueryTags.js`
+  //       ),
+  //       context: {
+  //         tag: item,
+  //         language: "english",
+  //       },
+  //     })
+  //   })
+  // })
+
+  // const getFarsiTags = makeRequest(
+  //   graphql,
+  //   `
+  //   {
+  //       allTagsArticlesFr: allContentfulArticleFr {
+  //         edges {
+  //           node {
+  //             tags
+  //           }
+  //         }
+  //       }
+  //     }
+
+  //     `
+  // ).then(result => {
+  //   // create an array of unique tags
+  //   var tagList = []
+  //   result.data.allTagsArticlesFr.edges.forEach(({ node }) => {
+  //     const newTag = node.tags
+  //     for (var item of newTag) {
+  //       item = item.toLowerCase()
+  //       tagList.indexOf(item) === -1
+  //         ? tagList.push(item)
+  //         : console.log("This item already exsists")
+  //     }
+  //   })
+  //   tagList.forEach(item => {
+  //     createPage({
+  //       path: `/tag/${item}`,
+  //       component: path.resolve(
+  //         `src/components/blogPageComponents/QueryTags.js`
+  //       ),
+  //       context: {
+  //         tag: item,
+  //         language: "farsi",
+  //       },
+  //     })
+  //   })
+  // })
+
+  // const getFarsiVideos = makeRequest(
+  //   graphql,
+  //   `
+  //   {
+  //       allVideosFr:allContentfulVideocastFr {
+  //         edges {
+  //           node {
+  //             id
+  //           }
+  //         }
+  //       }
+  //     }
+
+  //     `
+  // ).then(result => {
+  //   // create an array of unique tags
+  //   result.data.allVideosFr.edges.forEach(({ node }) => {
+  //     createPage({
+  //       path: `/videocast/${node.id}`,
+  //       component: path.resolve(
+  //         `src/components/podcastPageComponents/Video.js`
+  //       ),
+  //       context: {
+  //         id: node.id,
+  //         language: "farsi",
+  //       },
+  //     })
+  //   })
+  // })
 
   //   const getAuthors = makeRequest(
   //     graphql,
@@ -128,5 +328,11 @@ exports.createPages = ({ actions, graphql }) => {
 
   // Queries for articles and authors nodes to use in creating pages.
   //   return Promise.all([getArticles, getAuthors]);
-  return Promise.all([getEnglishArticles, getFarsiArticles])
+  return Promise.all([
+    createAllPages,
+    // getFarsiArticles,
+    // getEnglishTags,
+    // getFarsiTags,
+    // getFarsiVideos,
+  ])
 }

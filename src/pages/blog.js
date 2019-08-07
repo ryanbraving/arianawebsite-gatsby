@@ -1,15 +1,13 @@
-import React from "react";
+import React from "react"
 
-import Layout from "../components/layout";
-// import SEO from "../components/seo";
-import { PageHeader, Banner } from "../utils";
-// import img from '../images/bcg/menuBcg.jpeg'
-import { StaticQuery, graphql } from "gatsby";
-import Posts from "../components/blogPageComponents/Posts";
+import Layout from "../components/layout"
+import { StaticQuery, graphql } from "gatsby"
+import styled from "styled-components"
+import QueryArticles from "../components/blogPageComponents/QueryArticles"
 
 const GET_IMAGE = graphql`
   query {
-    getImage: file(relativePath: { eq: "bcg/home0.JPG" }) {
+    getImage: file(relativePath: { eq: "bcg/blog2.JPG" }) {
       childImageSharp {
         fluid(maxWidth: 2000) {
           ...GatsbyImageSharpFluid_tracedSVG
@@ -17,7 +15,7 @@ const GET_IMAGE = graphql`
       }
     }
   }
-`;
+`
 
 const BlogPage = () => {
   return (
@@ -26,16 +24,16 @@ const BlogPage = () => {
         query={GET_IMAGE}
         render={data => {
           return (
-            <PageHeader img={data.getImage.childImageSharp.fluid}>
-              <Banner title="blog" subtitle={`let's dig in `} />
-            </PageHeader>
-          );
+            <ImageWrapper img={data.getImage.childImageSharp.fluid}>
+              {/* <Banner title="blog" subtitle={`let's dig in `} /> */}
+            </ImageWrapper>
+          )
         }}
       />
-      <Posts />
+      <QueryArticles />
     </Layout>
-  );
-};
+  )
+}
 
 // const BlogPage = () => (
 //   <Layout>
@@ -46,4 +44,14 @@ const BlogPage = () => {
 //   </Layout>
 // );
 
-export default BlogPage;
+export default BlogPage
+
+const ImageWrapper = styled.div`
+  background: url(${props => props.img.src});
+  min-height: calc(70vh);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-color: #464646;
+`

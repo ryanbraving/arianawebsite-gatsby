@@ -6,9 +6,49 @@ import Typography from "@material-ui/core/Typography"
 import Layout from "../components/layout"
 import styled from "styled-components"
 import classnames from "classnames"
-import { green } from "@material-ui/core/colors"
 import ContextConsumer from "../components/Context"
 import ReactCountryFlag from "react-country-flag"
+import { graphql } from "gatsby"
+
+export const GET_Data = graphql`
+  query {
+    getImage2: file(relativePath: { eq: "bcg/testimony.JPG" }) {
+      childImageSharp {
+        fluid(maxWidth: 3000) {
+          ...GatsbyImageSharpFluid_tracedSVG
+        }
+      }
+    }
+    getEnTestimonial: allContentfulTestimonialEn {
+      totalCount
+      edges {
+        node {
+          id
+          name
+          country
+          countryCode
+          text {
+            text
+          }
+        }
+      }
+    }
+    getFrTestimonial: allContentfulTestimonialFr {
+      totalCount
+      edges {
+        node {
+          id
+          name
+          country
+          countryCode
+          text {
+            text
+          }
+        }
+      }
+    }
+  }
+`
 
 const styles = theme => ({
   root: {
@@ -19,26 +59,20 @@ const styles = theme => ({
 })
 
 function testimonyPage(props) {
-  const { classes, location } = props
-  if (location.state == undefined) {
-    location.state = {}
-    location.state.testimonyFR = [
-      { id: 0, name: "", country: "", countryCode: "", text: "" },
-    ]
-    location.state.testimonyEN = [
-      { id: 0, name: "", country: "", countryCode: "", text: "" },
-    ]
-  }
+  const { classes, data } = props
+  const image = data.getImage2.childImageSharp.fluid
+  const testimonyFR = data.getFrTestimonial.edges
+  const testimonyEN = data.getEnTestimonial.edges
   return (
     <ContextConsumer>
       {({ isFarsi }) => (
         <Layout>
-          <TestimonyPageWrapper>
+          <TestimonyPageWrapper img={image}>
             {isFarsi
-              ? location.state.testimonyFR.map(item => {
+              ? testimonyFR.map(({ node }) => {
                   return (
                     <Paper
-                      key={item.id}
+                      key={node.id}
                       className={classnames(classes.root, "paper")}
                       elevation={20}
                     >
@@ -46,14 +80,14 @@ function testimonyPage(props) {
                         component="p"
                         className={classnames("text", "textFR")}
                       >
-                        {item.text}
+                        {node.text.text}
                       </Typography>
                       <Typography
                         variant="h5"
                         component="h3"
                         className={classnames("name", "nameFR")}
                       >
-                        {item.name}
+                        {node.name}
                       </Typography>
                       <Typography
                         variant="h6"
@@ -65,27 +99,27 @@ function testimonyPage(props) {
                             width: "30px",
                             height: "20px",
                           }}
-                          code={item.countryCode}
+                          code={node.countryCode}
                           svg
                         />
                         &nbsp;
-                        {item.country}
+                        {node.country}
                       </Typography>
                     </Paper>
                   )
                 })
-              : location.state.testimonyEN.map(item => {
+              : testimonyEN.map(({ node }) => {
                   return (
                     <Paper
-                      key={item.id}
+                      key={node.id}
                       className={classnames(classes.root, "paper")}
                       elevation={20}
                     >
                       <Typography component="p" className="text">
-                        {item.text}
+                        {node.text.text}
                       </Typography>
                       <Typography variant="h5" component="h3" className="name">
-                        {item.name}
+                        {node.name}
                       </Typography>
                       <Typography
                         variant="h6"
@@ -97,11 +131,11 @@ function testimonyPage(props) {
                             width: "30px",
                             height: "20px",
                           }}
-                          code={item.countryCode}
+                          code={node.countryCode}
                           svg
                         />
                         &nbsp;
-                        {item.country}
+                        {node.country}
                       </Typography>
                     </Paper>
                   )
@@ -120,6 +154,20 @@ testimonyPage.propTypes = {
 export default withStyles(styles)(testimonyPage)
 
 const TestimonyPageWrapper = styled.div`
+  /* background: linear-gradient(
+      270deg,
+      rgba(0, 0, 0, 0.05) 55%,
+      rgba(0, 0, 0, 0.5) 75%
+    ),
+    url(${props => props.img.src}); */
+  background: url(${props => props.img.src});
+  min-height: calc(100vh);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-color: #464646;
+  /* position: relative; */
   padding-top: 100px;
   margin: auto;
   .paper {
@@ -157,18 +205,28 @@ const TestimonyPageWrapper = styled.div`
     text-align: left;
   }
   @media (min-width: 768px) {
-    width: 80%;
+    .paper{
+      width: 80%;
+    }
   }
   @media (min-width: 992px) {
-    width: 70%;
+    .paper{
+      width: 70%;
+    }
   }
   @media (min-width: 1292px) {
-    width: 60%;
+    .paper{
+      width: 60%;
+    }
   }
   @media (min-width: 1492px) {
-    width: 50%;
+    .paper{
+      width: 50%;
+    }
   }
   @media (max-width: 768px) {
-    width: 90%;
+    .paper{
+      width: 90%;
+    }
   }
 `

@@ -1,9 +1,8 @@
-import React, { Component } from "react"
-import InstagramEmbed from "react-instagram-embed"
-import { Title, Section, styles } from "../../utils"
+import React from "react"
+import { Title, Section } from "../../utils"
 import styled from "styled-components"
-import { StaticQuery, graphql, Link } from "gatsby"
-import ArticleGrid_Landing from "../../components/blogPageComponents/ArticleGrid_Landing"
+import { StaticQuery, graphql } from "gatsby"
+import ArticleGridLanding from "../../components/blogPageComponents/ArticleGrid_Landing"
 import ContextConsumer from "../Context"
 
 const GET_POSTS = graphql`
@@ -117,28 +116,35 @@ export default function Favourite() {
     <ContextConsumer>
       {({ isFarsi }) => (
         <Section>
-          <Title
-            title="Blog Post"
-            message={"What Are the Most Favourite Posts?"}
-          />
+          {isFarsi ? (
+            <Title
+              title="نوشته های برگزیده"
+              message={"پر خواننده ترین نوشته ها کدام ها هستند؟"}
+            />
+          ) : (
+            <Title
+              title="Blog Post"
+              message={"What Are the Most Favourite Posts?"}
+            />
+          )}
           <StaticQuery
             query={GET_POSTS}
             render={data => {
               return (
                 <FavouritePostsWrapper>
-                  <ArticleGrid_Landing
+                  <ArticleGridLanding
                     article={isFarsi ? data.getFrArticle1 : data.getEnArticle1}
                     key={
                       isFarsi ? data.getFrArticle1.id : data.getEnArticle1.id
                     }
                   />
-                  <ArticleGrid_Landing
+                  <ArticleGridLanding
                     article={isFarsi ? data.getFrArticle2 : data.getEnArticle2}
                     key={
                       isFarsi ? data.getFrArticle2.id : data.getEnArticle2.id
                     }
                   />
-                  <ArticleGrid_Landing
+                  <ArticleGridLanding
                     article={isFarsi ? data.getFrArticle3 : data.getEnArticle3}
                     key={
                       isFarsi ? data.getFrArticle3.id : data.getEnArticle3.id

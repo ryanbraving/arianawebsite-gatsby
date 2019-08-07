@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import { Link } from "gatsby";
-import styled from "styled-components";
-import { styles } from "../../../utils";
-import ContextConsumer from "../../Context";
+import React, { Component } from "react"
+import { Link } from "gatsby"
+import styled from "styled-components"
+import { styles } from "../../../utils"
+import ContextConsumer from "../../Context"
 
 export default class NavbarLinks extends Component {
   state = {
@@ -11,80 +11,85 @@ export default class NavbarLinks extends Component {
       {
         id: 0,
         path: "/",
-        name: "home"
+        name: "home",
       },
       {
         id: 1,
         path: "/coaching",
-        name: "coaching"
+        name: "services",
       },
       {
         id: 2,
         path: "/blog",
-        name: "blog"
+        name: "blog",
       },
       {
         id: 3,
         path: "/about",
-        name: "about"
+        name: "about",
       },
       {
         id: 4,
         path: "/contact",
-        name: "contact"
-      }
+        name: "contact",
+      },
     ],
     linksFR: [
       {
         id: 0,
         path: "/contact",
-        name: "تماس با آریانا"
+        name: "تماس با آریانا",
       },
       {
         id: 1,
         path: "/about",
-        name: "درباره آریانا"
+        name: "درباره آریانا",
       },
       {
         id: 2,
-        path: "/blog",
-        name: "وبلاگ"
+        path: "/videocast",
+        name: "ویدیوکست",
       },
       {
         id: 3,
-        path: "/coaching",
-        name: "کوچینگ"
+        path: "/blog",
+        name: "وبلاگ",
       },
       {
         id: 4,
+        path: "/coaching",
+        name: "خدمات",
+      },
+      {
+        id: 5,
         path: "/",
-        name: "صفحه اصلی"
-      }
-    ]
-  };
+        name: "صفحه اصلی",
+      },
+    ],
+  }
 
   handleResize = () => {
     this.setState({
-      windowWidth: window.innerWidth
-    });
-  };
+      windowWidth: window.innerWidth,
+    })
+  }
 
   componentDidMount() {
-    this.handleResize();
-    window.addEventListener("resize", this.handleResize);
+    this.handleResize()
+    window.addEventListener("resize", this.handleResize)
   }
 
   componentWillUnmount() {
-    window.removeEventListener("resize", this.handleResize);
+    window.removeEventListener("resize", this.handleResize)
   }
 
   render() {
-    const { linksFR, linksEN } = this.state;
+    const { linksFR, linksEN } = this.state
     return (
       <ContextConsumer>
-        {({ closeNavbar, navbarOpen, isFarsi }) => (
+        {({ closeNavbar, navbarOpen, isFarsi, setAboutArianaTabNo, handleNavbar }) => (
           <LinkWrapper open={navbarOpen}>
-            {isFarsi && this.state.windowWidth <= 980
+            {isFarsi && this.state.windowWidth < 980
               ? linksFR
                   .slice(0)
                   .reverse()
@@ -96,15 +101,16 @@ export default class NavbarLinks extends Component {
                           to={item.path}
                           className="nav-link"
                           onClick={() => {
-                            closeNavbar();
+                            closeNavbar()
+                            setAboutArianaTabNo(0) 
                           }}
                         >
                           {item.name}
                         </Link>
                       </li>
-                    );
+                    )
                   })
-              : isFarsi && this.state.windowWidth > 980
+              : isFarsi && this.state.windowWidth >= 980
               ? linksFR.map(item => {
                   return (
                     <li key={item.id}>
@@ -113,13 +119,14 @@ export default class NavbarLinks extends Component {
                         to={item.path}
                         className="nav-link"
                         onClick={() => {
-                          closeNavbar();
+                          closeNavbar()
+                          setAboutArianaTabNo(0)
                         }}
                       >
                         {item.name}
                       </Link>
                     </li>
-                  );
+                  )
                 })
               : linksEN.map(item => {
                   return (
@@ -129,18 +136,18 @@ export default class NavbarLinks extends Component {
                         to={item.path}
                         className="nav-link"
                         onClick={() => {
-                          closeNavbar();
+                          closeNavbar()
                         }}
                       >
                         {item.name}
                       </Link>
                     </li>
-                  );
+                  )
                 })}
           </LinkWrapper>
         )}
       </ContextConsumer>
-    );
+    )
   }
 }
 
@@ -155,30 +162,34 @@ const LinkWrapper = styled.ul`
     /* float: right;
     clear: right; */
     text-decoration: none;
-    padding: 0.5rem 1rem 0.5rem 1rem;
+    padding: 0.5rem 0.7rem 0.5rem 0.7rem;
     color: ${styles.colors.mainGrey};
     font-weight: 700;
     text-transform: capitalize;
     cursor: pointer;
-
-    ${styles.transDefault};  
   
     &:hover{
+      ${styles.transDefault};  
+  
       background: ${styles.colors.mainGrey};
       color: ${styles.colors.mainYellow};
-      padding: 0.5rem 1rem 0.5rem 1.3rem;
+      /* padding: 0.5rem 1rem 0.5rem 1.3rem; */
     }
     
   }
   .active{
       background: transparent;
-      ${styles.border({ color: "grey", width: "0.15rem" })};
       color: ${styles.colors.mainYellow};
+      ${styles.border({ color: "currentColor", width: "0.15rem" })};
       border-radius: 0px 0px 10px 10px;
+      
+      /* border-bottom: 2px solid currentColor; 
+      padding-bottom:0;  */
+      
     }
   height: ${props => (props.open ? "242px" : "0px")};
   overflow: hidden;
-  ${styles.transObject({ time: "1s", type: "ease" })};
+  /* ${styles.transObject({ time: "1s", type: "ease" })}; */
   @media (min-width: ${styles.navbarHandle.length}) {
     height: auto;
     display: flex;
@@ -186,7 +197,7 @@ const LinkWrapper = styled.ul`
     .nav-link:hover{
       background: ${styles.colors.mainWhite};
       // color: ${styles.colors.mainYellow};
-      padding: 0.5rem 1rem 0.5rem 1rem;
+      /* padding: 0.5rem 1rem 0.5rem 1rem; */
     }
   }
-`;
+`

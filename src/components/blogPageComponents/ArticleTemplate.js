@@ -1,24 +1,25 @@
 // import React from "react";
-import React, { Component } from "react";
+import React, { Component } from "react"
 
-import Layout from "../layout";
-import { graphql, Link } from "gatsby";
-import Img from "gatsby-image";
+import Layout from "../layout"
+import { graphql, Link } from "gatsby"
+import Img from "gatsby-image"
 import {
   Section,
-  SectionButton,
   timeDifferenceForDate,
-  styles
-} from "../../utils";
-import styled from "styled-components";
-import ContextConsumer from "../Context";
-// import renderHTML from "react-render-html";
+  styles,
+} from "../../utils"
+import styled from "styled-components"
+import ContextConsumer from "../Context"
+import ShareSocialNet from "./ShareSocialNetwork"
 
 export const GET_ARTICLE = graphql`
   query ArticleTemplate($id: String!) {
     getEnArticle: contentfulArticleEn(id: { eq: $id }) {
       id
       title
+      tags
+      slug
       createdAt
       image {
         fluid {
@@ -34,6 +35,8 @@ export const GET_ARTICLE = graphql`
     getFrArticle: contentfulArticleFr(id: { eq: $id }) {
       id
       title
+      tags
+      slug
       createdAt
       image {
         fluid {
@@ -47,20 +50,21 @@ export const GET_ARTICLE = graphql`
       }
     }
   }
-`;
+`
 
 export default class ArticleTemplate extends Component {
   constructor(props) {
-    super(props);
-    this.myRef = React.createRef();
+    super(props)
+    this.myRef = React.createRef()
   }
 
   componentDidMount() {
-    this.myRef.current.click();
+    this.myRef.current.click()
   }
 
   render() {
-    const { language } = this.props.pageContext; // this is comming from gatsby-node.js
+    const { language } = this.props.pageContext // this is comming from gatsby-node.js
+
     return (
       <ContextConsumer>
         {({ setLanguageInvisible, setFarsi, setEnglish }) => (
@@ -69,36 +73,51 @@ export default class ArticleTemplate extends Component {
               <TemplateWrapper
                 ref={this.myRef}
                 onClick={() => {
-                  setLanguageInvisible();
-                  language === "farsi" ? setFarsi() : setEnglish();
+                  setLanguageInvisible()
+                  language === "farsi" ? setFarsi() : setEnglish()
                 }}
               >
                 {language === "farsi"
                   ? FarsiTemplate(this.props.data)
                   : EnglishTemplate(this.props.data)}
-                <SectionButton style={{ margin: "2rem auto" }}>
-                  {" "}
-                  about{" "}
-                </SectionButton>
+                <div className="socialNetwork">
+                  {language === "farsi" ? (
+                    <div>
+                      <h5>...این نوشته را با دیگران به اشتراک گذارید</h5>
+                      {/* <br /> */}
+                      <ShareSocialNet
+                        url={this.props.data.getFrArticle.slug}
+                        title={this.props.data.getFrArticle.title}
+                      />
+                    </div>
+                  ) : (
+                    <div>
+                      <h5>Share This Post...</h5>
+                      <ShareSocialNet
+                        url={this.props.data.getEnArticle.slug}
+                        title={this.props.data.getEnArticle.title}
+                      />
+                    </div>
+                  )}
+                </div>
               </TemplateWrapper>
             </Section>
           </Layout>
         )}
       </ContextConsumer>
-    );
+    )
   }
 }
 
 export function FarsiTemplate(data) {
   return (
     <div>
-      <h1> {data.getFrArticle.title}</h1>
-      <p className="postedBy">
-        Posted by{" "}
-        <Link to="/about" className="ariana">
-          ARIANA BRAVING
+      <p className="postedBy farsiText">
+        نوشته شده توسط:{" "}
+        <Link to="/about" className="ariana farsiText">
+          آریانا بریوینگ
         </Link>
-        , {timeDifferenceForDate(data.getFrArticle.createdAt)}
+        , {timeDifferenceForDate(data.getFrArticle.createdAt, "farsi")}
       </p>
       <Img className="image" fluid={data.getFrArticle.image.fluid} />
       {/* <p className="text farsibody">
@@ -107,16 +126,32 @@ export function FarsiTemplate(data) {
             .childMarkdownRemark.html
         )}
       </p> */}
+      <div className="text farsiText">
+        <p>
+          <span style={{ fontSize: "1.3rem", fontWeight: "bold" }}>
+            {" "}
+            بر چسب ها:{" "}
+          </span>
+
+          {data.getFrArticle.tags.map((tag, index) => {
+            return (
+              <Link to={`/tag/${tag}`} className="tag" key={index}>
+                <li>{tag}</li>
+              </Link>
+            )
+          })}
+        </p>
+      </div>
       <p
         className="text farsibody"
         dangerouslySetInnerHTML={{
           __html:
             data.getFrArticle.childContentfulArticleFrContentTextNode
-              .childMarkdownRemark.html
+              .childMarkdownRemark.html,
         }}
       />
     </div>
-  );
+  )
 }
 
 export function EnglishTemplate(data) {
@@ -128,7 +163,7 @@ export function EnglishTemplate(data) {
         <Link to="/about" className="ariana">
           ARIANA BRAVING
         </Link>
-        , {timeDifferenceForDate(data.getEnArticle.createdAt)}
+        , {timeDifferenceForDate(data.getEnArticle.createdAt, "english")}
       </p>
       <Img className="image" fluid={data.getEnArticle.image.fluid} />
       {/* <p className="text">
@@ -137,20 +172,49 @@ export function EnglishTemplate(data) {
             .childMarkdownRemark.html
         )}
       </p> */}
+      <div className="text ">
+        <p>
+          <span style={{ fontSize: "1.3rem", fontWeight: "bold" }}>Tags: </span>
+          {data.getEnArticle.tags.map((tag, index) => {
+            return (
+              <Link to={`/tag/${tag}`} className="tag" key={index}>
+                <li>{tag}</li>
+              </Link>
+            )
+          })}
+        </p>
+      </div>
+      {/* <table className="text">
+        <tr>
+          {data.getEnArticle.tags.map((tag, index) => {
+            return <td key={index}>{tag}</td>
+          })}
+        </tr>
+      </table> */}
+
       <p
         className="text"
         dangerouslySetInnerHTML={{
           __html:
             data.getEnArticle.childContentfulArticleEnContentTextNode
-              .childMarkdownRemark.html
+              .childMarkdownRemark.html,
         }}
       />
     </div>
-  );
+  )
 }
 
 const TemplateWrapper = styled.div`
   margin: 5rem auto;
+  .socialNetwork{
+    text-align: center;
+    margin-top: 4rem;
+    h5{
+      color: grey;
+      margin-bottom: 1rem;
+    }
+
+  }
   h1 {
     margin: 1rem auto;
     text-shadow: 3px 0px 1px grey;
@@ -159,6 +223,11 @@ const TemplateWrapper = styled.div`
     font-size: 3rem;
     letter-spacing: 0.1rem;
     font-weight: 700;
+  }
+  li {
+    display: inline;
+    list-style-type: none;
+    /* padding-right: 20px; */
   }
   .image {
     max-width: 800px;
@@ -175,6 +244,12 @@ const TemplateWrapper = styled.div`
     letter-spacing: 0rem;
     font-weight: 700;
   }
+  .farsiText{
+    direction: rtl;
+    font-family: Vazir;
+    letter-spacing: 0;
+  }
+  
   .text {
     color: ${styles.colors.mainGrey};
 
@@ -203,4 +278,35 @@ const TemplateWrapper = styled.div`
     direction: rtl;
     /* font-family: Vazir; */
   }
-`;
+
+  .tag {
+    /* display: block; */
+    white-space: nowrap;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    padding: 4px 6px 2px 6px;
+    color: ${styles.colors.mainWhite};
+    background: green;
+    /* padding: 0.5rem 1rem; */
+    text-transform: uppercase;
+    font-size: 1.0rem;
+    line-height: 2.5rem;
+    letter-spacing: 0rem;
+    font-weight: 700;
+    border-radius: 7px;
+    text-decoration: none;
+    border: none;
+    ${styles.transition({ time: "0.7s" })};
+    border-radius: 5px 5px 5px 5px;
+      -moz-border-radius: 5px 5px 5px 5px;
+      -webkit-border-radius: 5px 5px 5px 5px;
+    
+     &:hover {
+      /* font-size: 1.3rem; */
+      -webkit-box-shadow: 0px 0px 9px 7px rgba(0, 0, 0, 0.75);
+      -moz-box-shadow: 0px 0px 9px 7px rgba(0, 0, 0, 0.75);
+      box-shadow: 0px 0px 9px 7px rgba(0, 0, 0, 0.75);
+    }
+    }
+  }
+`

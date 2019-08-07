@@ -1,6 +1,6 @@
-import React from "react";
-import styled from "styled-components";
-import { styles } from "../utils";
+import React from "react"
+import styled from "styled-components"
+import { styles } from "../utils"
 
 export default function Banner({ title, subtitle, children }) {
   return (
@@ -9,10 +9,11 @@ export default function Banner({ title, subtitle, children }) {
       <h3 className="subtitle">{subtitle}</h3>
       {children}
     </BannerWrapper>
-  );
+  )
 }
 
 const BannerWrapper = styled.div`
+  /* position: relative; */
   margin-bottom: 3rem;
   text-align: center;
   .title {
@@ -28,9 +29,9 @@ const BannerWrapper = styled.div`
     ${styles.letterSpacing({ spacing: "0.15rem" })};
     text-transform: capitalize;
   }
-`;
+`
 
 Banner.defaultProps = {
   title: "default title",
-  subtitle: "default subtitle"
-};
+  subtitle: "default subtitle",
+}

@@ -56,6 +56,9 @@ const stylesMaterialui = theme => ({
 });
 
 const theme = createMuiTheme({
+  typography: {
+    useNextVariants: true,
+  },
   direction: "rtl" // Both here and <body dir="rtl">
 });
 

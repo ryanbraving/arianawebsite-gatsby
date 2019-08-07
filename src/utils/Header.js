@@ -1,7 +1,7 @@
-import React from "react";
-import styled from "styled-components";
+import React from "react"
+import styled from "styled-components"
 // import img from "../images/bcg/homeBcg.jpeg";
-import Img from "gatsby-image";
+import Img from "gatsby-image"
 
 function HomeHeader({ img, children }) {
   return (
@@ -10,7 +10,7 @@ function HomeHeader({ img, children }) {
 
       {children}
     </IndexHeaderWrapper>
-  );
+  )
 }
 
 function PageHeader({ img, children }) {
@@ -19,18 +19,18 @@ function PageHeader({ img, children }) {
       <Img fluid={img} />
       {children}
     </PageHeaderWrapper>
-  );
+  )
 }
 
 function GalleryHeader({ img, children }) {
-  console.log(img.src);
+  console.log(img.src)
   return (
     <GalleryHeaderWrapper img={img}>
       {/* <img src={img.src} alt="" /> */}
       <Img fluid={img} />
       {children}
     </GalleryHeaderWrapper>
-  );
+  )
 }
 
 // const IndexHeaderWrapper = styled.div`
@@ -50,11 +50,11 @@ const IndexHeaderWrapper = styled.header`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
+`
 
 const PageHeaderWrapper = styled(IndexHeaderWrapper)`
-  min-height: 60vh;
-`;
+  min-height: 90vh;
+`
 
 const GalleryHeaderWrapper = styled(IndexHeaderWrapper)`
   background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)),
@@ -76,7 +76,7 @@ const GalleryHeaderWrapper = styled(IndexHeaderWrapper)`
   /* display: flex;
   justify-content: center;
   align-items: center; */
-`;
+`
 
 // HomeHeader.defaultProps = {
 //   img: img
@@ -86,4 +86,4 @@ const GalleryHeaderWrapper = styled(IndexHeaderWrapper)`
 //   img: img
 // };
 
-export { HomeHeader, PageHeader, GalleryHeader };
+export { HomeHeader, PageHeader, GalleryHeader }

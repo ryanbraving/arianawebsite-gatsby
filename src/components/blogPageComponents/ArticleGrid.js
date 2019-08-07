@@ -1,29 +1,42 @@
-import React from "react";
-import Img from "gatsby-image";
-import styled from "styled-components";
-import { Link } from "gatsby";
-import { styles } from "../../utils";
-import ContextConsumer from "../Context";
-import renderHTML from "react-render-html";
+import React from "react"
+import Img from "gatsby-image"
+import styled from "styled-components"
+import { Link } from "gatsby"
+import { styles } from "../../utils"
+import ContextConsumer from "../Context"
+import renderHTML from "react-render-html"
 
 export default function Article({ article }) {
-  const { slug, title } = article;
-  const { fluid } = article.image;
-  const { excerpt } = article.content.childMarkdownRemark;
+  const { slug, title } = article
+  const { fluid } = article.image
+  const { excerpt } = article.content.childMarkdownRemark
   return (
     <ContextConsumer>
       {({ isFarsi }) => (
         <ArticleGridWrapper>
           <Link to={`/${slug}`} className="article-link">
             <li>
-              <h3 className={isFarsi ? "title titleFarsi" : "title"}>
+              <div className="parentDiv">
+                <Img className="image" fluid={fluid} />
+                {isFarsi ? (
+                  <p className="infoFr">نوشتاری</p>
+                ) : (
+                  <p className="info">Article</p>
+                )}
+              </div>
+              <h2 className={isFarsi ? "title titleFarsi" : "title"}>
                 {title}
-              </h3>
-              <Img className="image" fluid={fluid} />
+              </h2>
               <p className={isFarsi ? "excerpt excerptFarsi" : "excerpt"}>
                 {renderHTML(excerpt)}
               </p>
-              <div
+              {/* <p
+                className={isFarsi ? "excerpt excerptFarsi" : "excerpt"}
+                dangerouslySetInnerHTML={{
+                  __html: excerpt,
+                }}
+              /> */}
+              {/* <div
                 className={
                   isFarsi ? "flexContainerFarsi" : "flexContainerEnglish"
                 }
@@ -32,47 +45,26 @@ export default function Article({ article }) {
                   {" "}
                   {isFarsi ? "ادامه مطلب" : "read more"}{" "}
                 </button>
-              </div>
+              </div> */}
             </li>
           </Link>
         </ArticleGridWrapper>
       )}
     </ContextConsumer>
-  );
+  )
 }
 
 const ArticleGridWrapper = styled.ul`
+  /* text-align: center; */
   padding: 1rem;
   border-radius: 5px 5px 5px 5px;
   -moz-border-radius: 5px 5px 5px 5px;
   -webkit-border-radius: 5px 5px 5px 5px;
-  ${styles.border({ width: "0.2rem", color: "#ddd" })};
-  ${styles.transition({ time: "1s" })};
+  ${styles.transition({ time: "0.7s" })};
   &:hover {
-    -webkit-box-shadow: 12px 12px 5px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 12px 12px 5px 0px rgba(0,0,0,0.75);
-    box-shadow: 12px 12px 5px 0px rgba(0,0,0,0.75);
-    /* border-radius: 40px 40px 40px 40px;
-    -moz-border-radius: 40px 40px 40px 40px;
-    -webkit-border-radius: 40px 40px 40px 40px;
-    background: ${styles.colors.mainGrey};
-    color: ${styles.colors.mainWhite}; */
-    ${styles.border({ width: "0.2rem", color: `${styles.colors.mainYellow}` })};
-    .article-link {
-      color: ${styles.colors.mainYellow};
-      ${styles.transition({ time: "1s" })};
-    }
-    button {
-     
-              /* margin: 1rem 0rem 0rem 12rem; */
-              /* font-family: Vazir; */
-              
-              /* letter-spacing: 0.1rem; */
-            
-      color: ${styles.colors.mainYellow};
-      ${styles.border({ color: `${styles.colors.mainYellow}` })};
-      ${styles.transition({ time: "1s" })};
-    }
+    -webkit-box-shadow: 0px 0px 9px 7px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 0px 9px 7px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 0px 9px 7px rgba(0, 0, 0, 0.75);
   }
   .article-link {
     text-decoration: none;
@@ -88,6 +80,7 @@ const ArticleGridWrapper = styled.ul`
     text-align: center;
     text-transform: capitalize;
     letter-spacing: 0rem;
+    margin: 1rem;
   }
   .titleFarsi {
     direction: rtl;
@@ -95,7 +88,6 @@ const ArticleGridWrapper = styled.ul`
   .image {
     margin: 1rem 0rem;
     min-height: 250px;
-    border-radius: 20px;
   }
   .excerpt {
     line-height: 1.5rem;
@@ -104,13 +96,13 @@ const ArticleGridWrapper = styled.ul`
   .excerptFarsi {
     direction: rtl;
   }
-  .flexContainerFarsi {
+  /* .flexContainerFarsi {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
   }
   .flexContainerEnglish {
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
   }
   button {
     font-family: Vazir;
@@ -121,13 +113,35 @@ const ArticleGridWrapper = styled.ul`
     padding: 0.3rem 0.5rem;
     text-transform: uppercase;
     font-size: 0.9rem;
-    letter-spacing: 0.0rem;
+    letter-spacing: 0rem;
     font-weight: 700;
     &:hover {
-      background: ${styles.colors.mainWhite};
-      color: ${styles.colors.mainBlack};
-      ${styles.border({ color: `${styles.colors.mainYellow}` })};
+      ${styles.transition({ time: "0.7s" })};
+      background: ${styles.colors.mainBlack};
+      color: ${styles.colors.mainWhite};
+      ${styles.border({ color: `${styles.colors.mainBlack}` })};
       cursor: pointer;
     }
+  } */
+  .parentDiv {
+    position: relative;
   }
-`;
+  .info {
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: ${styles.colors.mainWhite};
+    background: ${styles.colors.mainYellow};
+    text-transform: capitalize;
+    padding: 0.2rem 0.3rem;
+  }
+  .infoFr {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: ${styles.colors.mainWhite};
+    background: ${styles.colors.mainYellow};
+    text-transform: capitalize;
+    padding: 0.2rem 0.3rem;
+  }
+`

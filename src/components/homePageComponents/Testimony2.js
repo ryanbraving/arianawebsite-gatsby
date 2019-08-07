@@ -246,8 +246,8 @@ export default class Testimony1 extends Component {
           <Section>
             {isFarsi ? (
               <Title
-                title="گفتار دیگران"
-                message={"دیگران درباره آریانا چه می گویند؟"}
+                title="سخن دیگران"
+                message={"تجربه دیگران از کار با من چیست؟"}
               />
             ) : (
               <Title

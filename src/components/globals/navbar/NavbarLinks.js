@@ -3,7 +3,6 @@ import { Link } from "gatsby"
 import styled from "styled-components"
 import { styles } from "../../../utils"
 import ContextConsumer from "../../Context"
-import Menu from "../../../pages/resourcesMenu"
 
 export default class NavbarLinks extends Component {
   state = {

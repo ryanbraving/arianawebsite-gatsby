@@ -102,9 +102,14 @@ const PostsWrapper = styled.div`
   }
   @media (min-width: 768px) {
     grid-template-columns: 1fr 1fr;
-    grid-gap: 2rem;
+    grid-gap: 8rem;
   }
   @media (min-width: 1192px) {
     grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 4rem;
+  }
+  @media (min-width: 1792px) {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 4rem;
   }
 `

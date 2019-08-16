@@ -1,9 +1,7 @@
 import React from "react"
-
-import Layout from "../components/layout"
 import { StaticQuery, graphql } from "gatsby"
 import styled from "styled-components"
-import QueryArticles from "../components/blogPageComponents/QueryArticles"
+import QueryArticles from "../blogPageComponents/QueryArticles"
 
 const GET_IMAGE = graphql`
   query {
@@ -19,7 +17,7 @@ const GET_IMAGE = graphql`
 
 const BlogPage = () => {
   return (
-    <Layout>
+    <React.Fragment>
       <StaticQuery
         query={GET_IMAGE}
         render={data => {
@@ -31,7 +29,7 @@ const BlogPage = () => {
         }}
       />
       <QueryArticles />
-    </Layout>
+    </React.Fragment>
   )
 }
 

@@ -17,6 +17,8 @@ import Testimony from "../components/homePageComponents/Testimony3"
 import Services from "../components/homePageComponents/Services"
 import Favourite from "../components/homePageComponents/Favourite"
 import SubscribeInfo from "../components/homePageComponents/SubscribeInfo"
+import ContextConsumer from "../components/Context"
+import styled from "styled-components"
 
 // const img1 = "/static/fc80c1b58ec75bbadcd6912d9d503e82/8484e/homeBcg.jpeg";
 // console.log(img1);
@@ -38,10 +40,20 @@ import SubscribeInfo from "../components/homePageComponents/SubscribeInfo"
 
 // export default IndexPage;
 
-class IndexPage extends Component {
-  state = {
-    windowWidth: undefined,
+export default class IndexPage extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      windowWidth: undefined,
+      clientInfo: null,
+    }
+    this.myRef = React.createRef()
   }
+
+  // state = {
+  //   windowWidth: undefined,
+  // }
+
   handleResize = () => {
     this.setState({
       windowWidth: window.innerWidth,
@@ -51,6 +63,27 @@ class IndexPage extends Component {
   componentDidMount() {
     this.handleResize()
     window.addEventListener("resize", this.handleResize)
+
+    const url2 = "https://ipinfo.io/json"
+    const url1 = "https://api.ipdata.co/?api-key=test"
+
+    fetch(url1)
+      .then(response => response.json())
+      .then(data => {
+        if (!data.ip) {
+          fetch(url2)
+            .then(response => response.json())
+            .then(data => {
+              data.provider = "url2: ipinfo"
+              data.country_name = data.country
+              this.setState({ clientInfo: data })
+            })
+        } else {
+          data.provider = "url1: ipdata"
+          this.setState({ clientInfo: data })
+        }
+        this.myRef.current.click()
+      })
   }
 
   componentWillUnmount() {
@@ -58,24 +91,42 @@ class IndexPage extends Component {
   }
 
   render() {
+    if (this.state.clientInfo) {
+      var { country_name } = this.state.clientInfo
+    } else {
+      country_name = "Iran"
+    }
     return (
-      <Layout>
-        <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
-        {this.state.windowWidth >= 980 ? (
-          <IndexDesktopView />
-        ) : (
-          <IndexMobileView />
+      <ContextConsumer>
+        {({ isFarsi, setFarsi, setEnglish }) => (
+          <Layout>
+            <IndexWrapper
+              ref={this.myRef}
+              onClick={() => {
+                country_name === "Iran" || country_name === "IR"
+                  ? setFarsi()
+                  : setEnglish()
+              }}
+            >
+              <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
+              {this.state.windowWidth >= 980 ? (
+                <IndexDesktopView />
+              ) : (
+                <IndexMobileView />
+              )}
+              <Services />
+              <Testimony />
+              {this.state.windowWidth >= 980 ? (
+                <ArianaDesktopView />
+              ) : (
+                <ArianaMobileView />
+              )}
+              <SubscribeInfo />
+              <Favourite />
+            </IndexWrapper>
+          </Layout>
         )}
-        <Services />
-        <Testimony />
-        {this.state.windowWidth >= 980 ? (
-          <ArianaDesktopView />
-        ) : (
-          <ArianaMobileView />
-        )}
-        <SubscribeInfo />
-        <Favourite />
-      </Layout>
+      </ContextConsumer>
     )
   }
 }
@@ -87,4 +138,4 @@ class IndexPage extends Component {
 //   )
 // }
 
-export default IndexPage
+const IndexWrapper = styled.div``

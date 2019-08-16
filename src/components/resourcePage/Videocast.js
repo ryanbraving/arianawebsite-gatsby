@@ -7,7 +7,7 @@ import styled from "styled-components"
 import ContextConsumer from "../Context"
 import ShareSocialNet from "../blogPageComponents/ShareSocialNetwork"
 
-export const GET_Video = graphql`
+export const GET_VIDEO = graphql`
   query QueryVideo($id: String!) {
     getFrVideo: contentfulVideocastFr(id: { eq: $id }) {
       id
@@ -31,7 +31,7 @@ export default class Video extends Component {
   render() {
     // const { language } = this.props.pageContext // this is comming from gatsby-node.js
     const { data } = this.props
-    const url = "videocast/".concat(data.getFrVideo.id)
+    const url = "cast/".concat(data.getFrVideo.id)
     return (
       <ContextConsumer>
         {({ setLanguageInvisible, setFarsi }) => (

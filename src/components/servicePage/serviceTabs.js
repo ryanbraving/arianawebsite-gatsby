@@ -6,8 +6,8 @@ import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles"
 import purple from "@material-ui/core/colors/purple"
-import { styles } from "../utils"
-import ContextConsumer from "../components/Context"
+import { styles } from "../../utils"
+import ContextConsumer from "../../components/Context"
 import styled from "styled-components"
 
 const theme = createMuiTheme({

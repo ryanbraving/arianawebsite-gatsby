@@ -3,8 +3,8 @@ import Layout from "../components/layout"
 import { styles, Section, Title } from "../utils"
 import styled from "styled-components"
 import ContextConsumer from "../components/Context"
-import OnlineCoursesFormFR from "../components/coachingPage/CoachingForm_OnlineCourses_FR"
-import OnlineCoursesFormEN from "../components/coachingPage/CoachingForm_OnlineCourses_FR"
+import OnlineCoursesFormFR from "../components/servicePage/CoachingForm_OnlineCourses_FR"
+import OnlineCoursesFormEN from "../components/servicePage/CoachingForm_OnlineCourses_FR"
 export default class SubscribeInfo extends Component {
   render() {
     const { location } = this.props

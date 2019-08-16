@@ -4,21 +4,36 @@ import Img from "gatsby-image"
 import { styles } from "../../utils"
 import styled from "styled-components"
 
-export default class VideoGrid extends Component {
+export default class CastGrid extends Component {
   render() {
-    const { id, title, subtitle, imageCover } = this.props.video
+    const { id, title, subtitle, image } = this.props.cast
+    const { type } = this.props
+    console.log(type)
 
     return (
-      <VideoWrapper>
+      <CastWrapper>
         <Link
-          to={`/videocast/${id}`}
+          to={`/cast/${id}`}
           className="link-group"
           activeClassName="active"
         >
-          <div className="parentDiv">
-            <Img className="image" fluid={imageCover.fluid} />
-            <p className="info">تصویری</p>
-          </div>
+          {type === "video" ? (
+            <div className="parentDiv">
+              <Img className="image" fluid={image.fluid} />
+              <p className="lable lable-video">تصویری</p>
+            </div>
+          ) : type === "podcast" ? (
+            <div className="parentDiv">
+              <Img className="image" fluid={image.fluid} />
+              <p className="lable lable-podcast">صوتی</p>
+            </div>
+          ) : (
+            <div className="parentDiv">
+              <Img className="image" fluid={image.fluid} />
+              <p className="lable lable-inspirational">جملات الهام بخش</p>
+            </div>
+          )}
+
           <h2 className="title">{title}</h2>
           <p className="subtitle">{subtitle}</p>
 
@@ -28,15 +43,19 @@ export default class VideoGrid extends Component {
           {/* Your browser does not support HTML5 video.
           </video> */}
         </Link>
-      </VideoWrapper>
+      </CastWrapper>
     )
   }
 }
 
-const VideoWrapper = styled.div`
+const CastWrapper = styled.div`
   /* border: 3px solid grey; */
-  text-align: center;
+
+  /* background-color:red; */
   padding: 1rem;
+  /* display: inline-block; */
+  text-align: center;
+  /* margin: auto; */
   border-radius: 5px 5px 5px 5px;
   -moz-border-radius: 5px 5px 5px 5px;
   -webkit-border-radius: 5px 5px 5px 5px;
@@ -47,7 +66,7 @@ const VideoWrapper = styled.div`
     box-shadow: 0px 0px 9px 7px rgba(0, 0, 0, 0.75);
   }
   direction: rtl;
-  text-align: center;
+
   color: ${styles.colors.mainBlack};
   .title {
     text-align: center;
@@ -76,19 +95,29 @@ const VideoWrapper = styled.div`
   }
   .image {
     margin: 1rem 0rem;
-    /* min-height: 250px; */
+    /* min-height: 250px;
+    max-height: 350px; */
+    /* max-height: 300px; */
+    /* width: 300px; */
   }
   .parentDiv {
     position: relative;
   }
-  .info {
+  .lable {
     position: absolute;
     top: 0;
     right: 0;
     color: ${styles.colors.mainWhite};
-    background: ${styles.colors.mainYellow};
-    background: green;
     text-transform: capitalize;
     padding: 0.2rem 0.3rem;
+  }
+  .lable-video {
+    background: green;
+  }
+  .lable-podcast {
+    background: purple;
+  }
+  .lable-inspirational {
+    background: blue;
   }
 `

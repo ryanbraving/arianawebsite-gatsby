@@ -4,7 +4,7 @@ import styled from "styled-components"
 import { graphql } from "gatsby"
 import { Section, Title } from "../../utils"
 import ArticleGrid from "./ArticleGrid"
-import VideoGrid from "../podcastPageComponents/VideoGrid"
+import CastGrid from "../resourcePage/CastGrid"
 
 import ContextConsumer from "../Context"
 
@@ -66,7 +66,41 @@ export const GET_POSTS = graphql`
           title
           subtitle
           tags
-          imageCover {
+          image {
+            fluid(maxWidth: 900) {
+              ...GatsbyContentfulFluid_withWebp
+            }
+          }
+        }
+      }
+    }
+    getFrPodcasts: allContentfulPodcastFr(filter: { tags: { eq: $tag } }) {
+      totalCount
+      edges {
+        node {
+          id
+          title
+          subtitle
+          tags
+          image {
+            fluid(maxWidth: 900) {
+              ...GatsbyContentfulFluid_withWebp
+            }
+          }
+        }
+      }
+    }
+    getFrInspirational: allContentfulInspirationalQuotesFr(
+      filter: { tags: { eq: $tag } }
+    ) {
+      totalCount
+      edges {
+        node {
+          id
+          title
+          subtitle
+          tags
+          image {
             fluid(maxWidth: 900) {
               ...GatsbyContentfulFluid_withWebp
             }
@@ -115,7 +149,15 @@ export default class Posts extends Component {
                       return <ArticleGrid article={node} key={node.id} />
                     })}
                 {data.getFrVideos.edges.map(({ node }) => {
-                  return <VideoGrid video={node} key={node.id} />
+                  return <CastGrid cast={node} key={node.id} type={"video"} />
+                })}
+                {data.getFrPodcasts.edges.map(({ node }) => {
+                  return <CastGrid cast={node} key={node.id} type={"podcast"} />
+                })}
+                {data.getFrInspirational.edges.map(({ node }) => {
+                  return (
+                    <CastGrid cast={node} key={node.id} type={"inspiration"} />
+                  )
                 })}
               </PostWrapper>
               {/* <HeaderWrapper>
@@ -192,13 +234,17 @@ const PostWrapper = styled.div`
   }
   @media (min-width: 768px) {
     grid-template-columns: 1fr 1fr;
-    grid-gap: 2rem;
+    grid-gap: 8rem;
   }
   @media (min-width: 1192px) {
     grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 2rem;
-    video {
+    grid-gap: 4rem;
+    /* video {
       width: 100%;
-    }
+    } */
+  }
+  @media (min-width: 1792px) {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 4rem;
   }
 `

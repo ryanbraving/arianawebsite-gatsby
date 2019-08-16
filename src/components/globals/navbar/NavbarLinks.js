@@ -3,6 +3,7 @@ import { Link } from "gatsby"
 import styled from "styled-components"
 import { styles } from "../../../utils"
 import ContextConsumer from "../../Context"
+import Menu from "../../../pages/resourcesMenu"
 
 export default class NavbarLinks extends Component {
   state = {
@@ -15,12 +16,12 @@ export default class NavbarLinks extends Component {
       },
       {
         id: 1,
-        path: "/coaching",
+        path: "/services",
         name: "services",
       },
       {
         id: 2,
-        path: "/blog",
+        path: "/resources",
         name: "blog",
       },
       {
@@ -47,21 +48,16 @@ export default class NavbarLinks extends Component {
       },
       {
         id: 2,
-        path: "/videocast",
-        name: "ویدیوکست",
+        path: "/resources",
+        name: "منابع رایگان",
       },
       {
         id: 3,
-        path: "/blog",
-        name: "وبلاگ",
-      },
-      {
-        id: 4,
-        path: "/coaching",
+        path: "/services",
         name: "خدمات",
       },
       {
-        id: 5,
+        id: 4,
         path: "/",
         name: "صفحه اصلی",
       },
@@ -87,7 +83,13 @@ export default class NavbarLinks extends Component {
     const { linksFR, linksEN } = this.state
     return (
       <ContextConsumer>
-        {({ closeNavbar, navbarOpen, isFarsi, setAboutArianaTabNo, handleNavbar }) => (
+        {({
+          closeNavbar,
+          navbarOpen,
+          isFarsi,
+          setAboutArianaTabNo,
+          handleNavbar,
+        }) => (
           <LinkWrapper open={navbarOpen}>
             {isFarsi && this.state.windowWidth < 980
               ? linksFR
@@ -102,7 +104,7 @@ export default class NavbarLinks extends Component {
                           className="nav-link"
                           onClick={() => {
                             closeNavbar()
-                            setAboutArianaTabNo(0) 
+                            setAboutArianaTabNo(0)
                           }}
                         >
                           {item.name}
@@ -120,7 +122,6 @@ export default class NavbarLinks extends Component {
                         className="nav-link"
                         onClick={() => {
                           closeNavbar()
-                          setAboutArianaTabNo(0)
                         }}
                       >
                         {item.name}

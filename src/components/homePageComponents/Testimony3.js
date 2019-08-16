@@ -47,12 +47,6 @@ export default class Testimony1 extends Component {
     hide: false,
     intervalId: undefined,
   }
-  componentWillMount(){
-    // this.setState({
-    //   totalCountEN_new: this.props.data.getEnTestimonial.totalCount,
-    // })
-    console.log(this.props)
-  }
 
   componentDidMount() {
     this.startTimer()

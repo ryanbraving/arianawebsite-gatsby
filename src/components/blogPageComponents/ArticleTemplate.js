@@ -4,11 +4,7 @@ import React, { Component } from "react"
 import Layout from "../layout"
 import { graphql, Link } from "gatsby"
 import Img from "gatsby-image"
-import {
-  Section,
-  timeDifferenceForDate,
-  styles,
-} from "../../utils"
+import { Section, timeDifferenceForDate, styles } from "../../utils"
 import styled from "styled-components"
 import ContextConsumer from "../Context"
 import ShareSocialNet from "./ShareSocialNetwork"
@@ -39,7 +35,7 @@ export const GET_ARTICLE = graphql`
       slug
       createdAt
       image {
-        fluid {
+        fluid(maxWidth: 900, maxHeight: 900, quality: 100) {
           ...GatsbyContentfulFluid_tracedSVG
         }
       }
@@ -119,7 +115,11 @@ export function FarsiTemplate(data) {
         </Link>
         , {timeDifferenceForDate(data.getFrArticle.createdAt, "farsi")}
       </p>
-      <Img className="image" fluid={data.getFrArticle.image.fluid} />
+      <Img
+        className="image"
+        fluid={data.getFrArticle.image.fluid}
+        style={{ objectFit: "fill", objectPosition: "50% 50%" }}
+      />
       {/* <p className="text farsibody">
         {renderHTML(
           data.getFrArticle.childContentfulArticleFrContentTextNode
@@ -230,7 +230,8 @@ const TemplateWrapper = styled.div`
     /* padding-right: 20px; */
   }
   .image {
-    max-width: 800px;
+    max-width: 900px;
+    /* max-height:500px; */
     margin: 1rem auto;
   }
   .postedBy {

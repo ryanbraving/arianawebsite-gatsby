@@ -76,10 +76,38 @@ exports.createPages = ({ actions, graphql }) => {
             }
           }
         }
+        allPodcastsFr:allContentfulPodcastFr {
+          edges {
+            node {
+              id
+            }
+          }
+        }
+        allTagsPodcastsFr:allContentfulPodcastFr {
+          edges {
+            node {
+              tags
+            }
+          }
+        }
+        allInspirationalQuotesFr:allContentfulInspirationalQuotesFr {
+          edges {
+            node {
+              id
+            }
+          }
+        }
+        allTagsInspirationalQuotesFr:allContentfulInspirationalQuotesFr {
+          edges {
+            node {
+              tags
+            }
+          }
+        }
       }
     `
   ).then(result => {
-    // Create pages for each article.
+    // Create pages - English Articles
     result.data.allArticlesEn.edges.forEach(({ node }) => {
       createPage({
         path: `/${node.slug}`,
@@ -93,7 +121,7 @@ exports.createPages = ({ actions, graphql }) => {
         },
       })
     })
-
+    // Create pages - Farsi Articles
     result.data.allArticlesFr.edges.forEach(({ node }) => {
       createPage({
         path: `/${node.slug}`,
@@ -108,6 +136,46 @@ exports.createPages = ({ actions, graphql }) => {
       })
     })
 
+    // Create pages - Farsi Videos
+    result.data.allVideosFr.edges.forEach(({ node }) => {
+      createPage({
+        path: `/cast/${node.id}`,
+        component: path.resolve(`src/components/resourcePage/Videocast.js`),
+        context: {
+          id: node.id,
+          language: "farsi",
+          type: "video",
+        },
+      })
+    })
+
+    // Create pages - Farsi Podcasts
+    result.data.allPodcastsFr.edges.forEach(({ node }) => {
+      createPage({
+        path: `/cast/${node.id}`,
+        component: path.resolve(`src/components/resourcePage/Podcast.js`),
+        context: {
+          id: node.id,
+          language: "farsi",
+          type: "podcast",
+        },
+      })
+    })
+
+     // Create pages - Farsi Inspirational Quotes
+     result.data.allInspirationalQuotesFr.edges.forEach(({ node }) => {
+      createPage({
+        path: `/cast/${node.id}`,
+        component: path.resolve(`src/components/resourcePage/InspirationalQuote.js`),
+        context: {
+          id: node.id,
+          language: "farsi",
+          type: "inspiration",
+        },
+      })
+    })
+
+    // Collect Tags - English Tags
     var tagList = []
     result.data.allTagsArticlesEn.edges.forEach(({ node }) => {
       const newTag = node.tags
@@ -116,6 +184,7 @@ exports.createPages = ({ actions, graphql }) => {
         tagList.indexOf(item) === -1 ? tagList.push(item) : null
       }
     })
+    // Create Pages - English Tags
     tagList.forEach(item => {
       createPage({
         path: `/tag/${item}`,
@@ -125,11 +194,11 @@ exports.createPages = ({ actions, graphql }) => {
         context: {
           tag: item,
           language: "english",
-          tagType: "article",
         },
       })
     })
 
+    // Collect Tags - Farsi Tags
     var tagList = []
     result.data.allTagsArticlesFr.edges.forEach(({ node }) => {
       const newTag = node.tags
@@ -140,34 +209,6 @@ exports.createPages = ({ actions, graphql }) => {
           : console.log("This item already exsists")
       }
     })
-    tagList.forEach(item => {
-      createPage({
-        path: `/tag/${item}`,
-        component: path.resolve(
-          `src/components/blogPageComponents/QueryTags.js`
-        ),
-        context: {
-          tag: item,
-          language: "farsi",
-          tagType: "article",
-        },
-      })
-    })
-
-    result.data.allVideosFr.edges.forEach(({ node }) => {
-      createPage({
-        path: `/videocast/${node.id}`,
-        component: path.resolve(
-          `src/components/podcastPageComponents/Video.js`
-        ),
-        context: {
-          id: node.id,
-          language: "farsi",
-        },
-      })
-    })
-
-    var tagList = []
     result.data.allTagsVideosFr.edges.forEach(({ node }) => {
       const newTag = node.tags
       for (var item of newTag) {
@@ -177,6 +218,26 @@ exports.createPages = ({ actions, graphql }) => {
           : console.log("This item already exsists")
       }
     })
+    result.data.allTagsPodcastsFr.edges.forEach(({ node }) => {
+      const newTag = node.tags
+      for (var item of newTag) {
+        item = item.toLowerCase()
+        tagList.indexOf(item) === -1
+          ? tagList.push(item)
+          : console.log("This item already exsists")
+      }
+    })
+    result.data.allTagsInspirationalQuotesFr.edges.forEach(({ node }) => {
+      const newTag = node.tags
+      for (var item of newTag) {
+        item = item.toLowerCase()
+        tagList.indexOf(item) === -1
+          ? tagList.push(item)
+          : console.log("This item already exsists")
+      }
+    })
+
+    // Create Pages - Farsi Tags
     tagList.forEach(item => {
       createPage({
         path: `/tag/${item}`,
@@ -186,7 +247,6 @@ exports.createPages = ({ actions, graphql }) => {
         context: {
           tag: item,
           language: "farsi",
-          tagType: "video",
         },
       })
     })

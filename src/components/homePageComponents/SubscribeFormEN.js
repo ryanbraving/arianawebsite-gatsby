@@ -11,12 +11,13 @@ import purple from "@material-ui/core/colors/purple"
 import styled from "styled-components"
 import { styles, SectionButton } from "../../utils"
 import firebase from "../../firebase/FirebaseConfigs"
+
 // import SendVerificationEmail from "../aws/AWS-SendVerificationEmail";
 
 const db = firebase.firestore()
 // const colorPick = yellow[800];
 const colorPick = styles.colors.mainYellow
-const stylesMaterialui = theme => ({
+const stylesMaterialui12 = theme => ({
   container: {
     display: "block",
     // flexWrap: "wrap"
@@ -255,7 +256,7 @@ OutlinedTextFields.propTypes = {
   classes: PropTypes.object.isRequired,
 }
 
-export default withStyles(stylesMaterialui)(OutlinedTextFields)
+export default withStyles(stylesMaterialui12)(OutlinedTextFields)
 
 const FormWrapper = styled.div`
   height: 290px;

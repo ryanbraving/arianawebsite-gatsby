@@ -103,7 +103,7 @@ exports.confirmEmail = functions.https.onRequest((req, res) => {
     // myDoc.createdAt = new Date(dbTime);
     // const timeNow = admin.firestore.FieldValue.serverTimestamp();
     // const timeNow = new Date();
-    const urlRedirect = "https://staging.arianabraving.com/";
+    const urlRedirect = "https://arianabraving.com/";
     var unverifiedCollection = "Unverified-Emails-EN";
     var verifiedCollection = "Verified-Emails-EN";
     var urlSuccess = "verification.success.EN";

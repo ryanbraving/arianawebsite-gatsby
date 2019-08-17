@@ -9,8 +9,11 @@ firebase-debug.log*
 # Firebase cache
 .firebase/
 
+<<<<<<< HEAD
 # Firebase config
 
+=======
+>>>>>>> 63a3a1b4a463accb9e2bcd3337ba6f16894c7b37
 # Uncomment this if you'd like others to create their own Firebase project.
 # For a team working on the same Firebase project(s), it is recommended to leave
 # it commented so all members can deploy to the same project(s) in .firebaserc.

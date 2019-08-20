@@ -76,7 +76,7 @@ class ServicePage extends Component {
     const { classes, data, location } = this.props
 
     var link_tabNo
-    if (location.state.link_tabNo != null) {
+    if (location.state != null) {
       link_tabNo = location.state.link_tabNo
       location.state.link_tabNo = null
       // this.tabNo(link_tabNo)
@@ -87,10 +87,7 @@ class ServicePage extends Component {
           <Layout>
             <ServiceWrapper>
               <ImageWrapper img={data.getImage.childImageSharp.fluid} />
-              <ServiceTabs
-                tabNo={this.tabNo}
-                link_tabNo={link_tabNo}
-              />
+              <ServiceTabs tabNo={this.tabNo} link_tabNo={link_tabNo} />
               {/* <Section> */}
               {isFarsi && this.state.tabNo === 0 ? (
                 <ServiceTabPrivateCoachingFR />

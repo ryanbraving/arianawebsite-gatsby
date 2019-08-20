@@ -69,20 +69,20 @@ class IndexDesktopView extends Component {
                           زندگی تو‌ طراحی توست...
                         </h1>
                         <h1 style={{ letterSpacing: "0rem" }}>
-                          قلموی طراحی ات را بردار...
+                          قلموی طراحی‌ات را بردار...
                         </h1>
                         <p>
                           اینجا جایی است که طرح یک زندگی سرشار از آرامش و رضایت،
-                          زندگی که من اسمش را می گذارم{" "}
+                          زندگی که من اسمش را می‌گذارم{" "}
                           <span
                             style={{
                               color: `${styles.colors.mainYellow}`,
                               whiteSpace: "nowrap",
                             }}
                           >
-                            زندگی ایده آل
+                            زندگی ایده‌آل
                           </span>{" "}
-                          کشیده و خلق می شود.
+                          کشیده و خلق می‌شود.
                         </p>
                         <h1
                           style={{
@@ -96,16 +96,16 @@ class IndexDesktopView extends Component {
                           <span
                             style={{ color: `${styles.colors.mainYellow}` }}
                           >
-                            خلق زندگی ایده آلت
+                            خلق زندگی ایده‌آلت
                           </span>{" "}
                           هستی؟
                         </h1>
                         <Link
-                          to="/coaching.request"
+                          to="/services"
                           style={{ textDecoration: "none" }}
-                          state={{
-                            coachingTypeRequest: "main",
-                          }}
+                          // state={{
+                          //   coachingTypeRequest: "main",
+                          // }}
                         >
                           <SectionButton style={{ margin: "0.5rem auto" }}>
                             درخواست کوچینگ
@@ -150,11 +150,11 @@ class IndexDesktopView extends Component {
                           </span>
                         </h1>
                         <Link
-                          to="/coaching.request"
+                          to="/services"
                           style={{ textDecoration: "none" }}
-                          state={{
-                            coachingTypeRequest: "main",
-                          }}
+                          // state={{
+                          //   coachingTypeRequest: "main",
+                          // }}
                         >
                           <SectionButton style={{ margin: "0.5rem auto" }}>
                             Book Your First Session
@@ -219,7 +219,7 @@ const IndexWrapper = styled.div`
     }
   } */
   .hero-text {
-    max-width: 550px;
+    max-width: 600px;
     /* margin-top: 2rem; */
     text-align: center;
     position: absolute;

@@ -118,8 +118,8 @@ export default function Favourite() {
         <Section>
           {isFarsi ? (
             <Title
-              title="نوشته های برگزیده"
-              message={"پر خواننده ترین نوشته ها کدام ها هستند؟"}
+              title="نوشته‌های برگزیده"
+              message={"پر خواننده‌ترین نوشته‌ها کدام‌ها هستند؟"}
             />
           ) : (
             <Title

@@ -70,8 +70,10 @@ class CenteredTabs extends Component {
   // }
   // }
   render() {
-    var { classes, tabNo } = this.props
-
+    var { classes, tabNo, link_tabNo } = this.props
+    if (link_tabNo){
+      this.state.value = link_tabNo
+    }
     return (
       <ContextConsumer>
         {({ isFarsi }) => (

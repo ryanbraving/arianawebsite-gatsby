@@ -2,9 +2,10 @@ import React from "react"
 
 const defaultContextValue = {
   navbarOpen: false,
-  isFarsi: false,
+  isFarsi: true,
   btnVisible: true,
   aboutArianaTabNo: 0,
+  landingDone: false,
   handleNavbar: () => {},
   closeNavbar: () => {},
   handleLanguage: () => {},
@@ -13,6 +14,7 @@ const defaultContextValue = {
   setLanguageVisible: () => {},
   setLanguageInvisible: () => {},
   setAboutArianaTabNo: () => {},
+  handleLanding: () => {},
 }
 
 const { Provider, Consumer } = React.createContext(defaultContextValue)
@@ -20,9 +22,10 @@ const { Provider, Consumer } = React.createContext(defaultContextValue)
 class ContextProviderComponent extends React.Component {
   state = {
     navbarOpen: false,
-    isFarsi: false,
+    isFarsi: true,
     btnVisible: true,
     aboutArianaTabNo: 0,
+    landingDone: false,
   }
   handleNavbar = () => {
     this.setState(() => {
@@ -68,8 +71,20 @@ class ContextProviderComponent extends React.Component {
     })
   }
 
+  handleLanding = () => {
+    this.setState(() => {
+      return { landingDone: true }
+    })
+  }
+
   render() {
-    const { navbarOpen, isFarsi, btnVisible, aboutArianaTabNo } = this.state
+    const {
+      navbarOpen,
+      isFarsi,
+      btnVisible,
+      aboutArianaTabNo,
+      landingDone,
+    } = this.state
     const {
       handleNavbar,
       closeNavbar,
@@ -79,6 +94,7 @@ class ContextProviderComponent extends React.Component {
       setLanguageVisible,
       setLanguageInvisible,
       setAboutArianaTabNo,
+      handleLanding,
     } = this
 
     return (
@@ -88,6 +104,7 @@ class ContextProviderComponent extends React.Component {
           isFarsi,
           btnVisible,
           aboutArianaTabNo,
+          landingDone,
           setFarsi,
           setEnglish,
           handleNavbar,
@@ -96,6 +113,7 @@ class ContextProviderComponent extends React.Component {
           setLanguageVisible,
           setLanguageInvisible,
           setAboutArianaTabNo,
+          handleLanding,
         }}
       >
         {this.props.children}

@@ -32,19 +32,10 @@ export default function ArianaMobileView() {
               <p>آیا علاقمندید که من را بیشتر بشناسید؟</p>
               <Link
                 to="/about"
-                style={{ textDecoration: "none" }}
-                state={{
-                  tabNo: 2,
-                }}
+                style={{ textDecoration: "none", fontFamily: "Vazir"  }}
+                className = "button"
               >
-                <button
-                  style={{ fontFamily: "Vazir" }}
-                  onClick={() => {
-                    setAboutArianaTabNo(2)
-                  }}
-                >
                   درباره آریانا
-                </button>
               </Link>
             </div>
           ) : (
@@ -68,14 +59,9 @@ export default function ArianaMobileView() {
                 Are you curious to hear my story?
               </p>
 
-              <Link to="/about" style={{ textDecoration: "none" }}>
-                <button
-                  onClick={() => {
-                    setAboutArianaTabNo(0)
-                  }}
-                >
+              <Link to="/about" style={{ textDecoration: "none" }}
+              className = "button">
                   About Ariana
-                </button>
               </Link>
               <br />
               <br />
@@ -123,21 +109,21 @@ const ArianaWrapper = styled.div`
     font-weight: 700;
   }
 
-  .hero-text button {
+  .hero-text .button {
+    display: inline-block;
+    margin: 1.5rem auto;
     border: 2px black solid;
     outline: 0;
-    margin: 2rem auto;
     /* color: ${styles.colors.mainWhite}; */
     background-color: transparent;
     color: black;
     padding: 0.5rem 1rem;
     text-transform: uppercase;
-    text-transform: none;
     font-family: Vazir;
     border-radius: 7px;
     font-size: 1.3rem;
     padding: 15px 25px;
-    /* letter-spacing: 0.2rem; */
+    border-radius: 7px;
     font-weight: 700;
     ${styles.border({ color: `${styles.colors.mainBlack}` })};
     ${styles.transition({})};

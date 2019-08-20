@@ -21,7 +21,7 @@ const GET_IMAGE = graphql`
 export default function ArianaDesktopView() {
   return (
     <ContextConsumer>
-      {({ isFarsi, setAboutArianaTabNo }) => (
+      {({ isFarsi }) => (
         <StaticQuery
           query={GET_IMAGE}
           render={data => {
@@ -49,19 +49,11 @@ export default function ArianaDesktopView() {
                     <p>آیا علاقمندید که من را بیشتر بشناسید؟</p>
                     <Link
                       to="/about"
-                      style={{ textDecoration: "none" }}
-                      state={{
-                        tabNo: 2,
-                      }}
+                      style={{ textDecoration: "none", fontFamily: "Vazir"}}
+                      className = "button"
                     >
-                      <button
-                        style={{ fontFamily: "Vazir" }}
-                        onClick={() => {
-                          setAboutArianaTabNo(2)
-                        }}
-                      >
+                     
                         درباره آریانا
-                      </button>
                     </Link>
                   </div>
                 ) : (
@@ -89,14 +81,8 @@ export default function ArianaDesktopView() {
                       Are you curious to hear my story?
                     </p>
 
-                    <Link to="/about" style={{ textDecoration: "none" }}>
-                      <button
-                        onClick={() => {
-                          setAboutArianaTabNo(0)
-                        }}
-                      >
+                    <Link to="/about" style={{ textDecoration: "none" }}        className = "button">
                         About Ariana
-                      </button>
                     </Link>
                     <br />
                     <br />
@@ -147,15 +133,16 @@ const GalleryWrapper = styled.div`
     font-weight: 700;
   }
 
-  .hero-text button {
-    margin: 1rem auto;
+  .hero-text .button {
+    display: inline-block;
+    margin: 1.5rem auto;
     color: ${styles.colors.mainWhite};
     background: transparent;
     padding: 0.5rem 1rem;
     text-transform: uppercase;
     font-size: 1.3rem;
     line-height: 2.5rem;
-    /* letter-spacing: 0.2rem; */
+    border-radius: 7px;
     font-weight: 700;
     ${styles.border({ color: `${styles.colors.mainWhite}` })};
     ${styles.transition({})};

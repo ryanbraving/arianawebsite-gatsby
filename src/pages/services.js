@@ -73,18 +73,24 @@ class ServicePage extends Component {
   //     tabNo = location.state.tabNo
   //   }
   render() {
-    const { classes, data } = this.props
-    // var tabNo = undefined
-    // if (location.state != null) {
-    //   tabNo = location.state.tabNo
-    // }
+    const { classes, data, location } = this.props
+
+    var link_tabNo
+    if (location.state.link_tabNo != null) {
+      link_tabNo = location.state.link_tabNo
+      location.state.link_tabNo = null
+      // this.tabNo(link_tabNo)
+    }
     return (
       <ContextConsumer>
         {({ isFarsi }) => (
           <Layout>
             <ServiceWrapper>
               <ImageWrapper img={data.getImage.childImageSharp.fluid} />
-              <ServiceTabs tabNo={this.tabNo} />
+              <ServiceTabs
+                tabNo={this.tabNo}
+                link_tabNo={link_tabNo}
+              />
               {/* <Section> */}
               {isFarsi && this.state.tabNo === 0 ? (
                 <ServiceTabPrivateCoachingFR />

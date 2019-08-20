@@ -1,6 +1,6 @@
 import React from "react"
 import Img from "gatsby-image"
-import { StaticQuery, graphql } from "gatsby"
+import { StaticQuery, graphql, Link } from "gatsby"
 import { Section, Title, ServiceButton } from "../../utils"
 import styled from "styled-components"
 import ContextConsumer from "../Context"
@@ -26,7 +26,7 @@ const GET_IMAGES = graphql`
 `
 export default function Service() {
   var options = {
-    TruncateBy: "words", // Options are 'words', 'characters' or 'paragraphs'
+    TruncateBy: "characters", // Options are 'words', 'characters' or 'paragraphs'
     TruncateLength: 190, // The count to be used with TruncatedBy
     StripHTML: false, // Whether or not the truncated text should contain HTML tags
     Strict: true, // If set to false the truncated text finish at the end of the word
@@ -44,7 +44,7 @@ export default function Service() {
                   <Title
                     style={{ direction: "rtl" }}
                     title="خدمات آریانا"
-                    message={"چگونه می توانم به شما کمک کنم؟"}
+                    message={"چگونه می‌توانم به شما کمک کنم؟"}
                   />
                 ) : (
                   <Title
@@ -60,110 +60,144 @@ export default function Service() {
                         <Img fluid={node.childImageSharp.fluid} />
                         {index === 1 && isFarsi ? (
                           <div>
-                            <h2 className="service"> دوره های آنلاین </h2>
-                            <p className="text">
-                              Amet eiusmod est ut Lorem incididunt ex aute nulla
-                              qui duis ullamco tempor. Laborum adipisicing minim
-                              nulla duis commodo ut pariatur minim consectetur
-                              exercitation ex laboris excepteur.
+                            <h2 className="service"> دوره‌های آنلاین </h2>
+                            <p className="text textFR">
+                              {truncatise(
+                                `این دوره‌های آموزشی بصورت غیرحضوری و آنلاین برگزار می‌شود. یعنی با خرید این دوره‌ها در زمان‌ها و مکان‌های دلخواه خود و با هر سرعتی که مناسب شرایط زندگی شماست قادر به دنبال کردن مطالب و تکمیل دوره‌ها خواهید بود. طراحی این دوره‌ها به صورتی است که مطالب با بهترین کیفیت و بیانی گویا به شما انتقال داده می‌شود و توسط تمرین‌ها و کاربرگ‌ها بطور عملی با  زندگی شما آمیخته می‌شود. بدین صورت با پرداخت هزینه‌ای کمتر از دوره‌های کوچینگ خصوصی و یا حتی کوچینگ گروهی می‌توانید از آموزش‌های تحول برانگیز آریانا بهره‌مند شوید.`,
+                                options
+                              )}
                             </p>
-                            <ServiceButton
-                              style={{
-                                margin: " 1rem auto",
-                                fontFamily: "Vazir",
+                            <Link
+                              to="/services"
+                              style={{ textDecoration: "none" }}
+                              state={{
+                                link_tabNo: 2,
                               }}
                             >
-                              اطلاعات بیشتر
-                            </ServiceButton>
+                              <ServiceButton
+                                style={{
+                                  margin: " 1rem auto",
+                                  fontFamily: "Vazir",
+                                }}
+                              >
+                                شروع کنید
+                              </ServiceButton>
+                            </Link>
                           </div>
                         ) : index === 1 && !isFarsi ? (
                           <div>
-                            <h2 className="service"> Online Courses </h2>
+                            <h2 className="service"> Blog Posts </h2>
                             <p className="text">
-                              Amet eiusmod est ut Lorem incididunt ex aute nulla
-                              qui duis ullamco tempor. Laborum adipisicing minim
-                              nulla duis commodo ut pariatur minim consectetur
-                              exercitation ex laboris excepteur.
+                              This platform is a shared space between Ariana and
+                              you to connect, share and see each other in love.
+                              As a result, lift each other up and walk toward
+                              light hand in hand.
                             </p>
-                            <ServiceButton style={{ margin: " 1rem auto" }}>
-                              More Info
-                            </ServiceButton>
+                            <Link
+                              to="/resources"
+                              style={{ textDecoration: "none" }}
+                            >
+                              <ServiceButton style={{ margin: " 1rem auto" }}>
+                                Read Posts
+                              </ServiceButton>
+                            </Link>
                           </div>
                         ) : index === 2 && isFarsi ? (
                           <div>
                             <h2 className="service"> کوچینگ گروهی </h2>
                             <p className="text textFR">
                               {truncatise(
-                                ` برای برخی از افراد کوچینگ گروهی موثرتر و مفیدتر از
-                              کوچینگ خصوصی است! قرار گرفتن در کنار چند همسفر که
-                              مشکلات نسبتاً مشابهی دارند و می خواهند به مقصد
-                              مشترکی برسند می تواند بسیار مفید و قدرت بخش باشد.
-                              خیلی اوقات شنیدن مشکلات و درک افکار محدود کننده
-                              دیگران چون زنگ بیدار باشی است که باعث شناسایی
-                              افکار محدود کننده و نقاط کور خود ما می شود.`,
+                                `
+                                همسفر شدن با افرادی که خواسته‌ها، چالش‌ها و مقصد نسبتاً مشترکی با شما دارند، نه تنها مسیر سفر را لذت بخش‌تر می‌کند و به شما احساس امنیت و حمایت می‌دهد، بلکه می‌تواند بسیار مفید و قدرت بخش باشد.
+                                 چرا که خیلی اوقات شنیدن مشکلات و درک افکار محدود کننده دیگران چون زنگ بیدارباشی است که باعث شناسایی افکار محدود کننده و نقاط کور شما می‌شود. همینطور دیدن پیشرفت و حرکت رو به جلو هم گروهی‌ها، الهام بخش است و نیروی محرکی برای تلاش بیشتر شما می‌شود.
+                                `,
                                 options
                               )}
                             </p>
-                            <ServiceButton
-                              style={{
-                                margin: " 1rem auto",
-                                fontFamily: "Vazir",
+                            <Link
+                              to="/services"
+                              style={{ textDecoration: "none" }}
+                              state={{
+                                link_tabNo: 1,
                               }}
                             >
-                              شروع کنید
-                            </ServiceButton>
+                              <ServiceButton
+                                style={{
+                                  margin: " 1rem auto",
+                                  fontFamily: "Vazir",
+                                }}
+                              >
+                                اطلاعات بیشتر
+                              </ServiceButton>
+                            </Link>
                           </div>
                         ) : index === 2 && !isFarsi ? (
                           <div>
                             <h2 className="service"> Group Coaching </h2>
                             <p className="text">
-                              Amet eiusmod est ut Lorem incididunt ex aute nulla
-                              qui duis ullamco tempor. Laborum adipisicing minim
-                              nulla duis commodo ut pariatur minim consectetur
-                              exercitation ex laboris excepteur.
+                              The truth is that a challenging journey is always
+                              better with companions who share similar goals.
+                              Traveling alone can feel unsafe and daunting, but
+                              the companionship ...
                             </p>
-                            <ServiceButton style={{ margin: " 1rem auto" }}>
-                              Let's go
-                            </ServiceButton>
+                            <Link
+                              to="/services"
+                              style={{ textDecoration: "none" }}
+                              state={{
+                                link_tabNo: 1,
+                              }}
+                            >
+                              <ServiceButton style={{ margin: " 1rem auto" }}>
+                                More Info
+                              </ServiceButton>
+                            </Link>
                           </div>
                         ) : index === 3 && isFarsi ? (
                           <div>
                             <h2 className="service"> کوچینگ خصوصی </h2>
                             <p className="text textFR">
                               {truncatise(
-                                `
-                              چه چیزی را با همه وجودت، با تک تک سلولهای بدنت، می
-                              خواهی در زندگیت تجربه کنی؟ آرامش بیشتر؟ اعتماد به
-                              نفس بیشتر؟ عشق بیشتر؟ موفقیت بیشتر؟ انرژی بیشتر؟
-                              پول بیشتر؟ یا... جواب شما هر چه که هست تمام یا
-                              بخشی از زندگی ایده آل شماست و کار آریانا به عنوان
-                              یک کوچ این است که به شما یاد می دهد چطور زندگی
-                              ایده آلتان را برای خود خلق کنید. چه معامله ای از
-                              این بهتر؟`,
+                                `چه چیزی را با همه وجودت، با تک تک سلول‌های بدنت، می‌خواهی در زندگیت تجربه کنی؟ آرامش بیشتر؟ اعتماد به نفس بیشتر؟ عشق بیشتر؟ موفقیت بیشتر؟ انرژی بیشتر؟ پول بیشتر؟ یا... جواب شما هر چه که هست تمام یا بخشی از زندگی ایده‌آل شماست و کار آریانا به عنوان یک کوچ این است که به شما یاد می‌دهد چطور زندگی ایده‌آلتان را برای خود خلق کنید. چه معامله ای از این بهتر؟`,
                                 options
                               )}
                             </p>
-                            <ServiceButton
-                              style={{
-                                margin: " 1rem auto",
-                                fontFamily: "Vazir",
+                            <Link
+                              to="/services"
+                              style={{ textDecoration: "none" }}
+                              state={{
+                                link_tabNo: 0,
                               }}
                             >
-                              بفرمایید لطفا
-                            </ServiceButton>
+                              <ServiceButton
+                                style={{
+                                  margin: " 1rem auto",
+                                  fontFamily: "Vazir",
+                                }}
+                              >
+                                درخواست کوچینگ
+                              </ServiceButton>
+                            </Link>
                           </div>
                         ) : (
                           <div>
                             <h2 className="service"> Private Sessions </h2>
                             <p className="text">
-                              Amet eiusmod est ut Lorem incididunt ex aute nulla
-                              qui duis ullamco tempor. Laborum adipisicing minim
-                              nulla duis commodo ut pariatur minim consectetur
-                              exercitation ex laboris excepteur.
+                              What is it that you so badly want to experience in
+                              your life? Is it more meaning? More joy? More
+                              peace? More love? More confidence? More energy?
+                              More success? More ...
                             </p>
-                            <ServiceButton style={{ margin: " 1rem auto" }}>
-                              Help Yourself
-                            </ServiceButton>
+                            <Link
+                              to="/services"
+                              style={{ textDecoration: "none" }}
+                              state={{
+                                link_tabNo: 0,
+                              }}
+                            >
+                              <ServiceButton style={{ margin: " 1rem auto" }}>
+                                Coaching Request
+                              </ServiceButton>
+                            </Link>
                           </div>
                         )}
                       </div>

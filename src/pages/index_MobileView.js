@@ -39,11 +39,11 @@ class IndexMobileView extends Component {
                     زندگی تو‌ طراحی توست...
                   </h1>
                   <h1 style={{ letterSpacing: "0rem" }}>
-                    قلموی طراحی ات را بردار...
+                    قلموی طراحی‌ات را بردار...
                   </h1>
                   <p>
                     اینجا جایی است که طرح یک زندگی سرشار از آرامش و رضایت، زندگی
-                    که من اسمش را می گذارم{" "}
+                    که من اسمش را می‌گذارم{" "}
                     <span
                       style={{
                         color: `${styles.colors.mainYellow}`,
@@ -52,12 +52,12 @@ class IndexMobileView extends Component {
                     >
                       زندگی ایده آل
                     </span>{" "}
-                    کشیده و خلق می شود.
+                    کشیده و خلق می‌شود.
                   </p>
                   <h1>آیا آماده خلق یک اثر یگانه هنری: </h1>
                   <h1>
                     <span style={{ color: `${styles.colors.mainYellow}` }}>
-                      خلق زندگی ایده آلت
+                      خلق زندگی ایده‌آلت
                     </span>{" "}
                     هستی؟
                   </h1>

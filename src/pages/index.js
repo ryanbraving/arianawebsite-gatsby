@@ -9,11 +9,7 @@ import IndexMobileView from "./index_MobileView"
 // import QuickInfo from "../components/homePageComponents/QuickInfo";
 import ArianaDesktopView from "../components/homePageComponents/ArianaDesktopView"
 import ArianaMobileView from "../components/homePageComponents/ArianaMobileView"
-import Testimony from "../components/homePageComponents/Testimony3"
-// import Gallery2 from "../components/homePageComponents/Gallery2";
-// import Gallery1 from "../components/homePageComponents/Gallery1";
-// import Gallery from "../components/homePageComponents/Gallery";
-// import Menu from "../components/homePageComponents/Menu";
+import Testimony from "../components/homePageComponents/Testimony"
 import Services from "../components/homePageComponents/Services"
 import Favourite from "../components/homePageComponents/Favourite"
 import SubscribeInfo from "../components/homePageComponents/SubscribeInfo"
@@ -98,33 +94,41 @@ export default class IndexPage extends Component {
     }
     return (
       <ContextConsumer>
-        {({ isFarsi, setFarsi, setEnglish }) => (
-          <Layout>
-            <IndexWrapper
-              ref={this.myRef}
-              onClick={() => {
+        {({ landingDone, handleLanding, setFarsi, setEnglish }) => (
+          <IndexWrapper
+            ref={this.myRef}
+            onClick={() => {
+              if (!landingDone) {
                 country_name === "Iran" || country_name === "IR"
                   ? setFarsi()
                   : setEnglish()
-              }}
-            >
-              <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
-              {this.state.windowWidth >= 980 ? (
-                <IndexDesktopView />
-              ) : (
-                <IndexMobileView />
-              )}
-              <Services />
-              <Testimony />
-              {this.state.windowWidth >= 980 ? (
-                <ArianaDesktopView />
-              ) : (
-                <ArianaMobileView />
-              )}
-              <SubscribeInfo />
-              <Favourite />
-            </IndexWrapper>
-          </Layout>
+                handleLanding()
+              }
+            }}
+          >
+            {landingDone ? (
+              <Layout>
+                <SEO
+                  title="Home"
+                  keywords={[`gatsby`, `application`, `react`]}
+                />
+                {this.state.windowWidth >= 980 ? (
+                  <IndexDesktopView />
+                ) : (
+                  <IndexMobileView />
+                )}
+                <Services />
+                <Testimony />
+                {this.state.windowWidth >= 980 ? (
+                  <ArianaDesktopView />
+                ) : (
+                  <ArianaMobileView />
+                )}
+                <SubscribeInfo />
+                <Favourite />
+              </Layout>
+            ) : null}
+          </IndexWrapper>
         )}
       </ContextConsumer>
     )
@@ -139,3 +143,4 @@ export default class IndexPage extends Component {
 // }
 
 const IndexWrapper = styled.div``
+const MainWrapper = styled.div``

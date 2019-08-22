@@ -166,9 +166,7 @@ class OutlinedTextFields extends React.Component {
 
   render() {
     const { classes, coachingTypeRequest } = this.props
-    this.setState({
-      coachingTypeRequest: coachingTypeRequest,
-    })
+    this.state.coachingTypeRequest = coachingTypeRequest
 
     return (
       <FormWrapper hideSubscribe={this.state.hideSubscribe}>

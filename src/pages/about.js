@@ -4,7 +4,7 @@ import Layout from "../components/layout"
 import { styles } from "../utils"
 import { graphql } from "gatsby"
 import styled from "styled-components"
-import AboutTabs from "./aboutTabs"
+import AboutTabs from "../components/aboutPage/aboutTabs"
 import ContextConsumer from "../components/Context"
 import Testimony from "./testimonyPage2"
 import AboutTabAboutArianaFR from "../components/aboutPage/AboutTab_AboutAriana_FR"
@@ -67,14 +67,24 @@ class AboutPage extends Component {
     // if (location.state != null) {
     //   tabNo = location.state.tabNo
     // }
-    const { data } = this.props
+    const { data, location } = this.props
+    var link_tabNo
+    if (location.state != null) {
+      link_tabNo = location.state.link_tabNo
+      location.state.link_tabNo = null
+    }
+    if (link_tabNo == null) {
+    }
+    if (link_tabNo != null) {
+      this.state.tabNo = link_tabNo
+    }
     return (
       <ContextConsumer>
         {({ isFarsi }) => (
           <Layout>
             <AboutWrapper>
               <ImageWrapper img={data.getImage.childImageSharp.fluid} />
-              <AboutTabs tabNo={this.tabNo} />
+              <AboutTabs tabNo={this.tabNo} link_tabNo={link_tabNo} />
               {/* <Section> */}
 
               {isFarsi && this.state.tabNo === 0 ? (
@@ -106,7 +116,7 @@ export default withStyles(stylesTheme)(AboutPage)
 
 const ImageWrapper = styled.div`
   background: url(${props => props.img.src});
-  min-height: calc(90vh);
+  min-height: calc(75vh);
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;

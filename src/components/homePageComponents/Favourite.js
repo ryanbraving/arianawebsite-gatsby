@@ -2,110 +2,64 @@ import React from "react"
 import { Title, Section } from "../../utils"
 import styled from "styled-components"
 import { StaticQuery, graphql } from "gatsby"
-import ArticleGridLanding from "../../components/blogPageComponents/ArticleGrid_Landing"
+import ArticleGridLanding from "../blogPageComponents/ArticleGrid_Landing"
 import ContextConsumer from "../Context"
 
 const GET_POSTS = graphql`
   query {
-    getEnArticle1: contentfulArticleEn(
-      slug: { eq: "are-you-in-control-of-your-life" }
+    getEnPosts: allContentfulArticleEn(
+      filter: { isFavourite: { eq: true } }
+      limit: 3
+      sort: { fields: [updatedAt], order: DESC }
     ) {
-      id
-      slug
-      title
-      createdAt
-      content {
-        childMarkdownRemark {
-          excerpt(pruneLength: 200, truncate: true)
-        }
-      }
-      image {
-        fluid(maxWidth: 900) {
-          ...GatsbyContentfulFluid_withWebp
-        }
-      }
-    }
-    getEnArticle2: contentfulArticleEn(slug: { eq: "are-you-eating-clean" }) {
-      id
-      slug
-      title
-      createdAt
-      content {
-        childMarkdownRemark {
-          excerpt(pruneLength: 200, truncate: true)
-        }
-      }
-      image {
-        fluid(maxWidth: 900) {
-          ...GatsbyContentfulFluid_withWebp
+      edges {
+        node {
+          id
+          slug
+          title
+          tags
+          createdAt
+          updatedAt
+          isFavourite
+          content {
+            childMarkdownRemark {
+              excerpt(pruneLength: 200, truncate: true)
+              html
+            }
+          }
+          image {
+            fluid(maxWidth: 900) {
+              ...GatsbyContentfulFluid_withWebp
+            }
+          }
         }
       }
     }
-    getEnArticle3: contentfulArticleEn(
-      slug: { eq: "the-simple-road-to-glory" }
+    getFrPosts: allContentfulArticleFr(
+      filter: { isFavourite: { eq: true } }
+      limit: 3
+      sort: { fields: [updatedAt], order: DESC }
     ) {
-      id
-      slug
-      title
-      createdAt
-      content {
-        childMarkdownRemark {
-          excerpt(pruneLength: 200, truncate: true)
-        }
-      }
-      image {
-        fluid(maxWidth: 900) {
-          ...GatsbyContentfulFluid_withWebp
-        }
-      }
-    }
-    getFrArticle1: contentfulArticleFr(slug: { eq: "ashtbah" }) {
-      id
-      slug
-      title
-      createdAt
-      content {
-        childMarkdownRemark {
-          excerpt(pruneLength: 200, truncate: true)
-        }
-      }
-      image {
-        fluid(maxWidth: 900) {
-          ...GatsbyContentfulFluid_withWebp
-        }
-      }
-    }
-    getFrArticle2: contentfulArticleFr(slug: { eq: "ahsas-taalogh" }) {
-      id
-      slug
-      title
-      createdAt
-      content {
-        childMarkdownRemark {
-          excerpt(pruneLength: 200, truncate: true)
-        }
-      }
-      image {
-        fluid(maxWidth: 900) {
-          ...GatsbyContentfulFluid_withWebp
-        }
-      }
-    }
-    getFrArticle3: contentfulArticleFr(
-      slug: { eq: "be-jaryan-zndegy-etemad-konym" }
-    ) {
-      id
-      slug
-      title
-      createdAt
-      content {
-        childMarkdownRemark {
-          excerpt(pruneLength: 200, truncate: true)
-        }
-      }
-      image {
-        fluid(maxWidth: 900) {
-          ...GatsbyContentfulFluid_withWebp
+      edges {
+        node {
+          id
+          slug
+          title
+          tags
+          createdAt
+          updatedAt
+          isFavourite
+          content {
+            childMarkdownRemark {
+              excerpt(pruneLength: 200, truncate: true)
+              html
+            }
+          }
+          image {
+            fluid(maxWidth: 900) {
+              ...GatsbyContentfulFluid_withWebp
+            }
+          }
         }
       }
     }
@@ -132,24 +86,17 @@ export default function Favourite() {
             render={data => {
               return (
                 <FavouritePostsWrapper>
-                  <ArticleGridLanding
-                    article={isFarsi ? data.getFrArticle1 : data.getEnArticle1}
-                    key={
-                      isFarsi ? data.getFrArticle1.id : data.getEnArticle1.id
-                    }
-                  />
-                  <ArticleGridLanding
-                    article={isFarsi ? data.getFrArticle2 : data.getEnArticle2}
-                    key={
-                      isFarsi ? data.getFrArticle2.id : data.getEnArticle2.id
-                    }
-                  />
-                  <ArticleGridLanding
-                    article={isFarsi ? data.getFrArticle3 : data.getEnArticle3}
-                    key={
-                      isFarsi ? data.getFrArticle3.id : data.getEnArticle3.id
-                    }
-                  />
+                  {isFarsi
+                    ? data.getFrPosts.edges.map(({ node }) => {
+                        return (
+                          <ArticleGridLanding article={node} key={node.id} />
+                        )
+                      })
+                    : data.getEnPosts.edges.map(({ node }) => {
+                        return (
+                          <ArticleGridLanding article={node} key={node.id} />
+                        )
+                      })}
                 </FavouritePostsWrapper>
               )
             }}

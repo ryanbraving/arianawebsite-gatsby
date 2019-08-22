@@ -7,7 +7,7 @@ const GET_IMAGE = graphql`
   query {
     getImage: file(relativePath: { eq: "bcg/blog2.JPG" }) {
       childImageSharp {
-        fluid(maxWidth: 2000) {
+        fluid(maxWidth: 3000) {
           ...GatsbyImageSharpFluid_tracedSVG
         }
       }
@@ -46,7 +46,7 @@ export default BlogPage
 
 const ImageWrapper = styled.div`
   background: url(${props => props.img.src});
-  min-height: calc(70vh);
+  min-height: calc(75vh);
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;

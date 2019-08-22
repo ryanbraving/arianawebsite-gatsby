@@ -71,7 +71,6 @@ class OutlinedTextFields extends React.Component {
     phoneNo: "",
     telegramId: "",
     howFindAriana: "",
-    subject: "",
     explaination: "",
     idealLife: "",
     otherProblem: "",
@@ -124,7 +123,6 @@ class OutlinedTextFields extends React.Component {
     const dbPhoneNo = this.state.phoneNo
     const dbTelegramId = this.state.telegramId
     const dbHowFindAriana = this.state.howFindAriana
-    const dbSubject = this.state.subject
     const dbExplaination = this.state.explaination
     const dbIdealLife = this.state.idealLife
     const dbOtherProblem = this.state.otherProblem
@@ -141,7 +139,6 @@ class OutlinedTextFields extends React.Component {
       phoneNo: 0,
       telegramId: "",
       howFindAriana: "",
-      subject: "",
       explaination: "",
       idealLife: "",
       otherProblem: "",
@@ -166,7 +163,6 @@ class OutlinedTextFields extends React.Component {
         phone: dbPhoneNo,
         telegram: dbTelegramId,
         howFindAriana: dbHowFindAriana,
-        subject: dbSubject,
         explaination: dbExplaination,
         idealLife: dbIdealLife,
         otherProblem: dbOtherProblem,
@@ -192,9 +188,7 @@ class OutlinedTextFields extends React.Component {
 
   render() {
     const { classes, coachingTypeRequest } = this.props
-    this.setState({
-      coachingTypeRequest: coachingTypeRequest,
-    })
+    this.state.coachingTypeRequest = coachingTypeRequest
 
     return (
       <FormWrapper hideSubscribe={this.state.hideSubscribe}>
@@ -370,52 +364,7 @@ class OutlinedTextFields extends React.Component {
                 />
                 <br />
                 <br />
-                <h3
-                  style={{
-                    // direction: "rtl",
-                    // textAlign: "center",
-                    color: `${styles.colors.mainGrey}`,
-                  }}
-                >
-                  در حال حاضر دوره های کوچینگ گروهی در سه موضوع زیر انجام می
-                  شود. لطفا موضوع مورد نظر خود را مشخص کنید:
-                </h3>
-                <br />
-                <h4
-                  style={{
-                    color: `${styles.colors.mainGrey}`,
-                  }}
-                >
-                  پذیرش خود و اعتماد به نفس - شناسایی افکار محدود کننده و تغییر
-                  ذهنیت - دعوت آرامش و مدیریت استرس
-                </h4>
-                <TextField
-                  id="outlined-helperText"
-                  label="موضوع کوچینگ"
-                  helperText="یکی از موضوعات بالا را انتخاب و در این قسمت وارد کنید"
-                  value={this.state.subject}
-                  onChange={this.handleChange("subject")}
-                  margin="normal"
-                  variant="outlined"
-                  required
-                  className={classes.textField}
-                  // style={{ fontSize: "1.6rem" }}
-                  // style={{ width: 300 }}
-                  fullWidth
-                  InputLabelProps={{
-                    classes: {
-                      root: classes.cssLabel,
-                      focused: classes.cssFocused,
-                    },
-                  }}
-                  InputProps={{
-                    classes: {
-                      root: classes.cssOutlinedInput,
-                      focused: classes.cssFocused,
-                      notchedOutline: classes.notchedOutline,
-                    },
-                  }}
-                />
+
                 <TextField
                   id="outlined-multiline-static"
                   multiline

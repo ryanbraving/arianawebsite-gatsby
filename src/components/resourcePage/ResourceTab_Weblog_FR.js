@@ -13,7 +13,6 @@ const stylesTheme = theme => ({
 })
 class ResourceTab_Weblog_FR extends Component {
   render() {
-    const { classes } = this.props
     return (
       <ResourceWrapper>
         <QueryArticles />

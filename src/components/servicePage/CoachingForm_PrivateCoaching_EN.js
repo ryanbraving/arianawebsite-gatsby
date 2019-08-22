@@ -9,7 +9,7 @@ import {
 import TextField from "@material-ui/core/TextField"
 import purple from "@material-ui/core/colors/purple"
 import styled from "styled-components"
-import { styles, SectionButton } from "../../utils"
+import { styles, SectionButton, Section } from "../../utils"
 import firebase from "../../firebase/FirebaseConfigs"
 
 const db = firebase.firestore()
@@ -166,220 +166,218 @@ class OutlinedTextFields extends React.Component {
 
   render() {
     const { classes, coachingTypeRequest } = this.props
-    this.setState({
-      coachingTypeRequest: coachingTypeRequest,
-    })
-
+    this.state.coachingTypeRequest = coachingTypeRequest
     return (
-      <FormWrapper hideSubscribe={this.state.hideSubscribe}>
-        <form
-          className={
-            this.state.hideSubscribe
-              ? classnames(classes.container, "form-show")
-              : classnames(classes.container, "form-hide")
-          }
-          autoComplete="off"
-          onSubmit={this.addCoachingRequest}
-        >
-          <MuiThemeProvider theme={theme}>
-            <TextField
-              id="outlined-name"
-              label="Name"
-              helperText="Pleae enter your full name"
-              value={this.state.name}
-              onChange={this.handleChange("name")}
-              margin="normal"
-              variant="outlined"
-              // fullWidth
-              required
-              className={classes.textField}
-              style={{ width: 300 }}
-              InputLabelProps={{
-                classes: {
-                  root: classes.cssLabel,
-                  focused: classes.cssFocused,
-                },
-              }}
-              InputProps={{
-                classes: {
-                  root: classes.cssOutlinedInput,
-                  focused: classes.cssFocused,
-                  notchedOutline: classes.notchedOutline,
-                },
-              }}
-            />
-            <TextField
-              id="outlined-helperText"
-              label="Where do you live? (country & city)"
-              helperText="To find out the time defference"
-              value={this.state.country}
-              onChange={this.handleChange("country")}
-              margin="normal"
-              variant="outlined"
-              // fullWidth
-              required
-              className={classes.textField}
-              style={{ width: 300 }}
-              InputLabelProps={{
-                classes: {
-                  root: classes.cssLabel,
-                  focused: classes.cssFocused,
-                },
-              }}
-              InputProps={{
-                classes: {
-                  root: classes.cssOutlinedInput,
-                  focused: classes.cssFocused,
-                  notchedOutline: classes.notchedOutline,
-                },
-              }}
-            />
-
-            <TextField
-              id="outlined-email-input"
-              label="Email"
-              helperText="We'll never share your email"
-              value={this.state.email}
-              onChange={this.handleChange("email")}
-              type="email"
-              margin="normal"
-              variant="outlined"
-              // fullWidth
-              required
-              className={classes.textField}
-              style={{ width: 300 }}
-              InputLabelProps={{
-                classes: {
-                  root: classes.cssLabel,
-                  focused: classes.cssFocused,
-                },
-              }}
-              InputProps={{
-                classes: {
-                  root: classes.cssOutlinedInput,
-                  focused: classes.cssFocused,
-                  notchedOutline: classes.notchedOutline,
-                },
-              }}
-            />
-            <TextField
-              id="outlined-number"
-              label="Phone No."
-              helperText=""
-              value={this.state.phoneNo}
-              onChange={this.handleChange("phoneNo")}
-              type="number"
-              margin="normal"
-              variant="outlined"
-              // fullWidth
-              className={classes.textField}
-              style={{ width: 300 }}
-              InputLabelProps={{
-                classes: {
-                  root: classes.cssLabel,
-                  focused: classes.cssFocused,
-                },
-              }}
-              InputProps={{
-                classes: {
-                  root: classes.cssOutlinedInput,
-                  focused: classes.cssFocused,
-                  notchedOutline: classes.notchedOutline,
-                },
-              }}
-            />
-            <TextField
-              id="outlined-helperText"
-              label="Telegram Id."
-              helperText="If you don't have a Telegram Id, enter your phone number associated with your Telegram account."
-              value={this.state.telegramId}
-              onChange={this.handleChange("telegramId")}
-              margin="normal"
-              variant="outlined"
-              className={classes.textField}
-              // style={{ fontSize: "1.6rem" }}
-              style={{ width: 300 }}
-              // fullWidth
-              InputLabelProps={{
-                classes: {
-                  root: classes.cssLabel,
-                  focused: classes.cssFocused,
-                },
-              }}
-              InputProps={{
-                classes: {
-                  root: classes.cssOutlinedInput,
-                  focused: classes.cssFocused,
-                  notchedOutline: classes.notchedOutline,
-                },
-              }}
-            />
-            <TextField
-              id="outlined-helperText"
-              label="How did you find Ariana?"
-              helperText=""
-              value={this.state.howFindAriana}
-              onChange={this.handleChange("howFindAriana")}
-              margin="normal"
-              variant="outlined"
-              // fullWidth
-              required
-              className={classes.textField}
-              style={{ width: 300 }}
-              InputLabelProps={{
-                classes: {
-                  root: classes.cssLabel,
-                  focused: classes.cssFocused,
-                },
-              }}
-              InputProps={{
-                classes: {
-                  root: classes.cssOutlinedInput,
-                  focused: classes.cssFocused,
-                  notchedOutline: classes.notchedOutline,
-                },
-              }}
-            />
-            <TextField
-              id="outlined-multiline-static"
-              multiline
-              rows="4"
-              label="Why coaching?"
-              helperText="For what problem or why in general are you looking to be coached? (please explain briefly)"
-              value={this.state.whyCoaching}
-              onChange={this.handleChange("whyCoaching")}
-              margin="normal"
-              variant="outlined"
-              required
-              className={classes.textField}
-              // style={{ fontSize: "1.6rem" }}
-              // style={{ width: 300 }}
-              fullWidth
-              InputLabelProps={{
-                classes: {
-                  root: classes.cssLabel,
-                  focused: classes.cssFocused,
-                },
-              }}
-              InputProps={{
-                classes: {
-                  root: classes.cssOutlinedInput,
-                  focused: classes.cssFocused,
-                  notchedOutline: classes.notchedOutline,
-                },
-              }}
-            />
-          </MuiThemeProvider>
-
-          <SectionButton
-            type="submit"
-            className={classnames(classes.margin)}
-            style={{ margin: "2rem auto" }}
+      <Section>
+        <FormWrapper hideSubscribe={this.state.hideSubscribe}>
+          <form
+            className={
+              this.state.hideSubscribe
+                ? classnames(classes.container, "form-show")
+                : classnames(classes.container, "form-hide")
+            }
+            autoComplete="off"
+            onSubmit={this.addCoachingRequest}
           >
-            Submit
-          </SectionButton>
+            <MuiThemeProvider theme={theme}>
+              <TextField
+                id="outlined-name"
+                label="Name"
+                helperText="Pleae enter your full name"
+                value={this.state.name}
+                onChange={this.handleChange("name")}
+                margin="normal"
+                variant="outlined"
+                // fullWidth
+                required
+                className={classes.textField}
+                style={{ width: 300 }}
+                InputLabelProps={{
+                  classes: {
+                    root: classes.cssLabel,
+                    focused: classes.cssFocused,
+                  },
+                }}
+                InputProps={{
+                  classes: {
+                    root: classes.cssOutlinedInput,
+                    focused: classes.cssFocused,
+                    notchedOutline: classes.notchedOutline,
+                  },
+                }}
+              />
+              <TextField
+                id="outlined-helperText"
+                label="Where do you live? (country & city)"
+                helperText="To find out the time defference"
+                value={this.state.country}
+                onChange={this.handleChange("country")}
+                margin="normal"
+                variant="outlined"
+                // fullWidth
+                required
+                className={classes.textField}
+                style={{ width: 300 }}
+                InputLabelProps={{
+                  classes: {
+                    root: classes.cssLabel,
+                    focused: classes.cssFocused,
+                  },
+                }}
+                InputProps={{
+                  classes: {
+                    root: classes.cssOutlinedInput,
+                    focused: classes.cssFocused,
+                    notchedOutline: classes.notchedOutline,
+                  },
+                }}
+              />
 
-          {/* <Button
+              <TextField
+                id="outlined-email-input"
+                label="Email"
+                helperText="We'll never share your email"
+                value={this.state.email}
+                onChange={this.handleChange("email")}
+                type="email"
+                margin="normal"
+                variant="outlined"
+                // fullWidth
+                required
+                className={classes.textField}
+                style={{ width: 300 }}
+                InputLabelProps={{
+                  classes: {
+                    root: classes.cssLabel,
+                    focused: classes.cssFocused,
+                  },
+                }}
+                InputProps={{
+                  classes: {
+                    root: classes.cssOutlinedInput,
+                    focused: classes.cssFocused,
+                    notchedOutline: classes.notchedOutline,
+                  },
+                }}
+              />
+              <TextField
+                id="outlined-number"
+                label="Phone No."
+                helperText=""
+                value={this.state.phoneNo}
+                onChange={this.handleChange("phoneNo")}
+                type="number"
+                margin="normal"
+                variant="outlined"
+                // fullWidth
+                className={classes.textField}
+                style={{ width: 300 }}
+                InputLabelProps={{
+                  classes: {
+                    root: classes.cssLabel,
+                    focused: classes.cssFocused,
+                  },
+                }}
+                InputProps={{
+                  classes: {
+                    root: classes.cssOutlinedInput,
+                    focused: classes.cssFocused,
+                    notchedOutline: classes.notchedOutline,
+                  },
+                }}
+              />
+              <TextField
+                id="outlined-helperText"
+                label="Telegram Id."
+                helperText="If you don't have a Telegram Id, enter your phone number associated with your Telegram account."
+                value={this.state.telegramId}
+                onChange={this.handleChange("telegramId")}
+                margin="normal"
+                variant="outlined"
+                className={classes.textField}
+                // style={{ fontSize: "1.6rem" }}
+                style={{ width: 300 }}
+                // fullWidth
+                InputLabelProps={{
+                  classes: {
+                    root: classes.cssLabel,
+                    focused: classes.cssFocused,
+                  },
+                }}
+                InputProps={{
+                  classes: {
+                    root: classes.cssOutlinedInput,
+                    focused: classes.cssFocused,
+                    notchedOutline: classes.notchedOutline,
+                  },
+                }}
+              />
+              <TextField
+                id="outlined-helperText"
+                label="How did you find Ariana?"
+                helperText=""
+                value={this.state.howFindAriana}
+                onChange={this.handleChange("howFindAriana")}
+                margin="normal"
+                variant="outlined"
+                // fullWidth
+                required
+                className={classes.textField}
+                style={{ width: 300 }}
+                InputLabelProps={{
+                  classes: {
+                    root: classes.cssLabel,
+                    focused: classes.cssFocused,
+                  },
+                }}
+                InputProps={{
+                  classes: {
+                    root: classes.cssOutlinedInput,
+                    focused: classes.cssFocused,
+                    notchedOutline: classes.notchedOutline,
+                  },
+                }}
+              />
+              <TextField
+                id="outlined-multiline-static"
+                multiline
+                rows="4"
+                label="Why coaching?"
+                helperText="For what problem or why in general are you looking to be coached? (please explain briefly)"
+                value={this.state.whyCoaching}
+                onChange={this.handleChange("whyCoaching")}
+                margin="normal"
+                variant="outlined"
+                required
+                className={classes.textField}
+                // style={{ fontSize: "1.6rem" }}
+                // style={{ width: 300 }}
+                fullWidth
+                InputLabelProps={{
+                  classes: {
+                    root: classes.cssLabel,
+                    focused: classes.cssFocused,
+                  },
+                }}
+                InputProps={{
+                  classes: {
+                    root: classes.cssOutlinedInput,
+                    focused: classes.cssFocused,
+                    notchedOutline: classes.notchedOutline,
+                  },
+                }}
+              />
+            </MuiThemeProvider>
+
+            <SectionButton
+              type="submit"
+              className={classnames(classes.margin)}
+              style={{ margin: "2rem auto" }}
+            >
+              Submit
+            </SectionButton>
+
+            {/* <Button
             type="submit"
             variant="contained"
             size="large"
@@ -388,27 +386,31 @@ class OutlinedTextFields extends React.Component {
           >
             Subscribe
           </Button> */}
-        </form>
-        <h1
-          className={
-            this.state.hideSubscribe
-              ? "thanks thanks-hide"
-              : "thanks thanks-show"
-          }
-        >
-          Thanks <span className="thanks-name">{this.state.thankName}</span>
-          <br /> Your form has been received.
-          <br />
-          Someone from Ariana's support team will contact you soon.
-        </h1>
+          </form>
+          <h1
+            className={
+              this.state.hideSubscribe
+                ? "thanks thanks-hide"
+                : "thanks thanks-show"
+            }
+          >
+            Thanks <span className="thanks-name">{this.state.thankName}</span>
+            <br /> Your form has been received.
+            <br />
+            Someone from Ariana's support team will contact you soon.
+          </h1>
 
-        <p className={this.state.hideSubscribe ? "thanks-hide" : "thanks-show"}>
-          If you haven't received any contact within 3 working days, please let
-          us know through email at:{" "}
-          <span style={{ color: "red" }}>info@ArianaBraving.com</span> or
-          through Telegram at: <span style={{ color: "red" }}>@AskAriana</span>
-        </p>
-      </FormWrapper>
+          <p
+            className={this.state.hideSubscribe ? "thanks-hide" : "thanks-show"}
+          >
+            If you haven't received any contact within 3 working days, please
+            let us know through email at:{" "}
+            <span style={{ color: "red" }}>info@ArianaBraving.com</span> or
+            through Telegram at:{" "}
+            <span style={{ color: "red" }}>@AskAriana</span>
+          </p>
+        </FormWrapper>
+      </Section>
     )
   }
 }

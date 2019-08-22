@@ -6,8 +6,8 @@ import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles"
 import purple from "@material-ui/core/colors/purple"
-import { styles } from "../utils"
-import ContextConsumer from "../components/Context"
+import { styles } from "../../utils"
+import ContextConsumer from "../Context"
 import styled from "styled-components"
 
 const theme = createMuiTheme({
@@ -72,8 +72,10 @@ class CenteredTabs extends Component {
   // }
 
   render() {
-    var { classes, tabNo } = this.props
-
+    var { classes, tabNo, link_tabNo } = this.props
+    if (link_tabNo != null) {
+      this.state.value = link_tabNo
+    }
     return (
       <ContextConsumer>
         {({ isFarsi, setAboutArianaTabNo }) => (
@@ -110,7 +112,7 @@ class CenteredTabs extends Component {
                     <Tab
                       classes={{ root: classes.tabRoot }}
                       // label="درباره آریانا"
-                      label=" من آریانا هستم"
+                      label=" سلام آریانا هستم"
                       onClick={() => {
                         tabNo(0)
                       }}

@@ -4,8 +4,6 @@ import { withStyles } from "@material-ui/core/styles"
 import Paper from "@material-ui/core/Paper"
 import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
-import Typography from "@material-ui/core/Typography"
-import classNames from "classnames"
 
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles"
 import purple from "@material-ui/core/colors/purple"
@@ -42,16 +40,6 @@ const stylesUI = theme => ({
   },
 })
 
-// export default class about-Tabs extends Component {
-//   render() {
-//     return (
-//       <div>
-
-//       </div>
-//     )
-//   }
-// }
-
 class CenteredTabs extends Component {
   state = {
     value: 0,
@@ -64,15 +52,6 @@ class CenteredTabs extends Component {
     value = Math.abs(3 - value)
     this.setState({ value: value })
   }
-  // componentDidMount() {
-  //   console.log(this.props.tabNo)
-  //   if (this.props.tabNo != undefined) {
-  //     this.setState({ value: this.props.tabNo })
-  //   }
-  //   // if (this.props.tabNo == 2) {
-  //   //   this.setState({ value: 2 })
-  //   // }
-  // }
 
   render() {
     var { classes, tabNo } = this.props

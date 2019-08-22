@@ -143,4 +143,3 @@ export default class IndexPage extends Component {
 // }
 
 const IndexWrapper = styled.div``
-const MainWrapper = styled.div``

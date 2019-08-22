@@ -1,9 +1,6 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
 import { withStyles } from "@material-ui/core/styles"
-import Paper from "@material-ui/core/Paper"
-import Typography from "@material-ui/core/Typography"
-import classnames from "classnames"
 import Layout from "../components/layout"
 import { styles } from "../utils"
 import { graphql } from "gatsby"
@@ -12,9 +9,13 @@ import ServiceTabs from "../components/servicePage/serviceTabs"
 import ContextConsumer from "../components/Context"
 import Testimony from "./testimonyPage2"
 import ServiceTabPrivateCoachingFR from "../components/servicePage/ServiceTab_PrivateCoaching_FR"
+import ServiceTabPrivateCoachingEN from "../components/servicePage/ServiceTab_PrivateCoaching_EN"
 import ServiceTabGroupCoachingFR from "../components/servicePage/ServiceTab_GroupCoaching_FR"
+import ServiceTabGroupCoachingEN from "../components/servicePage/ServiceTab_GroupCoaching_EN"
 import ServiceTabOnlineCoursesFR from "../components/servicePage/ServiceTab_OnlineCourses_FR"
+import ServiceTabOnlineCoursesEN from "../components/servicePage/ServiceTab_OnlineCourses_EN"
 import ServiceTabQnAFR from "../components/servicePage/ServiceTab_QuestionAnswer_FR"
+import ServiceTabQnAEN from "../components/servicePage/ServiceTab_QuestionAnswer_EN"
 
 // import img from "../images/bcg/aboutBcg.jpeg"
 
@@ -66,21 +67,23 @@ class ServicePage extends Component {
     })
     // console.log(this.state.tabNo)
   }
-  // const CoachingPage = props => {
-  //   const { classes, location } = props
-  //   var tabNo = undefined
-  //   if (location.state != null) {
-  //     tabNo = location.state.tabNo
-  //   }
+
   render() {
-    const { classes, data, location } = this.props
+    const { data, location } = this.props
 
     var link_tabNo
     if (location.state != null) {
       link_tabNo = location.state.link_tabNo
       location.state.link_tabNo = null
       // this.tabNo(link_tabNo)
+      // this.state.tabNo = link_tabNo
     }
+    if (link_tabNo == null) {
+    }
+    if (link_tabNo != null) {
+      this.state.tabNo = link_tabNo
+    }
+
     return (
       <ContextConsumer>
         {({ isFarsi }) => (
@@ -100,57 +103,13 @@ class ServicePage extends Component {
               ) : isFarsi && this.state.tabNo === 4 ? (
                 <Testimony />
               ) : !isFarsi && this.state.tabNo === 0 ? (
-                <Paper
-                  className={classnames(classes.root, "paper")}
-                  elevation={20}
-                >
-                  <Typography
-                    variant="h5"
-                    component="h3"
-                    className={classnames("intro")}
-                  >
-                    Private Sessions
-                  </Typography>
-                </Paper>
+                <ServiceTabPrivateCoachingEN />
               ) : !isFarsi && this.state.tabNo === 1 ? (
-                <Paper
-                  className={classnames(classes.root, "paper")}
-                  elevation={20}
-                >
-                  <Typography
-                    variant="h5"
-                    component="h3"
-                    className={classnames("intro")}
-                  >
-                    Group Coaching
-                  </Typography>
-                </Paper>
+                <ServiceTabGroupCoachingEN />
               ) : !isFarsi && this.state.tabNo === 2 ? (
-                <Paper
-                  className={classnames(classes.root, "paper")}
-                  elevation={20}
-                >
-                  <Typography
-                    variant="h5"
-                    component="h3"
-                    className={classnames("intro")}
-                  >
-                    Online Courses
-                  </Typography>
-                </Paper>
+                <ServiceTabOnlineCoursesEN />
               ) : !isFarsi && this.state.tabNo === 3 ? (
-                <Paper
-                  className={classnames(classes.root, "paper")}
-                  elevation={20}
-                >
-                  <Typography
-                    variant="h5"
-                    component="h3"
-                    className={classnames("intro")}
-                  >
-                    Q & A
-                  </Typography>
-                </Paper>
+                <ServiceTabQnAEN />
               ) : (
                 <Testimony />
               )}

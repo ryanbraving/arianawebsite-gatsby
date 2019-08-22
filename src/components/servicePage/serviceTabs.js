@@ -71,7 +71,8 @@ class CenteredTabs extends Component {
   // }
   render() {
     var { classes, tabNo, link_tabNo } = this.props
-    if (link_tabNo){
+    if (link_tabNo != null) {
+      // this.setState({value: link_tabNo })
       this.state.value = link_tabNo
     }
     return (
@@ -110,7 +111,7 @@ class CenteredTabs extends Component {
                     />
                     <Tab
                       classes={{ root: classes.tabRoot }}
-                      label="دوره های آنلاین"
+                      label="دوره‌های آنلاین"
                       // label="سخن دیگران"
                       onClick={() => {
                         tabNo(2)
@@ -145,7 +146,7 @@ class CenteredTabs extends Component {
                   >
                     <Tab
                       classes={{ root: classes.tabRoot }}
-                      label="Private Sessions"
+                      label="Private Coaching"
                       onClick={() => {
                         tabNo(0)
                       }}
@@ -173,7 +174,7 @@ class CenteredTabs extends Component {
                     />
                     <Tab
                       classes={{ root: classes.tabRoot }}
-                      label="People's Experiences"
+                      label="Clients' Experiences"
                       onClick={() => {
                         tabNo(4)
                       }}

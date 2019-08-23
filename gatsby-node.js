@@ -205,7 +205,10 @@ exports.createPages = ({ actions, graphql }) => {
     result.data.allTagsArticlesFr.edges.forEach(({ node }) => {
       const newTag = node.tags
       for (var item of newTag) {
-        item = item.toLowerCase()
+        item = item
+          .split(" ")
+          .join("-")
+          .toLowerCase()
         tagList.indexOf(item) === -1
           ? tagList.push(item)
           : console.log("This item already exsists")
@@ -214,7 +217,10 @@ exports.createPages = ({ actions, graphql }) => {
     result.data.allTagsVideosFr.edges.forEach(({ node }) => {
       const newTag = node.tags
       for (var item of newTag) {
-        item = item.toLowerCase()
+        item = item
+          .split(" ")
+          .join("-")
+          .toLowerCase()
         tagList.indexOf(item) === -1
           ? tagList.push(item)
           : console.log("This item already exsists")
@@ -223,7 +229,10 @@ exports.createPages = ({ actions, graphql }) => {
     result.data.allTagsPodcastsFr.edges.forEach(({ node }) => {
       const newTag = node.tags
       for (var item of newTag) {
-        item = item.toLowerCase()
+        item = item
+          .split(" ")
+          .join("-")
+          .toLowerCase()
         tagList.indexOf(item) === -1
           ? tagList.push(item)
           : console.log("This item already exsists")
@@ -232,7 +241,10 @@ exports.createPages = ({ actions, graphql }) => {
     result.data.allTagsInspirationalQuotesFr.edges.forEach(({ node }) => {
       const newTag = node.tags
       for (var item of newTag) {
-        item = item.toLowerCase()
+        item = item
+          .split(" ")
+          .join("-")
+          .toLowerCase()
         tagList.indexOf(item) === -1
           ? tagList.push(item)
           : console.log("This item already exsists")
@@ -247,7 +259,10 @@ exports.createPages = ({ actions, graphql }) => {
           `src/components/blogPageComponents/QueryTags.js`
         ),
         context: {
-          tag: item,
+          tag: item
+            .split("-")
+            .join(" ")
+            .toLowerCase(),
           language: "farsi",
         },
       })

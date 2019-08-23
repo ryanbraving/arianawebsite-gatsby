@@ -55,7 +55,10 @@ export default class InspirationalQuote extends Component {
                   <div>
                     <h5>...این فایل صوتی را با دیگران به اشتراک گذارید</h5>
                     {/* <br /> */}
-                    <ShareSocialNet url={url} title={data.getFrInspirational.title} />
+                    <ShareSocialNet
+                      url={url}
+                      title={data.getFrInspirational.title}
+                    />
                   </div>
                 </div>
               </TemplateWrapper>
@@ -90,7 +93,14 @@ export function FarsiTemplate(data) {
 
           {data.getFrInspirational.tags.map((tag, index) => {
             return (
-              <Link to={`/tag/${tag}`} className="tag" key={index}>
+              <Link
+                to={`/tag/${tag
+                  .split(" ")
+                  .join("-")
+                  .toLowerCase()}`}
+                className="tag"
+                key={index}
+              >
                 <li>{tag}</li>
               </Link>
             )

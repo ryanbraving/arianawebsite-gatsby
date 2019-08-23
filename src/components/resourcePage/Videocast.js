@@ -87,7 +87,14 @@ export function FarsiTemplate(data) {
 
           {data.getFrVideo.tags.map((tag, index) => {
             return (
-              <Link to={`/tag/${tag}`} className="tag" key={index}>
+              <Link
+                to={`/tag/${tag
+                  .split(" ")
+                  .join("-")
+                  .toLowerCase()}`}
+                className="tag"
+                key={index}
+              >
                 <li>{tag}</li>
               </Link>
             )

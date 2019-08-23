@@ -73,7 +73,6 @@ export default class ArticleTemplate extends Component {
                   language === "farsi" ? setFarsi() : setEnglish()
                   handleLanding()
                 }}
-                
               >
                 {language === "farsi"
                   ? FarsiTemplate(this.props.data)
@@ -137,7 +136,14 @@ export function FarsiTemplate(data) {
 
           {data.getFrArticle.tags.map((tag, index) => {
             return (
-              <Link to={`/tag/${tag}`} className="tag" key={index}>
+              <Link
+                to={`/tag/${tag
+                  .split(" ")
+                  .join("-")
+                  .toLowerCase()}`}
+                className="tag"
+                key={index}
+              >
                 <li>{tag}</li>
               </Link>
             )

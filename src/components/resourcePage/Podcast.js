@@ -77,10 +77,7 @@ export function FarsiTemplate(data) {
       <div className="underline2" />
       <div className="underline3" />
       <div className="underline4" />
-      <Img
-        className="image sizing"
-        fluid={data.getFrPodcast.image.fluid}
-      />
+      <Img className="image sizing" fluid={data.getFrPodcast.image.fluid} />
       <audio controls className="sizing">
         <source src={data.getFrPodcast.sourceUrl} type="audio/ogg" />
         <source src={data.getFrPodcast.sourceUrl} type="audio/mpeg" />
@@ -97,7 +94,14 @@ export function FarsiTemplate(data) {
 
           {data.getFrPodcast.tags.map((tag, index) => {
             return (
-              <Link to={`/tag/${tag}`} className="tag" key={index}>
+              <Link
+                to={`/tag/${tag
+                  .split(" ")
+                  .join("-")
+                  .toLowerCase()}`}
+                className="tag"
+                key={index}
+              >
                 <li>{tag}</li>
               </Link>
             )

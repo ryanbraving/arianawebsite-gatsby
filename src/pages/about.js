@@ -11,6 +11,7 @@ import AboutTabAboutArianaFR from "../components/aboutPage/AboutTab_AboutAriana_
 import AboutTabAboutArianaEN from "../components/aboutPage/AboutTab_AboutAriana_EN"
 import AboutTabEducationFR from "../components/aboutPage/AboutTab_Education_FR"
 import AboutTabEducationEN from "../components/aboutPage/AboutTab_Education_EN"
+import LandingCheck from "../components/LandingCheck"
 
 // import img from "../images/bcg/aboutBcg.jpeg"
 
@@ -80,28 +81,30 @@ class AboutPage extends Component {
     }
     return (
       <ContextConsumer>
-        {({ isFarsi }) => (
-          <Layout>
-            <AboutWrapper>
-              <ImageWrapper img={data.getImage.childImageSharp.fluid} />
-              <AboutTabs tabNo={this.tabNo} link_tabNo={link_tabNo} />
-              {/* <Section> */}
-
-              {isFarsi && this.state.tabNo === 0 ? (
-                <AboutTabAboutArianaFR />
-              ) : isFarsi && this.state.tabNo === 1 ? (
-                <AboutTabEducationFR />
-              ) : isFarsi && this.state.tabNo === 2 ? (
-                <Testimony />
-              ) : !isFarsi && this.state.tabNo === 0 ? (
-                <AboutTabAboutArianaEN />
-              ) : !isFarsi && this.state.tabNo === 1 ? (
-                <AboutTabEducationEN />
-              ) : (
-                <Testimony />
-              )}
-            </AboutWrapper>
-          </Layout>
+        {({ landingDone, isFarsi }) => (
+          <AboutWrapper>
+            {landingDone ? (
+              <Layout>
+                <ImageWrapper img={data.getImage.childImageSharp.fluid} />
+                <AboutTabs tabNo={this.tabNo} link_tabNo={link_tabNo} />
+                {isFarsi && this.state.tabNo === 0 ? (
+                  <AboutTabAboutArianaFR />
+                ) : isFarsi && this.state.tabNo === 1 ? (
+                  <AboutTabEducationFR />
+                ) : isFarsi && this.state.tabNo === 2 ? (
+                  <Testimony />
+                ) : !isFarsi && this.state.tabNo === 0 ? (
+                  <AboutTabAboutArianaEN />
+                ) : !isFarsi && this.state.tabNo === 1 ? (
+                  <AboutTabEducationEN />
+                ) : (
+                  <Testimony />
+                )}
+              </Layout>
+            ) : (
+              <LandingCheck />
+            )}
+          </AboutWrapper>
         )}
       </ContextConsumer>
     )

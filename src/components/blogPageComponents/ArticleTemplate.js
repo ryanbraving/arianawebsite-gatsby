@@ -63,7 +63,7 @@ export default class ArticleTemplate extends Component {
 
     return (
       <ContextConsumer>
-        {({ setLanguageInvisible, setFarsi, setEnglish }) => (
+        {({ setLanguageInvisible, setFarsi, setEnglish, handleLanding }) => (
           <Layout>
             <Section>
               <TemplateWrapper
@@ -71,7 +71,9 @@ export default class ArticleTemplate extends Component {
                 onClick={() => {
                   setLanguageInvisible()
                   language === "farsi" ? setFarsi() : setEnglish()
+                  handleLanding()
                 }}
+                
               >
                 {language === "farsi"
                   ? FarsiTemplate(this.props.data)

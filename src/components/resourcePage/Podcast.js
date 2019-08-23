@@ -40,7 +40,7 @@ export default class Podcast extends Component {
     const url = "cast/".concat(data.getFrPodcast.id)
     return (
       <ContextConsumer>
-        {({ setLanguageInvisible, setFarsi }) => (
+        {({ setLanguageInvisible, setFarsi, handleLanding }) => (
           <Layout>
             <Section>
               <TemplateWrapper
@@ -48,6 +48,7 @@ export default class Podcast extends Component {
                 onClick={() => {
                   setLanguageInvisible()
                   setFarsi()
+                  handleLanding()
                 }}
               >
                 {FarsiTemplate(data)}

@@ -34,7 +34,7 @@ export default class Video extends Component {
     const url = "cast/".concat(data.getFrVideo.id)
     return (
       <ContextConsumer>
-        {({ setLanguageInvisible, setFarsi }) => (
+        {({ setLanguageInvisible, setFarsi, handleLanding }) => (
           <Layout>
             <Section>
               <TemplateWrapper
@@ -42,6 +42,7 @@ export default class Video extends Component {
                 onClick={() => {
                   setLanguageInvisible()
                   setFarsi()
+                  handleLanding()
                 }}
               >
                 {FarsiTemplate(data)}

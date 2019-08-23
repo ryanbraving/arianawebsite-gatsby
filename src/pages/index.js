@@ -15,6 +15,7 @@ import Favourite from "../components/homePageComponents/Favourite"
 import SubscribeInfo from "../components/homePageComponents/SubscribeInfo"
 import ContextConsumer from "../components/Context"
 import styled from "styled-components"
+import LandingCheck from "../components/LandingCheck"
 
 // const img1 = "/static/fc80c1b58ec75bbadcd6912d9d503e82/8484e/homeBcg.jpeg";
 // console.log(img1);
@@ -41,9 +42,9 @@ export default class IndexPage extends Component {
     super(props)
     this.state = {
       windowWidth: undefined,
-      clientInfo: null,
+      // clientInfo: null,
     }
-    this.myRef = React.createRef()
+    // this.myRef = React.createRef()
   }
 
   // state = {
@@ -60,26 +61,26 @@ export default class IndexPage extends Component {
     this.handleResize()
     window.addEventListener("resize", this.handleResize)
 
-    const url2 = "https://ipinfo.io/json"
-    const url1 = "https://api.ipdata.co/?api-key=test"
+    // const url2 = "https://ipinfo.io/json"
+    // const url1 = "https://api.ipdata.co/?api-key=test"
 
-    fetch(url1)
-      .then(response => response.json())
-      .then(data => {
-        if (!data.ip) {
-          fetch(url2)
-            .then(response => response.json())
-            .then(data => {
-              data.provider = "url2: ipinfo"
-              data.country_name = data.country
-              this.setState({ clientInfo: data })
-            })
-        } else {
-          data.provider = "url1: ipdata"
-          this.setState({ clientInfo: data })
-        }
-        this.myRef.current.click()
-      })
+    // fetch(url1)
+    //   .then(response => response.json())
+    //   .then(data => {
+    //     if (!data.ip) {
+    //       fetch(url2)
+    //         .then(response => response.json())
+    //         .then(data => {
+    //           data.provider = "url2: ipinfo"
+    //           data.country_name = data.country
+    //           this.setState({ clientInfo: data })
+    //         })
+    //     } else {
+    //       data.provider = "url1: ipdata"
+    //       this.setState({ clientInfo: data })
+    //     }
+    //     this.myRef.current.click()
+    //   })
   }
 
   componentWillUnmount() {
@@ -87,24 +88,24 @@ export default class IndexPage extends Component {
   }
 
   render() {
-    if (this.state.clientInfo) {
-      var { country_name } = this.state.clientInfo
-    } else {
-      country_name = "Iran"
-    }
+    // if (this.state.clientInfo) {
+    //   var { country_name } = this.state.clientInfo
+    // } else {
+    //   country_name = "Iran"
+    // }
     return (
       <ContextConsumer>
-        {({ landingDone, handleLanding, setFarsi, setEnglish }) => (
+        {({ landingDone }) => (
           <IndexWrapper
-            ref={this.myRef}
-            onClick={() => {
-              if (!landingDone) {
-                country_name === "Iran" || country_name === "IR"
-                  ? setFarsi()
-                  : setEnglish()
-                handleLanding()
-              }
-            }}
+          // ref={this.myRef}
+          // onClick={() => {
+          //   if (!landingDone) {
+          //     country_name === "Iran" || country_name === "IR"
+          //       ? setFarsi()
+          //       : setEnglish()
+          //     handleLanding()
+          //   }
+          // }}
           >
             {landingDone ? (
               <Layout>
@@ -127,7 +128,9 @@ export default class IndexPage extends Component {
                 <SubscribeInfo />
                 <Favourite />
               </Layout>
-            ) : null}
+            ) : (
+              <LandingCheck />
+            )}
           </IndexWrapper>
         )}
       </ContextConsumer>

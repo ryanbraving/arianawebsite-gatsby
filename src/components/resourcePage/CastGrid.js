@@ -8,7 +8,6 @@ export default class CastGrid extends Component {
   render() {
     const { id, title, subtitle, image } = this.props.cast
     const { type } = this.props
-    console.log(type)
 
     return (
       <CastWrapper>

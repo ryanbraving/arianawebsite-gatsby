@@ -16,6 +16,7 @@ import ServiceTabOnlineCoursesFR from "../components/servicePage/ServiceTab_Onli
 import ServiceTabOnlineCoursesEN from "../components/servicePage/ServiceTab_OnlineCourses_EN"
 import ServiceTabQnAFR from "../components/servicePage/ServiceTab_QuestionAnswer_FR"
 import ServiceTabQnAEN from "../components/servicePage/ServiceTab_QuestionAnswer_EN"
+import LandingCheck from "../components/LandingCheck"
 
 // import img from "../images/bcg/aboutBcg.jpeg"
 
@@ -86,35 +87,39 @@ class ServicePage extends Component {
 
     return (
       <ContextConsumer>
-        {({ isFarsi }) => (
-          <Layout>
-            <ServiceWrapper>
-              <ImageWrapper img={data.getImage.childImageSharp.fluid} />
-              <ServiceTabs tabNo={this.tabNo} link_tabNo={link_tabNo} />
-              {/* <Section> */}
-              {isFarsi && this.state.tabNo === 0 ? (
-                <ServiceTabPrivateCoachingFR />
-              ) : isFarsi && this.state.tabNo === 1 ? (
-                <ServiceTabGroupCoachingFR />
-              ) : isFarsi && this.state.tabNo === 2 ? (
-                <ServiceTabOnlineCoursesFR />
-              ) : isFarsi && this.state.tabNo === 3 ? (
-                <ServiceTabQnAFR />
-              ) : isFarsi && this.state.tabNo === 4 ? (
-                <Testimony />
-              ) : !isFarsi && this.state.tabNo === 0 ? (
-                <ServiceTabPrivateCoachingEN />
-              ) : !isFarsi && this.state.tabNo === 1 ? (
-                <ServiceTabGroupCoachingEN />
-              ) : !isFarsi && this.state.tabNo === 2 ? (
-                <ServiceTabOnlineCoursesEN />
-              ) : !isFarsi && this.state.tabNo === 3 ? (
-                <ServiceTabQnAEN />
-              ) : (
-                <Testimony />
-              )}
-            </ServiceWrapper>
-          </Layout>
+        {({ landingDone, isFarsi }) => (
+          <ServiceWrapper>
+            {landingDone ? (
+              <Layout>
+                <ImageWrapper img={data.getImage.childImageSharp.fluid} />
+                <ServiceTabs tabNo={this.tabNo} link_tabNo={link_tabNo} />
+                {/* <Section> */}
+                {isFarsi && this.state.tabNo === 0 ? (
+                  <ServiceTabPrivateCoachingFR />
+                ) : isFarsi && this.state.tabNo === 1 ? (
+                  <ServiceTabGroupCoachingFR />
+                ) : isFarsi && this.state.tabNo === 2 ? (
+                  <ServiceTabOnlineCoursesFR />
+                ) : isFarsi && this.state.tabNo === 3 ? (
+                  <ServiceTabQnAFR />
+                ) : isFarsi && this.state.tabNo === 4 ? (
+                  <Testimony />
+                ) : !isFarsi && this.state.tabNo === 0 ? (
+                  <ServiceTabPrivateCoachingEN />
+                ) : !isFarsi && this.state.tabNo === 1 ? (
+                  <ServiceTabGroupCoachingEN />
+                ) : !isFarsi && this.state.tabNo === 2 ? (
+                  <ServiceTabOnlineCoursesEN />
+                ) : !isFarsi && this.state.tabNo === 3 ? (
+                  <ServiceTabQnAEN />
+                ) : (
+                  <Testimony />
+                )}
+              </Layout>
+            ) : (
+              <LandingCheck />
+            )}
+          </ServiceWrapper>
         )}
       </ContextConsumer>
     )

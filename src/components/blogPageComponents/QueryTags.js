@@ -124,7 +124,7 @@ export default class Posts extends Component {
     const { language, tag } = pageContext
     return (
       <ContextConsumer>
-        {({ setLanguageInvisible, setFarsi, setEnglish }) => (
+        {({ setLanguageInvisible, setFarsi, setEnglish, handleLanding }) => (
           <Layout>
             <Section>
               <HeaderWrapper>
@@ -139,6 +139,7 @@ export default class Posts extends Component {
                 onClick={() => {
                   setLanguageInvisible()
                   language === "farsi" ? setFarsi() : setEnglish()
+                  handleLanding()
                 }}
               >
                 {language === "farsi"

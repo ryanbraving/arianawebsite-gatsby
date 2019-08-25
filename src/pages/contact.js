@@ -40,7 +40,7 @@ export default class ContactPage extends Component {
                 <Section style={{ paddingTop: "100px" }}>
                   {isFarsi ? (
                     <Title
-                      title="شبکه های اجتماعی"
+                      title="شبکه‌های اجتماعی"
                       message="دنبال کردن آریانا در فضای مجازی"
                     />
                   ) : (
@@ -57,7 +57,7 @@ export default class ContactPage extends Component {
                         direction: "rtl",
                       }}
                     >
-                      نام کاربری آریانا در تمام شبکه های اجتماعی
+                      نام کاربری آریانا در تمام شبکه‌های اجتماعی
                       <span
                         style={{
                           // color: `${styles.colors.mainBlack}`,
@@ -113,7 +113,7 @@ export default class ContactPage extends Component {
                         }}
                       >
                         <FaInstagram className="icon instagram-icon" />
-                        {isFarsi ? <h1>اینستاگرام</h1> : <h1>Instagram</h1>}
+                        {isFarsi ? <h3>اینستاگرام</h3> : <h3>Instagram</h3>}
                       </a>
                     </div>
                     <div className="item">
@@ -127,7 +127,7 @@ export default class ContactPage extends Component {
                         }}
                       >
                         <FaFacebook className="icon facebook-icon" />
-                        {isFarsi ? <h1>فیس بوک</h1> : <h1>Facebook</h1>}
+                        {isFarsi ? <h3>فیس‌بوک</h3> : <h3>Facebook</h3>}
                       </a>
                     </div>
                     <div className="item">
@@ -141,7 +141,7 @@ export default class ContactPage extends Component {
                         }}
                       >
                         <FaTelegram className="icon telegram-icon" />
-                        {isFarsi ? <h1>کانال تلگرام</h1> : <h1>Telegram</h1>}
+                        {isFarsi ? <h3>کانال تلگرام</h3> : <h3>Telegram</h3>}
                       </a>
                     </div>
                     <div className="item">
@@ -155,7 +155,7 @@ export default class ContactPage extends Component {
                         }}
                       >
                         <FaYoutube className="icon youtube-icon" />
-                        {isFarsi ? <h1>یوتیوب</h1> : <h1>YouTube</h1>}
+                        {isFarsi ? <h3>یوتیوب</h3> : <h3>YouTube</h3>}
                       </a>
                     </div>
                     <div className="item">
@@ -173,7 +173,7 @@ export default class ContactPage extends Component {
                           alt="aparat logo"
                           className="icon aparat-icon"
                         />
-                        {isFarsi ? <h1>آپارات</h1> : <h1>Aparat</h1>}
+                        {isFarsi ? <h3>آپارات</h3> : <h3>Aparat</h3>}
                       </a>
                     </div>
                   </IconWrapper>
@@ -230,7 +230,7 @@ const IconWrapper = styled.div`
   }
   
   .icon {
-    font-size:3.5rem;
+    font-size:3.0rem;
     cursor: pointer;
     ${styles.transObject({})};
     &:hover {

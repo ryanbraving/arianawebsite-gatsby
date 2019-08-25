@@ -70,6 +70,11 @@ class OutlinedTextFields extends React.Component {
     telegramId: "",
     howFindAriana: "",
     whyCoaching: "",
+    explaination: "",
+    mainProblem: "",
+    otherProblem: "",
+    expectation: "",
+    obstacle: "",
     thankName: "",
     hideSubscribe: true,
     clientInfo: null,
@@ -117,6 +122,11 @@ class OutlinedTextFields extends React.Component {
     const dbTelegramId = this.state.telegramId
     const dbHowFindAriana = this.state.howFindAriana
     const dbWhyCoaching = this.state.whyCoaching
+    const dbExplaination = this.state.explaination
+    const dbMainProblem = this.state.mainProblem
+    const dbOtherProblem = this.state.otherProblem
+    const dbExpectation = this.state.expectation
+    const dbObstacle = this.state.obstacle
     const dbClientInfo = this.state.clientInfo
     const dbCoachingTypeRequest = this.state.coachingTypeRequest
     this.setState({
@@ -128,6 +138,11 @@ class OutlinedTextFields extends React.Component {
       telegramId: "",
       howFindAriana: "",
       whyCoaching: "",
+      explaination: "",
+      mainProblem: "",
+      otherProblem: "",
+      expectation: "",
+      obstacle: "",
       hideSubscribe: false,
       coachingTypeRequest: "",
     })
@@ -147,6 +162,11 @@ class OutlinedTextFields extends React.Component {
         telegram: dbTelegramId,
         howFindAriana: dbHowFindAriana,
         whyCoaching: dbWhyCoaching,
+        explaination: dbExplaination,
+        mainProblem: dbMainProblem,
+        otherProblem: dbOtherProblem,
+        expectation: dbExpectation,
+        obstacle: dbObstacle,
         coachingTypeRequest: dbCoachingTypeRequest,
         createdAt: timeNow,
         clientInfo: dbClientInfo,
@@ -342,10 +362,155 @@ class OutlinedTextFields extends React.Component {
                 id="outlined-multiline-static"
                 multiline
                 rows="4"
-                label="Why coaching?"
-                helperText="For what problem or why in general are you looking to be coached? (please explain briefly)"
+                label="Write a brief description of your current life."
+                helperText="occupation, marital status, number of children, personal interests, ..."
+                value={this.state.explaination}
+                onChange={this.handleChange("explaination")}
+                margin="normal"
+                variant="outlined"
+                required
+                className={classes.textField}
+                // style={{ fontSize: "1.6rem" }}
+                // style={{ width: 300 }}
+                fullWidth
+                InputLabelProps={{
+                  classes: {
+                    root: classes.cssLabel,
+                    focused: classes.cssFocused,
+                  },
+                }}
+                InputProps={{
+                  classes: {
+                    root: classes.cssOutlinedInput,
+                    focused: classes.cssFocused,
+                    notchedOutline: classes.notchedOutline,
+                  },
+                }}
+              />
+              <TextField
+                id="outlined-multiline-static"
+                multiline
+                rows="4"
+                label="Why do you need coaching?"
+                helperText="What must change now (please explain briefly)"
                 value={this.state.whyCoaching}
                 onChange={this.handleChange("whyCoaching")}
+                margin="normal"
+                variant="outlined"
+                required
+                className={classes.textField}
+                // style={{ fontSize: "1.6rem" }}
+                // style={{ width: 300 }}
+                fullWidth
+                InputLabelProps={{
+                  classes: {
+                    root: classes.cssLabel,
+                    focused: classes.cssFocused,
+                  },
+                }}
+                InputProps={{
+                  classes: {
+                    root: classes.cssOutlinedInput,
+                    focused: classes.cssFocused,
+                    notchedOutline: classes.notchedOutline,
+                  },
+                }}
+              />
+              <TextField
+                id="outlined-multiline-static"
+                multiline
+                rows="4"
+                label="What is your biggest challange you are experiencing right now regarding this issue?"
+                // helperText="شغل، وضعیت تاهل، تعداد فرزندان، علایق شخصی و ..."
+                value={this.state.mainProblem}
+                onChange={this.handleChange("mainProblem")}
+                margin="normal"
+                variant="outlined"
+                required
+                className={classes.textField}
+                // style={{ fontSize: "1.6rem" }}
+                // style={{ width: 300 }}
+                fullWidth
+                InputLabelProps={{
+                  classes: {
+                    root: classes.cssLabel,
+                    focused: classes.cssFocused,
+                  },
+                }}
+                InputProps={{
+                  classes: {
+                    root: classes.cssOutlinedInput,
+                    focused: classes.cssFocused,
+                    notchedOutline: classes.notchedOutline,
+                  },
+                }}
+              />
+              <TextField
+                id="outlined-multiline-static"
+                multiline
+                rows="4"
+                label="What other things in your life are out of harmony?"
+                // helperText="شغل، وضعیت تاهل، تعداد فرزندان، علایق شخصی و ..."
+                value={this.state.otherProblem}
+                onChange={this.handleChange("otherProblem")}
+                margin="normal"
+                variant="outlined"
+                // required
+                className={classes.textField}
+                // style={{ fontSize: "1.6rem" }}
+                // style={{ width: 300 }}
+                fullWidth
+                InputLabelProps={{
+                  classes: {
+                    root: classes.cssLabel,
+                    focused: classes.cssFocused,
+                  },
+                }}
+                InputProps={{
+                  classes: {
+                    root: classes.cssOutlinedInput,
+                    focused: classes.cssFocused,
+                    notchedOutline: classes.notchedOutline,
+                  },
+                }}
+              />
+              <TextField
+                id="outlined-multiline-static"
+                multiline
+                rows="4"
+                label="What are you hoping to get out of this coaching engagement?"
+                // helperText="شغل، وضعیت تاهل، تعداد فرزندان، علایق شخصی و ..."
+                value={this.state.expectation}
+                onChange={this.handleChange("expectation")}
+                margin="normal"
+                variant="outlined"
+                required
+                className={classes.textField}
+                // style={{ fontSize: "1.6rem" }}
+                // style={{ width: 300 }}
+                fullWidth
+                InputLabelProps={{
+                  classes: {
+                    root: classes.cssLabel,
+                    focused: classes.cssFocused,
+                  },
+                }}
+                InputProps={{
+                  classes: {
+                    root: classes.cssOutlinedInput,
+                    focused: classes.cssFocused,
+                    notchedOutline: classes.notchedOutline,
+                  },
+                }}
+              />
+              <TextField
+                id="outlined-multiline-static"
+                multiline
+                rows="4"
+                label="What do you think is blocking you from achieving your desired outcome?"
+                // helperText="شغل، وضعیت تاهل، تعداد فرزندان، علایق شخصی و ..."
+                value={this.state.obstacle}
+                onChange={this.handleChange("obstacle")}
                 margin="normal"
                 variant="outlined"
                 required

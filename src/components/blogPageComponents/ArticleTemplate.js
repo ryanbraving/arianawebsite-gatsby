@@ -109,10 +109,11 @@ export default class ArticleTemplate extends Component {
 export function FarsiTemplate(data) {
   return (
     <div>
+      <h1> {data.getFrArticle.title}</h1>
       <p className="postedBy farsiText">
         نوشته شده توسط:{" "}
         <Link to="/about" className="ariana farsiText">
-          آریانا بریوینگ
+          آریانا بریوینگ{" "}
         </Link>
         , {timeDifferenceForDate(data.getFrArticle.createdAt, "farsi")}
       </p>
@@ -169,7 +170,7 @@ export function EnglishTemplate(data) {
       <p className="postedBy">
         Posted by{" "}
         <Link to="/about" className="ariana">
-          ARIANA BRAVING
+          ARIANA BRAVING{" "}
         </Link>
         , {timeDifferenceForDate(data.getEnArticle.createdAt, "english")}
       </p>
@@ -214,21 +215,20 @@ export function EnglishTemplate(data) {
 
 const TemplateWrapper = styled.div`
   margin: 5rem auto;
-  .socialNetwork{
+  .socialNetwork {
     text-align: center;
     margin-top: 4rem;
-    h5{
+    h5 {
       color: grey;
       margin-bottom: 1rem;
     }
-
   }
   h1 {
-    margin: 1rem auto;
-    text-shadow: 3px 0px 1px grey;
+    margin: 2rem auto;
+    text-shadow: 2px 0px 1px grey;
     text-align: center;
     text-transform: capitalize;
-    font-size: 3rem;
+    font-size: 2.3rem;
     letter-spacing: 0.1rem;
     font-weight: 700;
   }
@@ -246,19 +246,23 @@ const TemplateWrapper = styled.div`
     margin: 1rem auto 0.5rem auto;
     text-align: center;
     letter-spacing: 0.1rem;
+    color: green;
   }
   .ariana {
     text-decoration: none;
-    color: ${styles.colors.mainBlack};
+    color: green;
     letter-spacing: 0rem;
     font-weight: 700;
+    &:hover {
+      color: ${styles.colors.mainYellow};
+    }
   }
-  .farsiText{
+  .farsiText {
     direction: rtl;
     font-family: Vazir;
     letter-spacing: 0;
   }
-  
+
   .text {
     color: ${styles.colors.mainGrey};
 
@@ -267,21 +271,6 @@ const TemplateWrapper = styled.div`
     word-spacing: 0.2rem;
     text-align: justify;
     margin: 2rem auto;
-    @media (min-width: 768px) {
-      width: 90%;
-    }
-    @media (min-width: 992px) {
-      width: 80%;
-    }
-    @media (min-width: 1192px) {
-      width: 70%;
-    }
-    @media (min-width: 1292px) {
-      width: 60%;
-    }
-    @media (min-width: 1592px) {
-      width: 50%;
-    }
   }
   .farsibody {
     direction: rtl;
@@ -298,7 +287,7 @@ const TemplateWrapper = styled.div`
     background: green;
     /* padding: 0.5rem 1rem; */
     text-transform: uppercase;
-    font-size: 1.0rem;
+    font-size: 1rem;
     line-height: 2.5rem;
     letter-spacing: 0rem;
     font-weight: 700;
@@ -307,15 +296,29 @@ const TemplateWrapper = styled.div`
     border: none;
     ${styles.transition({ time: "0.7s" })};
     border-radius: 5px 5px 5px 5px;
-      -moz-border-radius: 5px 5px 5px 5px;
-      -webkit-border-radius: 5px 5px 5px 5px;
-    
-     &:hover {
+    -moz-border-radius: 5px 5px 5px 5px;
+    -webkit-border-radius: 5px 5px 5px 5px;
+
+    &:hover {
       /* font-size: 1.3rem; */
       -webkit-box-shadow: 0px 0px 9px 7px rgba(0, 0, 0, 0.75);
       -moz-box-shadow: 0px 0px 9px 7px rgba(0, 0, 0, 0.75);
       box-shadow: 0px 0px 9px 7px rgba(0, 0, 0, 0.75);
     }
-    }
+  }
+  @media (min-width: 768px) {
+    width: 90%;
+  }
+  @media (min-width: 992px) {
+    width: 80%;
+  }
+  @media (min-width: 1192px) {
+    width: 70%;
+  }
+  @media (min-width: 1292px) {
+    width: 60%;
+  }
+  @media (min-width: 1592px) {
+    width: 50%;
   }
 `

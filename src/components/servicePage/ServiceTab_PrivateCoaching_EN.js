@@ -148,7 +148,7 @@ class CoachingTab_PrivateCoaching_FR extends Component {
                 to="/coaching.request"
                 style={{ textDecoration: "none" }}
                 state={{
-                  coachingTypeRequest: "1 On 1",
+                  coachingTypeRequest: "1-On-1",
                 }}
               >
                 <SectionButton style={{ margin: "2rem auto" }}>
@@ -182,7 +182,7 @@ class CoachingTab_PrivateCoaching_FR extends Component {
                 to="/coaching.request"
                 style={{ textDecoration: "none" }}
                 state={{
-                  coachingTypeRequest: "Dig Deep",
+                  coachingTypeRequest: "Dig-Deep",
                 }}
               >
                 <SectionButton style={{ margin: "2rem auto" }}>
@@ -211,7 +211,7 @@ class CoachingTab_PrivateCoaching_FR extends Component {
                 to="/coaching.request"
                 style={{ textDecoration: "none" }}
                 state={{
-                  coachingTypeRequest: "Rebuild & Redesign",
+                  coachingTypeRequest: "Rebuild-Redesign",
                 }}
               >
                 <SectionButton style={{ margin: "2rem auto" }}>
@@ -227,7 +227,21 @@ class CoachingTab_PrivateCoaching_FR extends Component {
                 <br />
                 <b>Discount: 20%</b>
                 <br />
-                Fifteen 60 minute sessions over a six-month period. If you want to feel empowered to follow your personal goals and implement sustainable changes that set you up on your ideal life journey this package is for you. During this engagement Ariana will be your personal guide to decipher your limiting beliefs and ways of operating in the world while teaching you golden tools to breakthrough these self-limiting barriers. She will also act as your mentor to dig deep and connect with your heart’s deepest desires, clarify your goals, create your vision, and start building a staircase from where you currently are to where you want to be. During this process you will not only learn practical tools, but also gain valuable insight and knowledge that sets you up on a progressive path. The whole process makes you feel more confident, powerful, joyous, vibrant and healthier. 
+                Fifteen 60 minute sessions over a six-month period. If you want
+                to feel empowered to follow your personal goals and implement
+                sustainable changes that set you up on your ideal life journey
+                this package is for you. During this engagement Ariana will be
+                your personal guide to decipher your limiting beliefs and ways
+                of operating in the world while teaching you golden tools to
+                breakthrough these self-limiting barriers. She will also act as
+                your mentor to dig deep and connect with your heart’s deepest
+                desires, clarify your goals, create your vision, and start
+                building a staircase from where you currently are to where you
+                want to be. During this process you will not only learn
+                practical tools, but also gain valuable insight and knowledge
+                that sets you up on a progressive path. The whole process makes
+                you feel more confident, powerful, joyous, vibrant and
+                healthier.
                 {/* <ul style={{ listStyleType: "none" }}>
                   <li style={{ marginTop: "1.5rem" }}>
                     (۱) شناخت باورهای محدود کننده و اقدام برای رهایی از این
@@ -251,7 +265,7 @@ class CoachingTab_PrivateCoaching_FR extends Component {
                 to="/coaching.request"
                 style={{ textDecoration: "none" }}
                 state={{
-                  coachingTypeRequest: "Life Technique",
+                  coachingTypeRequest: "Life-Technique",
                 }}
               >
                 <SectionButton style={{ margin: "2rem auto" }}>

@@ -37,12 +37,12 @@ module.exports.english = function htmlTemplate(url) {
           <p>&nbsp;</p>
           
         
-        <p style="text-align: center; font-size: 12px">© 2019 Braving Academy Ltd, All Rights Reserved</p>
+          <p style="text-align: center; font-size: 12px;">This is a DoNotReply email and only used for verification purpose. To contact Ariana please use: info@ArianaBraving.com </p>
         
       </body>
     </html>
-  `;
-};
+  `
+}
 
 module.exports.farsi = function htmlTemplate(url) {
   return `
@@ -81,11 +81,11 @@ module.exports.farsi = function htmlTemplate(url) {
         </p>
         <p style="text-align: center; direction: rtl;"><span class="fixLinkColorIssue"><a href="${url}" class="button"> تایید ایمیل</a></span></p>
           <p>&nbsp;</p>
-          
-        
-        <p style="text-align: center; font-size: 12px">© 2019 Braving Academy Ltd, All Rights Reserved</p>
+
+        <p style="text-align: center; font-size: 12px; direction: rtl;">این ایمیل پاسخ داده نمی‌شود و از آن تنها برای تایید استفاده می‌گردد. برای تماس با آریانا می‌توانید از info@ArianaBraving.com استفاده کنید.  </p>
+                  
         
       </body>
     </html>
-  `;
-};
+  `
+}

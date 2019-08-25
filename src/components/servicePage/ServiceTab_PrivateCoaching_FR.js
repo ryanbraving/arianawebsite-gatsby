@@ -142,7 +142,7 @@ class CoachingTab_PrivateCoaching_FR extends Component {
                 to="/coaching.request"
                 style={{ textDecoration: "none" }}
                 state={{
-                  coachingTypeRequest: "1 On 1",
+                  coachingTypeRequest: "1-On-1",
                 }}
               >
                 <SectionButton style={{ margin: "2rem auto" }}>
@@ -173,7 +173,7 @@ class CoachingTab_PrivateCoaching_FR extends Component {
                 to="/coaching.request"
                 style={{ textDecoration: "none" }}
                 state={{
-                  coachingTypeRequest: "Dig Deep",
+                  coachingTypeRequest: "Dig-Deep",
                 }}
               >
                 <SectionButton style={{ margin: "2rem auto" }}>
@@ -209,7 +209,7 @@ class CoachingTab_PrivateCoaching_FR extends Component {
                 to="/coaching.request"
                 style={{ textDecoration: "none" }}
                 state={{
-                  coachingTypeRequest: "Rebuild & Redesign",
+                  coachingTypeRequest: "Rebuild-Redesign",
                 }}
               >
                 <SectionButton style={{ margin: "2rem auto" }}>
@@ -254,7 +254,7 @@ class CoachingTab_PrivateCoaching_FR extends Component {
                 to="/coaching.request"
                 style={{ textDecoration: "none" }}
                 state={{
-                  coachingTypeRequest: "Life Technique",
+                  coachingTypeRequest: "Life-Technique",
                 }}
               >
                 <SectionButton style={{ margin: "2rem auto" }}>

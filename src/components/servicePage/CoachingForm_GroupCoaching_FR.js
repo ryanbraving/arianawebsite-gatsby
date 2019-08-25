@@ -9,7 +9,7 @@ import {
 import TextField from "@material-ui/core/TextField"
 import purple from "@material-ui/core/colors/purple"
 import styled from "styled-components"
-import { styles, SectionButton, RTL } from "../../utils"
+import { styles, SectionButton, RTL, Section } from "../../utils"
 import firebase from "../../firebase/FirebaseConfigs"
 
 const db = firebase.firestore()
@@ -191,388 +191,389 @@ class OutlinedTextFields extends React.Component {
     this.state.coachingTypeRequest = coachingTypeRequest
 
     return (
-      <FormWrapper hideSubscribe={this.state.hideSubscribe}>
-        <form
-          className={
-            this.state.hideSubscribe
-              ? classnames(classes.container, "form-show")
-              : classnames(classes.container, "form-hide")
-          }
-          autoComplete="off"
-          onSubmit={this.addCoachingRequest}
-        >
-          <RTL>
-            <MuiThemeProvider theme={theme}>
-              <div dir="rtl">
-                <TextField
-                  id="outlined-name"
-                  label="نام و نام خانوادگی"
-                  helperText="نام کامل خود را وارد کنید"
-                  value={this.state.name}
-                  onChange={this.handleChange("name")}
-                  margin="normal"
-                  variant="outlined"
-                  // fullWidth
-                  required
-                  className={classes.textField}
-                  style={{ width: 300 }}
-                  InputLabelProps={{
-                    classes: {
-                      root: classes.cssLabel,
-                      focused: classes.cssFocused,
-                    },
-                  }}
-                  InputProps={{
-                    classes: {
-                      root: classes.cssOutlinedInput,
-                      focused: classes.cssFocused,
-                      notchedOutline: classes.notchedOutline,
-                    },
-                  }}
-                />
-                <TextField
-                  id="outlined-helperText"
-                  label="کشور و شهر محل اقامت "
-                  helperText="جهت آگاهی از اختلاف ساعت"
-                  value={this.state.country}
-                  onChange={this.handleChange("country")}
-                  margin="normal"
-                  variant="outlined"
-                  // fullWidth
-                  required
-                  className={classes.textField}
-                  style={{ width: 300 }}
-                  InputLabelProps={{
-                    classes: {
-                      root: classes.cssLabel,
-                      focused: classes.cssFocused,
-                    },
-                  }}
-                  InputProps={{
-                    classes: {
-                      root: classes.cssOutlinedInput,
-                      focused: classes.cssFocused,
-                      notchedOutline: classes.notchedOutline,
-                    },
-                  }}
-                />
-
-                <TextField
-                  id="outlined-email-input"
-                  label="ایمیل"
-                  helperText="ایمیل شما با کسی به اشتراک گذاشته نمی شود"
-                  value={this.state.email}
-                  onChange={this.handleChange("email")}
-                  type="email"
-                  margin="normal"
-                  variant="outlined"
-                  // fullWidth
-                  // required
-                  className={classes.textField}
-                  style={{ width: 300 }}
-                  InputLabelProps={{
-                    classes: {
-                      root: classes.cssLabel,
-                      focused: classes.cssFocused,
-                    },
-                  }}
-                  InputProps={{
-                    classes: {
-                      root: classes.cssOutlinedInput,
-                      focused: classes.cssFocused,
-                      notchedOutline: classes.notchedOutline,
-                    },
-                  }}
-                />
-                <TextField
-                  id="outlined-number"
-                  label="تلفن"
-                  helperText=""
-                  value={this.state.phoneNo}
-                  onChange={this.handleChange("phoneNo")}
-                  type="number"
-                  margin="normal"
-                  variant="outlined"
-                  // fullWidth
-                  className={classes.textField}
-                  style={{ width: 300 }}
-                  InputLabelProps={{
-                    classes: {
-                      root: classes.cssLabel,
-                      focused: classes.cssFocused,
-                    },
-                  }}
-                  InputProps={{
-                    classes: {
-                      root: classes.cssOutlinedInput,
-                      focused: classes.cssFocused,
-                      notchedOutline: classes.notchedOutline,
-                    },
-                  }}
-                />
-                <TextField
-                  id="outlined-helperText"
-                  label="نام کاربری تلگرام "
-                  helperText="در صورتیکه نام کاربری برای تلگرام ندارید، شماره تلفن تلگرام خود را وارد کنید"
-                  value={this.state.telegramId}
-                  onChange={this.handleChange("telegramId")}
-                  margin="normal"
-                  variant="outlined"
-                  className={classes.textField}
-                  // style={{ fontSize: "1.6rem" }}
-                  style={{ width: 300 }}
-                  // fullWidth
-                  InputLabelProps={{
-                    classes: {
-                      root: classes.cssLabel,
-                      focused: classes.cssFocused,
-                    },
-                  }}
-                  InputProps={{
-                    classes: {
-                      root: classes.cssOutlinedInput,
-                      focused: classes.cssFocused,
-                      notchedOutline: classes.notchedOutline,
-                    },
-                  }}
-                />
-                <TextField
-                  id="outlined-helperText"
-                  label="نحوه آشنایی"
-                  helperText="از چه طریقی با آریانا آشنا شده اید؟"
-                  value={this.state.howFindAriana}
-                  onChange={this.handleChange("howFindAriana")}
-                  margin="normal"
-                  variant="outlined"
-                  // fullWidth
-                  required
-                  className={classes.textField}
-                  style={{ width: 300 }}
-                  InputLabelProps={{
-                    classes: {
-                      root: classes.cssLabel,
-                      focused: classes.cssFocused,
-                    },
-                  }}
-                  InputProps={{
-                    classes: {
-                      root: classes.cssOutlinedInput,
-                      focused: classes.cssFocused,
-                      notchedOutline: classes.notchedOutline,
-                    },
-                  }}
-                />
-                <br />
-                <br />
-                <h3
-                  style={{
-                    // direction: "rtl",
-                    // textAlign: "center",
-                    color: `${styles.colors.mainGrey}`,
-                  }}
-                >
-                  در حال حاضر دوره های کوچینگ گروهی در سه موضوع زیر انجام می
-                  شود. لطفا موضوع مورد نظر خود را مشخص کنید:
-                </h3>
-                <br />
-                <h4
-                  style={{
-                    color: `${styles.colors.mainGrey}`,
-                  }}
-                >
-                  پذیرش خود و اعتماد به نفس - شناسایی افکار محدود کننده و تغییر
-                  ذهنیت - دعوت آرامش و مدیریت استرس
-                </h4>
-                <TextField
-                  id="outlined-helperText"
-                  label="موضوع کوچینگ"
-                  helperText="یکی از موضوعات بالا را انتخاب و در این قسمت وارد کنید"
-                  value={this.state.subject}
-                  onChange={this.handleChange("subject")}
-                  margin="normal"
-                  variant="outlined"
-                  required
-                  className={classes.textField}
-                  // style={{ fontSize: "1.6rem" }}
-                  // style={{ width: 300 }}
-                  fullWidth
-                  InputLabelProps={{
-                    classes: {
-                      root: classes.cssLabel,
-                      focused: classes.cssFocused,
-                    },
-                  }}
-                  InputProps={{
-                    classes: {
-                      root: classes.cssOutlinedInput,
-                      focused: classes.cssFocused,
-                      notchedOutline: classes.notchedOutline,
-                    },
-                  }}
-                />
-                <TextField
-                  id="outlined-multiline-static"
-                  multiline
-                  rows="4"
-                  label="خلاصه ای از شرایط فعلی زندگی خود بنویسید"
-                  helperText="شغل، وضعیت تاهل، تعداد فرزندان، علایق شخصی و ..."
-                  value={this.state.explaination}
-                  onChange={this.handleChange("explaination")}
-                  margin="normal"
-                  variant="outlined"
-                  required
-                  className={classes.textField}
-                  // style={{ fontSize: "1.6rem" }}
-                  // style={{ width: 300 }}
-                  fullWidth
-                  InputLabelProps={{
-                    classes: {
-                      root: classes.cssLabel,
-                      focused: classes.cssFocused,
-                    },
-                  }}
-                  InputProps={{
-                    classes: {
-                      root: classes.cssOutlinedInput,
-                      focused: classes.cssFocused,
-                      notchedOutline: classes.notchedOutline,
-                    },
-                  }}
-                />
-                <TextField
-                  id="outlined-multiline-static"
-                  multiline
-                  rows="4"
-                  label="بزرگترین مشکل شخصی زندگی شما در رابطه با این موضوع چیست؟"
-                  // helperText="شغل، وضعیت تاهل، تعداد فرزندان، علایق شخصی و ..."
-                  value={this.state.mainProblem}
-                  onChange={this.handleChange("mainProblem")}
-                  margin="normal"
-                  variant="outlined"
-                  required
-                  className={classes.textField}
-                  // style={{ fontSize: "1.6rem" }}
-                  // style={{ width: 300 }}
-                  fullWidth
-                  InputLabelProps={{
-                    classes: {
-                      root: classes.cssLabel,
-                      focused: classes.cssFocused,
-                    },
-                  }}
-                  InputProps={{
-                    classes: {
-                      root: classes.cssOutlinedInput,
-                      focused: classes.cssFocused,
-                      notchedOutline: classes.notchedOutline,
-                    },
-                  }}
-                />
-                <TextField
-                  id="outlined-multiline-static"
-                  multiline
-                  rows="4"
-                  label="چه مسایل دیگری در زندگی شما خارج از هارمونی و آزار دهنده است؟"
-                  // helperText="شغل، وضعیت تاهل، تعداد فرزندان، علایق شخصی و ..."
-                  value={this.state.otherProblem}
-                  onChange={this.handleChange("otherProblem")}
-                  margin="normal"
-                  variant="outlined"
-                  // required
-                  className={classes.textField}
-                  // style={{ fontSize: "1.6rem" }}
-                  // style={{ width: 300 }}
-                  fullWidth
-                  InputLabelProps={{
-                    classes: {
-                      root: classes.cssLabel,
-                      focused: classes.cssFocused,
-                    },
-                  }}
-                  InputProps={{
-                    classes: {
-                      root: classes.cssOutlinedInput,
-                      focused: classes.cssFocused,
-                      notchedOutline: classes.notchedOutline,
-                    },
-                  }}
-                />
-                <TextField
-                  id="outlined-multiline-static"
-                  multiline
-                  rows="4"
-                  label="انتظار دارید در انتهای این دوره به چه نتایجی برسید؟"
-                  // helperText="شغل، وضعیت تاهل، تعداد فرزندان، علایق شخصی و ..."
-                  value={this.state.expectation}
-                  onChange={this.handleChange("expectation")}
-                  margin="normal"
-                  variant="outlined"
-                  required
-                  className={classes.textField}
-                  // style={{ fontSize: "1.6rem" }}
-                  // style={{ width: 300 }}
-                  fullWidth
-                  InputLabelProps={{
-                    classes: {
-                      root: classes.cssLabel,
-                      focused: classes.cssFocused,
-                    },
-                  }}
-                  InputProps={{
-                    classes: {
-                      root: classes.cssOutlinedInput,
-                      focused: classes.cssFocused,
-                      notchedOutline: classes.notchedOutline,
-                    },
-                  }}
-                />
-                <TextField
-                  id="outlined-multiline-static"
-                  multiline
-                  rows="4"
-                  label="فکر می کنید موانع بر سر راه شما برای رسیدن به این نتایج چیست؟"
-                  // helperText="شغل، وضعیت تاهل، تعداد فرزندان، علایق شخصی و ..."
-                  value={this.state.obstacle}
-                  onChange={this.handleChange("obstacle")}
-                  margin="normal"
-                  variant="outlined"
-                  required
-                  className={classes.textField}
-                  // style={{ fontSize: "1.6rem" }}
-                  // style={{ width: 300 }}
-                  fullWidth
-                  InputLabelProps={{
-                    classes: {
-                      root: classes.cssLabel,
-                      focused: classes.cssFocused,
-                    },
-                  }}
-                  InputProps={{
-                    classes: {
-                      root: classes.cssOutlinedInput,
-                      focused: classes.cssFocused,
-                      notchedOutline: classes.notchedOutline,
-                    },
-                  }}
-                />
-              </div>
-            </MuiThemeProvider>
-          </RTL>
-
-          <SectionButton
-            type="submit"
-            // className="subscribeBtn"
-            style={{
-              margin: "2rem auto",
-              fontFamily: "Vazir",
-              fontSize: "1.5rem",
-              letterSpacing: "0.1rem",
-            }}
+      <Section>
+        <FormWrapper hideSubscribe={this.state.hideSubscribe}>
+          <form
+            className={
+              this.state.hideSubscribe
+                ? classnames(classes.container, "form-show")
+                : classnames(classes.container, "form-hide")
+            }
+            autoComplete="off"
+            onSubmit={this.addCoachingRequest}
           >
-            ارسال
-          </SectionButton>
+            <RTL>
+              <MuiThemeProvider theme={theme}>
+                <div dir="rtl">
+                  <TextField
+                    id="outlined-name"
+                    label="نام و نام خانوادگی"
+                    helperText="نام کامل خود را وارد کنید"
+                    value={this.state.name}
+                    onChange={this.handleChange("name")}
+                    margin="normal"
+                    variant="outlined"
+                    // fullWidth
+                    required
+                    className={classes.textField}
+                    style={{ width: 300 }}
+                    InputLabelProps={{
+                      classes: {
+                        root: classes.cssLabel,
+                        focused: classes.cssFocused,
+                      },
+                    }}
+                    InputProps={{
+                      classes: {
+                        root: classes.cssOutlinedInput,
+                        focused: classes.cssFocused,
+                        notchedOutline: classes.notchedOutline,
+                      },
+                    }}
+                  />
+                  <TextField
+                    id="outlined-helperText"
+                    label="کشور و شهر محل اقامت "
+                    helperText="جهت آگاهی از اختلاف ساعت"
+                    value={this.state.country}
+                    onChange={this.handleChange("country")}
+                    margin="normal"
+                    variant="outlined"
+                    // fullWidth
+                    required
+                    className={classes.textField}
+                    style={{ width: 300 }}
+                    InputLabelProps={{
+                      classes: {
+                        root: classes.cssLabel,
+                        focused: classes.cssFocused,
+                      },
+                    }}
+                    InputProps={{
+                      classes: {
+                        root: classes.cssOutlinedInput,
+                        focused: classes.cssFocused,
+                        notchedOutline: classes.notchedOutline,
+                      },
+                    }}
+                  />
 
-          {/* <Button
+                  <TextField
+                    id="outlined-email-input"
+                    label="ایمیل"
+                    helperText="ایمیل شما با کسی به اشتراک گذاشته نمی شود"
+                    value={this.state.email}
+                    onChange={this.handleChange("email")}
+                    type="email"
+                    margin="normal"
+                    variant="outlined"
+                    // fullWidth
+                    // required
+                    className={classes.textField}
+                    style={{ width: 300 }}
+                    InputLabelProps={{
+                      classes: {
+                        root: classes.cssLabel,
+                        focused: classes.cssFocused,
+                      },
+                    }}
+                    InputProps={{
+                      classes: {
+                        root: classes.cssOutlinedInput,
+                        focused: classes.cssFocused,
+                        notchedOutline: classes.notchedOutline,
+                      },
+                    }}
+                  />
+                  <TextField
+                    id="outlined-number"
+                    label="تلفن"
+                    helperText=""
+                    value={this.state.phoneNo}
+                    onChange={this.handleChange("phoneNo")}
+                    type="number"
+                    margin="normal"
+                    variant="outlined"
+                    // fullWidth
+                    className={classes.textField}
+                    style={{ width: 300 }}
+                    InputLabelProps={{
+                      classes: {
+                        root: classes.cssLabel,
+                        focused: classes.cssFocused,
+                      },
+                    }}
+                    InputProps={{
+                      classes: {
+                        root: classes.cssOutlinedInput,
+                        focused: classes.cssFocused,
+                        notchedOutline: classes.notchedOutline,
+                      },
+                    }}
+                  />
+                  <TextField
+                    id="outlined-helperText"
+                    label="نام کاربری تلگرام "
+                    helperText="در صورتیکه نام کاربری برای تلگرام ندارید، شماره تلفن تلگرام خود را وارد کنید"
+                    value={this.state.telegramId}
+                    onChange={this.handleChange("telegramId")}
+                    margin="normal"
+                    variant="outlined"
+                    className={classes.textField}
+                    // style={{ fontSize: "1.6rem" }}
+                    style={{ width: 300 }}
+                    // fullWidth
+                    InputLabelProps={{
+                      classes: {
+                        root: classes.cssLabel,
+                        focused: classes.cssFocused,
+                      },
+                    }}
+                    InputProps={{
+                      classes: {
+                        root: classes.cssOutlinedInput,
+                        focused: classes.cssFocused,
+                        notchedOutline: classes.notchedOutline,
+                      },
+                    }}
+                  />
+                  <TextField
+                    id="outlined-helperText"
+                    label="نحوه آشنایی"
+                    helperText="از چه طریقی با آریانا آشنا شده اید؟"
+                    value={this.state.howFindAriana}
+                    onChange={this.handleChange("howFindAriana")}
+                    margin="normal"
+                    variant="outlined"
+                    // fullWidth
+                    required
+                    className={classes.textField}
+                    style={{ width: 300 }}
+                    InputLabelProps={{
+                      classes: {
+                        root: classes.cssLabel,
+                        focused: classes.cssFocused,
+                      },
+                    }}
+                    InputProps={{
+                      classes: {
+                        root: classes.cssOutlinedInput,
+                        focused: classes.cssFocused,
+                        notchedOutline: classes.notchedOutline,
+                      },
+                    }}
+                  />
+                  <br />
+                  <br />
+                  <h3
+                    style={{
+                      // direction: "rtl",
+                      // textAlign: "center",
+                      color: `${styles.colors.mainGrey}`,
+                    }}
+                  >
+                    در حال حاضر دوره های کوچینگ گروهی در سه موضوع زیر انجام می
+                    شود. لطفا موضوع مورد نظر خود را مشخص کنید:
+                  </h3>
+                  <br />
+                  <h4
+                    style={{
+                      color: "green",
+                    }}
+                  >
+                    پذیرش خود و اعتماد به نفس - شناسایی افکار محدود کننده و
+                    تغییر ذهنیت - دعوت آرامش و مدیریت استرس
+                  </h4>
+                  <TextField
+                    id="outlined-helperText"
+                    label="موضوع کوچینگ"
+                    helperText="یکی از موضوعات بالا را انتخاب و در این قسمت وارد کنید"
+                    value={this.state.subject}
+                    onChange={this.handleChange("subject")}
+                    margin="normal"
+                    variant="outlined"
+                    required
+                    className={classes.textField}
+                    // style={{ fontSize: "1.6rem" }}
+                    // style={{ width: 300 }}
+                    fullWidth
+                    InputLabelProps={{
+                      classes: {
+                        root: classes.cssLabel,
+                        focused: classes.cssFocused,
+                      },
+                    }}
+                    InputProps={{
+                      classes: {
+                        root: classes.cssOutlinedInput,
+                        focused: classes.cssFocused,
+                        notchedOutline: classes.notchedOutline,
+                      },
+                    }}
+                  />
+                  <TextField
+                    id="outlined-multiline-static"
+                    multiline
+                    rows="4"
+                    label="بزرگترین مشکل شخصی زندگی شما در رابطه با این موضوع چیست؟"
+                    // helperText="شغل، وضعیت تاهل، تعداد فرزندان، علایق شخصی و ..."
+                    value={this.state.mainProblem}
+                    onChange={this.handleChange("mainProblem")}
+                    margin="normal"
+                    variant="outlined"
+                    required
+                    className={classes.textField}
+                    // style={{ fontSize: "1.6rem" }}
+                    // style={{ width: 300 }}
+                    fullWidth
+                    InputLabelProps={{
+                      classes: {
+                        root: classes.cssLabel,
+                        focused: classes.cssFocused,
+                      },
+                    }}
+                    InputProps={{
+                      classes: {
+                        root: classes.cssOutlinedInput,
+                        focused: classes.cssFocused,
+                        notchedOutline: classes.notchedOutline,
+                      },
+                    }}
+                  />
+                  <TextField
+                    id="outlined-multiline-static"
+                    multiline
+                    rows="4"
+                    label="چه مسایل دیگری در زندگی شما خارج از هارمونی و آزار دهنده است؟"
+                    // helperText="شغل، وضعیت تاهل، تعداد فرزندان، علایق شخصی و ..."
+                    value={this.state.otherProblem}
+                    onChange={this.handleChange("otherProblem")}
+                    margin="normal"
+                    variant="outlined"
+                    // required
+                    className={classes.textField}
+                    // style={{ fontSize: "1.6rem" }}
+                    // style={{ width: 300 }}
+                    fullWidth
+                    InputLabelProps={{
+                      classes: {
+                        root: classes.cssLabel,
+                        focused: classes.cssFocused,
+                      },
+                    }}
+                    InputProps={{
+                      classes: {
+                        root: classes.cssOutlinedInput,
+                        focused: classes.cssFocused,
+                        notchedOutline: classes.notchedOutline,
+                      },
+                    }}
+                  />
+                  <TextField
+                    id="outlined-multiline-static"
+                    multiline
+                    rows="4"
+                    label="انتظار دارید در انتهای این دوره به چه نتایجی برسید؟"
+                    // helperText="شغل، وضعیت تاهل، تعداد فرزندان، علایق شخصی و ..."
+                    value={this.state.expectation}
+                    onChange={this.handleChange("expectation")}
+                    margin="normal"
+                    variant="outlined"
+                    required
+                    className={classes.textField}
+                    // style={{ fontSize: "1.6rem" }}
+                    // style={{ width: 300 }}
+                    fullWidth
+                    InputLabelProps={{
+                      classes: {
+                        root: classes.cssLabel,
+                        focused: classes.cssFocused,
+                      },
+                    }}
+                    InputProps={{
+                      classes: {
+                        root: classes.cssOutlinedInput,
+                        focused: classes.cssFocused,
+                        notchedOutline: classes.notchedOutline,
+                      },
+                    }}
+                  />
+                  <TextField
+                    id="outlined-multiline-static"
+                    multiline
+                    rows="4"
+                    label="فکر می کنید موانع بر سر راه شما برای رسیدن به این نتایج چیست؟"
+                    // helperText="شغل، وضعیت تاهل، تعداد فرزندان، علایق شخصی و ..."
+                    value={this.state.obstacle}
+                    onChange={this.handleChange("obstacle")}
+                    margin="normal"
+                    variant="outlined"
+                    required
+                    className={classes.textField}
+                    // style={{ fontSize: "1.6rem" }}
+                    // style={{ width: 300 }}
+                    fullWidth
+                    InputLabelProps={{
+                      classes: {
+                        root: classes.cssLabel,
+                        focused: classes.cssFocused,
+                      },
+                    }}
+                    InputProps={{
+                      classes: {
+                        root: classes.cssOutlinedInput,
+                        focused: classes.cssFocused,
+                        notchedOutline: classes.notchedOutline,
+                      },
+                    }}
+                  />
+                  <TextField
+                    id="outlined-multiline-static"
+                    multiline
+                    rows="4"
+                    label="خلاصه ای از شرایط فعلی زندگی خود بنویسید"
+                    helperText="شغل، وضعیت تاهل، تعداد فرزندان، علایق شخصی و ..."
+                    value={this.state.explaination}
+                    onChange={this.handleChange("explaination")}
+                    margin="normal"
+                    variant="outlined"
+                    required
+                    className={classes.textField}
+                    // style={{ fontSize: "1.6rem" }}
+                    // style={{ width: 300 }}
+                    fullWidth
+                    InputLabelProps={{
+                      classes: {
+                        root: classes.cssLabel,
+                        focused: classes.cssFocused,
+                      },
+                    }}
+                    InputProps={{
+                      classes: {
+                        root: classes.cssOutlinedInput,
+                        focused: classes.cssFocused,
+                        notchedOutline: classes.notchedOutline,
+                      },
+                    }}
+                  />
+                </div>
+              </MuiThemeProvider>
+            </RTL>
+
+            <SectionButton
+              type="submit"
+              // className="subscribeBtn"
+              style={{
+                margin: "2rem auto",
+                fontFamily: "Vazir",
+                fontSize: "1.5rem",
+                letterSpacing: "0.1rem",
+              }}
+            >
+              ارسال
+            </SectionButton>
+
+            {/* <Button
             type="submit"
             variant="contained"
             size="large"
@@ -581,26 +582,29 @@ class OutlinedTextFields extends React.Component {
           >
             Subscribe
           </Button> */}
-        </form>
-        <h1
-          className={
-            this.state.hideSubscribe
-              ? "thanks thanks-hide"
-              : "thanks thanks-show"
-          }
-        >
-          تشکر <span className="thanks-name">{this.state.thankName}</span>
-          <br /> درخواست کوچینگ شما دریافت شد.
-          <br />
-          بزودی یک نفر از تیم پشتیبان آریانا با شما تماس می گیرد.
-        </h1>
+          </form>
+          <h1
+            className={
+              this.state.hideSubscribe
+                ? "thanks thanks-hide"
+                : "thanks thanks-show"
+            }
+          >
+            تشکر <span className="thanks-name">{this.state.thankName}</span>
+            <br /> درخواست کوچینگ شما دریافت شد.
+            <br />
+            بزودی یک نفر از تیم پشتیبان آریانا با شما تماس می گیرد.
+          </h1>
 
-        <p className={this.state.hideSubscribe ? "thanks-hide" : "thanks-show"}>
-          اگر در مدت سه روز کاری کسی با شما تماس نگرفت، لطفا توسط ایمیل:{" "}
-          <span style={{ color: "red" }}>info@ArianaBraving.com</span> یا
-          تلگرام: <span style={{ color: "red" }}>AskAriana@</span> اطلاع دهید.
-        </p>
-      </FormWrapper>
+          <p
+            className={this.state.hideSubscribe ? "thanks-hide" : "thanks-show"}
+          >
+            اگر در مدت سه روز کاری کسی با شما تماس نگرفت، لطفا توسط ایمیل:{" "}
+            <span style={{ color: "red" }}>info@ArianaBraving.com</span> یا
+            تلگرام: <span style={{ color: "red" }}>AskAriana@</span> اطلاع دهید.
+          </p>
+        </FormWrapper>
+      </Section>
     )
   }
 }

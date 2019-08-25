@@ -87,7 +87,7 @@ class CoachingTab_GroupCoaching_FR extends Component {
               to="/coaching.group.request"
               style={{ textDecoration: "none" }}
               state={{
-                coachingTypeRequest: "group-coaching",
+                coachingTypeRequest: "Group-Coaching",
               }}
             >
               <SectionButton style={{ margin: "2rem auto" }}>

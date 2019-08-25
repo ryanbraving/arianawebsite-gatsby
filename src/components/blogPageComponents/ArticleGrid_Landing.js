@@ -77,7 +77,7 @@ const ArticleGridWrapper = styled.ul`
     left: 50%;
     transform: translate(-50%, -50%);
     font-family: Vazir;
-    margin: 1rem 0 0 0;
+    margin: 2rem 0 0 0;
     color: ${styles.colors.mainGrey};
     ${styles.border({ color: `${styles.colors.mainGrey}` })};
     background: transparent;

@@ -8,7 +8,7 @@ import ClipLoader from "react-spinners/ClipLoader"
 // Can be a string as well. Need to ensure each key-value pair ends with ;
 const override = css`
   display: block;
-  margin: 0 auto;
+  margin: 2rem auto;
   border-color: red;
 `
 
@@ -24,11 +24,11 @@ export default class Spinner extends Component {
       <div className="sweet-loading">
         <h1> Welcome to Ariana Braving website</h1>
         <h1>Please take a deep breath!</h1>
-        <h1>Website is loading ...</h1>
+        <h1 style={{ marginBottom: "3rem" }}>Website is loading ...</h1>
         <ClipLoader
           css={override}
           sizeUnit={"px"}
-          size={150}
+          size={70}
           color={"#123abc"}
           loading={this.state.loading}
         />

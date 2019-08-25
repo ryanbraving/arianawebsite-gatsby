@@ -50,7 +50,7 @@ class CoachingTab_OnlineCourses_FR extends Component {
               to="/coaching.onlinecourses.request"
               style={{ textDecoration: "none" }}
               state={{
-                coachingTypeRequest: "group-coaching",
+                coachingTypeRequest: "Online-Course",
               }}
             >
               <SectionButton style={{ margin: "2rem auto" }}>

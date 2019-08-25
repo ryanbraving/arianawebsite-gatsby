@@ -15,11 +15,32 @@ const admin = require("firebase-admin")
 admin.initializeApp()
 
 const TelegramBot = require("node-telegram-bot-api")
-const token = functions.config().bot.token
-const bot = new TelegramBot(token, { polling: false })
+const token_subscription = functions.config().bot.token_subscription
+const token_inquiry = functions.config().bot.token_inquiry
+const token_private_coaching_request = functions.config().bot
+  .token_private_coaching_request
+const token_group_coaching_request = functions.config().bot
+  .token_group_coaching_request
+const token_online_course_request = functions.config().bot
+  .token_online_course_request
+const botSubscription = new TelegramBot(token_subscription, { polling: false })
+const botInquiry = new TelegramBot(token_inquiry, { polling: false })
+const botPrivateCoachingReq = new TelegramBot(token_private_coaching_request, {
+  polling: false,
+})
+const botGroupCoachingReq = new TelegramBot(token_group_coaching_request, {
+  polling: false,
+})
+const botOnlineCourseReq = new TelegramBot(token_online_course_request, {
+  polling: false,
+})
+const chatid_Ariana = functions.config().bot.chatid_ariana
+const chatid_Ryan = functions.config().bot.chatid_ryan
+
 const nodemailer = require("nodemailer")
 const cors = require("cors")({ origin: true })
 const htmlTemplate = require("./components/email.templates")
+const Messages = require("./components/bot.messages")
 
 const credentials = {
   host: "smtp.gmail.com",
@@ -36,6 +57,97 @@ const CLIENT_ORIGIN =
   // so if name of next function changed then this address has to be matched with that
   "https://us-central1-ariana-website.cloudfunctions.net/confirmEmail"
 const transporter = nodemailer.createTransport(credentials)
+
+exports.privateCoachingRequestFR = functions.firestore
+  .document("Request-PrivateCoaching-FR/{docId}")
+  .onCreate((snap, context) => {
+    const botMessage = Messages.privateCoachingFR(snap)
+    try {
+      botPrivateCoachingReq.sendMessage(chatid_Ariana, botMessage)
+      botPrivateCoachingReq.sendMessage(chatid_Ryan, botMessage)
+    } catch (error) {
+      console.error("There was an error while sending the email:", error)
+    }
+    return null
+  })
+
+exports.privateCoachingRequestEN = functions.firestore
+  .document("Request-PrivateCoaching-EN/{docId}")
+  .onCreate((snap, context) => {
+    const botMessage = Messages.privateCoachingEN(snap)
+    try {
+      botPrivateCoachingReq.sendMessage(chatid_Ariana, botMessage)
+      botPrivateCoachingReq.sendMessage(chatid_Ryan, botMessage)
+    } catch (error) {
+      console.error("There was an error while sending the email:", error)
+    }
+    return null
+  })
+
+exports.groupCoachingRequestFR = functions.firestore
+  .document("Request-GroupCoaching-FR/{docId}")
+  .onCreate((snap, context) => {
+    const botMessage = Messages.groupCoachingFR(snap)
+    try {
+      botGroupCoachingReq.sendMessage(chatid_Ariana, botMessage)
+      botGroupCoachingReq.sendMessage(chatid_Ryan, botMessage)
+    } catch (error) {
+      console.error("There was an error while sending the email:", error)
+    }
+    return null
+  })
+
+exports.groupCoachingRequestEN = functions.firestore
+  .document("Request-GroupCoaching-EN/{docId}")
+  .onCreate((snap, context) => {
+    const botMessage = Messages.groupCoachingEN(snap)
+    try {
+      botGroupCoachingReq.sendMessage(chatid_Ariana, botMessage)
+      botGroupCoachingReq.sendMessage(chatid_Ryan, botMessage)
+    } catch (error) {
+      console.error("There was an error while sending the email:", error)
+    }
+    return null
+  })
+
+exports.onlineCourseRequestFR = functions.firestore
+  .document("Request-OnlineCourses-IdealLife-FR/{docId}")
+  .onCreate((snap, context) => {
+    const botMessage = Messages.onlineCourseFR(snap)
+    try {
+      botOnlineCourseReq.sendMessage(chatid_Ariana, botMessage)
+      botOnlineCourseReq.sendMessage(chatid_Ryan, botMessage)
+    } catch (error) {
+      console.error("There was an error while sending the email:", error)
+    }
+    return null
+  })
+
+exports.receivedInquiryFR = functions.firestore
+  .document("Contact-FR/{docId}")
+  .onCreate((snap, context) => {
+    const botMessage = Messages.inquiryFR(snap)
+    try {
+      botInquiry.sendMessage(chatid_Ariana, botMessage)
+      botInquiry.sendMessage(chatid_Ryan, botMessage)
+    } catch (error) {
+      console.error("There was an error while sending the email:", error)
+    }
+    return null
+  })
+
+exports.receivedInquiryEN = functions.firestore
+  .document("Contact-EN/{docId}")
+  .onCreate((snap, context) => {
+    const botMessage = Messages.inquiryEN(snap)
+    try {
+      botInquiry.sendMessage(chatid_Ariana, botMessage)
+      botInquiry.sendMessage(chatid_Ryan, botMessage)
+    } catch (error) {
+      console.error("There was an error while sending the email:", error)
+    }
+    return null
+  })
 
 exports.sendEmailEN = functions.firestore
   .document("Unverified-Emails-EN/{docId}")
@@ -163,7 +275,16 @@ exports.confirmEmail = functions.https.onRequest((req, res) => {
                   "شهر: " +
                   city
               }
-              bot.sendMessage(functions.config().bot.chatid, botMessage)
+              // botSubscription.sendMessage(
+              //   functions.config().bot.chadid_ryan,
+              //   botMessage
+              // )
+              // botSubscription.sendMessage(
+              //   functions.config().bot.chadid_ariana,
+              //   botMessage
+              // )
+              botSubscription.sendMessage(chatid_Ariana, botMessage)
+              botSubscription.sendMessage(chatid_Ryan, botMessage)
               return res.redirect(urlRedirect + urlSuccess)
             })
             .catch(function(error) {
@@ -217,12 +338,14 @@ const documentCounter = (collectionName, docName, language) => (
             count: ((docSnap.data() && docSnap.data().count) || 0) + 1,
           })
           // send a telegram message
-          var count = "Count= "
+          var botMessage = ""
           if (language === "FR") {
-            count = "تعداد= "
+            botMessage = "تعداد= " + (docSnap.data().count + 1).toString()
+          } else {
+            botMessage = "Count= " + docSnap.data().count.toString()
           }
-          let botMessage = count + (docSnap.data().count + 1).toString()
-          bot.sendMessage(functions.config().bot.chatid, botMessage)
+          botSubscription.sendMessage(chatid_Ariana, botMessage)
+          botSubscription.sendMessage(chatid_Ryan, botMessage)
         })
       // on delete
     } else if (change.before.exists && !change.after.exists) {
@@ -237,13 +360,15 @@ const documentCounter = (collectionName, docName, language) => (
           t.set(docSnap.ref, {
             count: docSnap.data().count - 1,
           })
-          var count = "Count= "
+          var botMessage = ""
           if (language === "FR") {
-            count = "تعداد= "
+            botMessage = "تعداد= " + (docSnap.data().count - 1).toString()
+          } else {
+            botMessage = "Count= " + (docSnap.data().count - 2).toString()
           }
           // send a telegram message
-          let botMessage = count + (docSnap.data().count - 1).toString()
-          bot.sendMessage(functions.config().bot.chatid, botMessage)
+          botSubscription.sendMessage(chatid_Ariana, botMessage)
+          botSubscription.sendMessage(chatid_Ryan, botMessage)
         })
       //on update
     }

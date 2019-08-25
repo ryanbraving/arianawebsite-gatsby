@@ -282,7 +282,7 @@ class OutlinedTextFields extends React.Component {
             type="submit"
             // className="subscribeBtn"
             style={{
-              margin: "2rem auto",
+              margin: "2rem auto 0rem auto",
               fontFamily: "Vazir",
               fontSize: "1.5rem",
               letterSpacing: "0.1rem",
@@ -309,7 +309,7 @@ class OutlinedTextFields extends React.Component {
           }
         >
           تشکر <span className="thanks-name">{this.state.thankName}</span>
-          <br /> درخواست کوچینگ شما دریافت شد.
+          <br /> پیغام شما دریافت شد.
           <br />
           بزودی یک نفر از تیم پشتیبان آریانا با شما تماس می گیرد.
         </h1>
@@ -351,12 +351,12 @@ const FormWrapper = styled.div`
   }
   .thanks{
     direction: rtl;
-    margin: 1rem auto;
+    margin: 0rem auto 1rem auto;
     color: ${styles.colors.mainGrey};
     font-size: 1.3rem;
     letter-spacing: 0rem;
     text-align: center;
-    line-height: 4.7rem;
+    line-height: 3.7rem;
     word-spacing: 0.2rem;
   }
   .thanks-hide {

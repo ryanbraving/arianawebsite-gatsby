@@ -46,8 +46,7 @@ export default class SubscribeInfo extends Component {
                       color: `${styles.colors.mainGrey}`,
                     }}
                   >
-                    After submitting this form, more inforntion about how Ariana
-                    works and associated costs will be sent to you.
+                    After submitting this form, you will be notified of the next step and the associated costs.
                   </h3>
                 </div>
               )}

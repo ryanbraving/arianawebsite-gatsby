@@ -10,9 +10,11 @@ import TextField from "@material-ui/core/TextField"
 import purple from "@material-ui/core/colors/purple"
 import styled from "styled-components"
 import { styles, SectionButton, RTL } from "../../utils"
-import firebase from "../../firebase/FirebaseConfigs"
+import DDB from "../../aws/AWS_Config"
+import uuid from "uuid"
+// import firebase from "../../firebase/FirebaseConfigs"
 
-const db = firebase.firestore()
+// const db = firebase.firestore()
 const colorPick = styles.colors.mainYellow
 const stylesMaterialui = theme => ({
   container: {
@@ -107,42 +109,66 @@ class OutlinedTextFields extends React.Component {
   addContact = e => {
     e.preventDefault()
     const dbName = this.state.name
-    const dbEmail = this.state.email
-    const dbPhoneOrtId = this.state.phoneOrtId
+    var dbEmail = this.state.email
+    if (dbEmail === "") dbEmail = "None"
+    var dbPhoneOrtId = this.state.phoneOrtId
+    if (dbPhoneOrtId === "") dbPhoneOrtId = "None"
     const dbComment = this.state.comment
     const dbClientInfo = this.state.clientInfo
     this.setState({
       thankName: this.state.name,
       name: "",
       email: "",
-      phoneNo: 0,
+      phoneNo: "",
       phoneOrtId: "",
       comment: "",
       hideSubscribe: false,
     })
 
-    const timeNow = firebase.firestore.FieldValue.serverTimestamp()
-    var refDoc = db
-      .collection("Contact-FR")
-      // .doc(dbEmail.toLowerCase());
-      .doc()
-    refDoc
-      .set({
-        docId: refDoc.id,
-        name: dbName,
-        email: dbEmail,
-        phoneOrtId: dbPhoneOrtId,
-        comment: dbComment,
-        createdAt: timeNow,
-        clientInfo: dbClientInfo,
-      })
-      .then(function() {
-        // console.log("Document successfully written!");
-      })
-      .catch(function(error) {
-        console.error("Error writing document: ", error)
-      })
-    // this.sendEmail(dbName, dbEmail);
+    const timeNowISO = new Date().toISOString()
+
+    var params = {
+      TableName: "ArianaBraving-Contact-FR",
+      Item: {
+        id: { S: uuid() },
+        name: { S: dbName },
+        email: { S: dbEmail },
+        phoneOrtId: { S: dbPhoneOrtId },
+        comment: { S: dbComment },
+        createdAt: { S: timeNowISO },
+        api_country_name: { S: dbClientInfo.country_name },
+        api_region: { S: dbClientInfo.region },
+        api_city: { S: dbClientInfo.city },
+        api_ip: { S: dbClientInfo.ip },
+        api_provider: { S: dbClientInfo.provider },
+      },
+    }
+    DDB.putItem(params, function(err, data) {
+      if (err) {
+        console.log("Error", err)
+      }
+    })
+
+    // const timeNow = firebase.firestore.FieldValue.serverTimestamp()
+    // var refDoc = db
+    //   .collection("Contact-FR")
+    //   // .doc(dbEmail.toLowerCase());
+    //   .doc()
+    // refDoc
+    //   .set({
+    //     docId: refDoc.id,
+    //     name: dbName,
+    //     email: dbEmail,
+    //     phoneOrtId: dbPhoneOrtId,
+    //     comment: dbComment,
+    //     createdAt: timeNow,
+    //     clientInfo: dbClientInfo,
+    //   })
+    //   .then(function() {
+    //   })
+    //   .catch(function(error) {
+    //     console.error("Error writing document: ", error)
+    //   })
   }
 
   // sendEmail = (name, email) => {

@@ -17,7 +17,7 @@ import ServiceTabOnlineCoursesEN from "../components/servicePage/ServiceTab_Onli
 import ServiceTabQnAFR from "../components/servicePage/ServiceTab_QuestionAnswer_FR"
 import ServiceTabQnAEN from "../components/servicePage/ServiceTab_QuestionAnswer_EN"
 import LandingCheck from "../components/LandingCheck"
-
+import ImageSerices from "../images/images_JS/imageServices"
 // import img from "../images/bcg/aboutBcg.jpeg"
 
 // export default class AboutPage extends Component {
@@ -60,6 +60,7 @@ const stylesTheme = theme => ({
 class ServicePage extends Component {
   state = {
     tabNo: 0,
+    windowWidth: undefined,
   }
 
   tabNo = no => {
@@ -67,6 +68,19 @@ class ServicePage extends Component {
       tabNo: no,
     })
     // console.log(this.state.tabNo)
+  }
+
+  handleResize = () => {
+    this.setState({
+      windowWidth: window.innerWidth,
+    })
+  }
+  componentDidMount() {
+    this.handleResize()
+    window.addEventListener("resize", this.handleResize)
+  }
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.handleResize)
   }
 
   render() {
@@ -91,26 +105,29 @@ class ServicePage extends Component {
           <ServiceWrapper>
             {landingDone ? (
               <Layout>
-                <ImageWrapper img={data.getImage.childImageSharp.fluid} />
+                {this.state.windowWidth >= 980 ? (
+                  <ImageWrapper img={data.getImage.childImageSharp.fluid} />
+                ): (<ImageSerices/>)
+                }
                 <ServiceTabs tabNo={this.tabNo} link_tabNo={link_tabNo} />
                 {/* <Section> */}
                 {isFarsi && this.state.tabNo === 0 ? (
                   <ServiceTabPrivateCoachingFR />
                 ) : isFarsi && this.state.tabNo === 1 ? (
                   <ServiceTabGroupCoachingFR />
+                // ) : isFarsi && this.state.tabNo === 2 ? (
+                //   <ServiceTabOnlineCoursesFR />
                 ) : isFarsi && this.state.tabNo === 2 ? (
-                  <ServiceTabOnlineCoursesFR />
-                ) : isFarsi && this.state.tabNo === 3 ? (
                   <ServiceTabQnAFR />
-                ) : isFarsi && this.state.tabNo === 4 ? (
+                ) : isFarsi && this.state.tabNo === 3 ? (
                   <Testimony />
                 ) : !isFarsi && this.state.tabNo === 0 ? (
                   <ServiceTabPrivateCoachingEN />
                 ) : !isFarsi && this.state.tabNo === 1 ? (
                   <ServiceTabGroupCoachingEN />
+                // ) : !isFarsi && this.state.tabNo === 2 ? (
+                //   <ServiceTabOnlineCoursesEN />
                 ) : !isFarsi && this.state.tabNo === 2 ? (
-                  <ServiceTabOnlineCoursesEN />
-                ) : !isFarsi && this.state.tabNo === 3 ? (
                   <ServiceTabQnAEN />
                 ) : (
                   <Testimony />

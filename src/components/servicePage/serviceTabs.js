@@ -58,7 +58,7 @@ class CenteredTabs extends Component {
     this.setState({ value: value })
   }
   handleChangeFR = (event, value) => {
-    value = Math.abs(4 - value)
+    value = Math.abs(3 - value)
     this.setState({ value: value })
   }
   // componentDidMount() {
@@ -83,7 +83,7 @@ class CenteredTabs extends Component {
               <Paper className={classes.root}>
                 {isFarsi ? (
                   <Tabs
-                    value={4 - this.state.value}
+                    value={3 - this.state.value}
                     onChange={this.handleChangeFR}
                     indicatorColor="secondary"
                     textColor="secondary"
@@ -99,24 +99,24 @@ class CenteredTabs extends Component {
                       label="تجربه دیگران"
                       // label="درباره آریانا"
                       onClick={() => {
-                        tabNo(4)
+                        tabNo(3)
                       }}
                     />
                     <Tab
                       classes={{ root: classes.tabRoot }}
                       label="سوالات متداول"
                       onClick={() => {
-                        tabNo(3)
+                        tabNo(2)
                       }}
                     />
-                    <Tab
+                    {/* <Tab
                       classes={{ root: classes.tabRoot }}
                       label="دوره‌های آنلاین"
                       // label="سخن دیگران"
                       onClick={() => {
                         tabNo(2)
                       }}
-                    />
+                    /> */}
                     <Tab
                       classes={{ root: classes.tabRoot }}
                       label="کوچینگ گروهی"
@@ -158,25 +158,25 @@ class CenteredTabs extends Component {
                         tabNo(1)
                       }}
                     />
-                    <Tab
+                    {/* <Tab
                       classes={{ root: classes.tabRoot }}
                       label="Online Courses"
+                      onClick={() => {
+                        tabNo(2)
+                      }}
+                    /> */}
+                    <Tab
+                      classes={{ root: classes.tabRoot }}
+                      label="Q & A"
                       onClick={() => {
                         tabNo(2)
                       }}
                     />
                     <Tab
                       classes={{ root: classes.tabRoot }}
-                      label="Q & A"
-                      onClick={() => {
-                        tabNo(3)
-                      }}
-                    />
-                    <Tab
-                      classes={{ root: classes.tabRoot }}
                       label="Clients' Experiences"
                       onClick={() => {
-                        tabNo(4)
+                        tabNo(3)
                       }}
                     />
                   </Tabs>

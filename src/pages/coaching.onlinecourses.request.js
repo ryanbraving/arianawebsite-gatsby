@@ -5,6 +5,8 @@ import styled from "styled-components"
 import ContextConsumer from "../components/Context"
 import OnlineCoursesFormFR from "../components/servicePage/CoachingForm_OnlineCourses_FR"
 import OnlineCoursesFormEN from "../components/servicePage/CoachingForm_OnlineCourses_FR"
+import LandingCheck from "../components/LandingCheck"
+
 export default class SubscribeInfo extends Component {
   render() {
     const { location } = this.props
@@ -15,65 +17,71 @@ export default class SubscribeInfo extends Component {
 
     return (
       <ContextConsumer>
-        {({ isFarsi }) => (
-          <Layout>
-            <Section style={{ paddingTop: "100px" }}>
-              {isFarsi ? (
-                <div>
-                  <Title
-                    title="فرم زیر را پر کنید"
-                    message="دوره آموزشی سفر خلق زندگی ایده آل"
-                  />
-                  <h3
-                    style={{
-                      textAlign: "center",
-                      color: `${styles.colors.mainGrey}`,
-                      direction: "rtl",
-                    }}
-                  >
-                    پس از تکمیل و ارسال فرم زیر نحوه کار با آریانا و هزینه های
-                    مرتبط برای شما فرستاده می شود. اما شروع هر دوره کوچینگ زمانی
-                    است که تعداد ثبت نامها به حد نصاب برسد.
-                  </h3>
-                </div>
-              ) : (
-                <div>
-                  <Title
-                    title="fill up the following form"
-                    message="To be coached with Ariana"
-                  />
-                  <h3
-                    style={{
-                      textAlign: "center",
-                      color: `${styles.colors.mainGrey}`,
-                    }}
-                  >
-                    After submitting this form, more inforntion about how Ariana
-                    works and associated costs will be sent to you.
-                  </h3>
-                </div>
-              )}
+        {({ landingDone, isFarsi }) => (
+          <React.Fragment>
+            {landingDone ? (
+              <Layout>
+                <Section style={{ paddingTop: "100px" }}>
+                  {isFarsi ? (
+                    <div>
+                      <Title
+                        title="فرم زیر را پر کنید"
+                        message="دوره آموزشی سفر خلق زندگی ایده آل"
+                      />
+                      <h3
+                        style={{
+                          textAlign: "center",
+                          color: `${styles.colors.mainGrey}`,
+                          direction: "rtl",
+                        }}
+                      >
+                        پس از تکمیل و ارسال فرم زیر نحوه کار با آریانا و هزینه
+                        های مرتبط برای شما فرستاده می شود. اما شروع هر دوره
+                        کوچینگ زمانی است که تعداد ثبت نامها به حد نصاب برسد.
+                      </h3>
+                    </div>
+                  ) : (
+                    <div>
+                      <Title
+                        title="fill up the following form"
+                        message="To be coached with Ariana"
+                      />
+                      <h3
+                        style={{
+                          textAlign: "center",
+                          color: `${styles.colors.mainGrey}`,
+                        }}
+                      >
+                        After submitting this form, more inforntion about how
+                        Ariana works and associated costs will be sent to you.
+                      </h3>
+                    </div>
+                  )}
 
-              <CoachingWrapper>
-                {/* <h1 className="text">
+                  <CoachingWrapper>
+                    {/* <h1 className="text">
             Subscribe to stay updated and receive freebies!
           </h1> */}
-                {/* <SectionButton style={{ margin: "2rem auto" }}>
+                    {/* <SectionButton style={{ margin: "2rem auto" }}>
             {" "}
             subscrib{" "}
           </SectionButton> */}
-                {isFarsi ? (
-                  <OnlineCoursesFormFR
-                    coachingTypeRequest={coachingTypeRequest}
-                  />
-                ) : (
-                  <OnlineCoursesFormEN
-                    coachingTypeRequest={coachingTypeRequest}
-                  />
-                )}
-              </CoachingWrapper>
-            </Section>
-          </Layout>
+                    {isFarsi ? (
+                      <OnlineCoursesFormFR
+                        coachingTypeRequest={coachingTypeRequest}
+                      />
+                    ) : (
+                      <OnlineCoursesFormEN
+                        coachingTypeRequest={coachingTypeRequest}
+                      />
+                    )}
+                  </CoachingWrapper>
+                </Section>
+              </Layout>
+            ) : (
+              <LandingCheck />
+            )}
+          </React.Fragment>
         )}
       </ContextConsumer>
     )

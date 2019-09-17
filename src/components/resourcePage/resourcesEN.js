@@ -1,7 +1,8 @@
-import React from "react"
+import React, { Component } from "react"
 import { StaticQuery, graphql } from "gatsby"
 import styled from "styled-components"
 import QueryArticles from "../blogPageComponents/QueryArticles"
+import ImageResources from "../../images/images_JS/imageResources"
 
 const GET_IMAGE = graphql`
   query {
@@ -14,23 +15,43 @@ const GET_IMAGE = graphql`
     }
   }
 `
-
-const BlogPage = () => {
-  return (
-    <React.Fragment>
-      <StaticQuery
-        query={GET_IMAGE}
-        render={data => {
-          return (
-            <ImageWrapper img={data.getImage.childImageSharp.fluid}>
-              {/* <Banner title="blog" subtitle={`let's dig in `} /> */}
-            </ImageWrapper>
-          )
-        }}
-      />
-      <QueryArticles />
-    </React.Fragment>
-  )
+export default class BlogPage extends Component {
+  state = {
+    windowWidth: undefined,
+  }
+  handleResize = () => {
+    this.setState({
+      windowWidth: window.innerWidth,
+    })
+  }
+  componentDidMount() {
+    this.handleResize()
+    window.addEventListener("resize", this.handleResize)
+  }
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.handleResize)
+  }
+  render() {
+    return (
+      <React.Fragment>
+        <StaticQuery
+          query={GET_IMAGE}
+          render={data => {
+            return (
+              <React.Fragment>
+                {this.state.windowWidth >= 980 ? (
+                  <ImageWrapper img={data.getImage.childImageSharp.fluid} />
+                ) : (
+                  <ImageResources />
+                )}
+              </React.Fragment>
+            )
+          }}
+        />
+        <QueryArticles />
+      </React.Fragment>
+    )
+  }
 }
 
 // const BlogPage = () => (
@@ -41,8 +62,6 @@ const BlogPage = () => {
 //     </PageHeader>
 //   </Layout>
 // );
-
-export default BlogPage
 
 const ImageWrapper = styled.div`
   background: url(${props => props.img.src});

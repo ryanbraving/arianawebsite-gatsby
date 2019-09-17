@@ -3,8 +3,8 @@ import styled from "styled-components"
 import { styles, SectionButton } from "../utils"
 import { Link } from "gatsby"
 import ContextConsumer from "../components/Context"
-import ImageMobileFR from "../components/imageMobileFR"
-import ImageMobileEN from "../components/imageMobileEN"
+import ImageMobileFR from "../images/images_JS/imageMobileFR"
+import ImageMobileEN from "../images/images_JS/imageMobileEN"
 // const img1 = "/static/fc80c1b58ec75bbadcd6912d9d503e82/8484e/homeBcg.jpeg";
 // console.log(img1);
 // const img2 = "/static/d8b29c8eab79535a6284612b58d88065/8484e/arianaBcg.jpg";

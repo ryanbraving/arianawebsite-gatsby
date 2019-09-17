@@ -10,13 +10,11 @@ import TextField from "@material-ui/core/TextField"
 import purple from "@material-ui/core/colors/purple"
 import styled from "styled-components"
 import { styles, SectionButton } from "../../utils"
-import firebase from "../../firebase/FirebaseConfigs"
-// import Sign from "../../../../arianawebsite-gatsby/src/components/homePageComponents/SignIn"
+import DDB from "../../aws/AWS_Config"
 
-// import SendVerificationEmail from "../aws/AWS-SendVerificationEmail";
+// import firebase from "../../firebase/FirebaseConfigs"
 
-const db = firebase.firestore()
-// const colorPick = yellow[800];
+// const db = firebase.firestore()
 const colorPick = styles.colors.mainYellow
 const stylesMaterialui = theme => ({
   container: {
@@ -117,27 +115,49 @@ class OutlinedTextFields extends React.Component {
       hideSubscribe: false,
     })
 
-    const timeNow = firebase.firestore.FieldValue.serverTimestamp()
-    var refDoc = db
-      .collection("Unverified-Emails-EN")
-      // .doc(dbEmail.toLowerCase());
-      .doc()
-    refDoc
-      .set({
-        docId: refDoc.id,
-        email: dbEmail,
-        name: dbName,
-        verified: false,
-        createdAt: timeNow,
-        clientInfo: dbClientInfo,
-      })
-      .then(function() {
-        // console.log("Document successfully written!");
-      })
-      .catch(function(error) {
-        console.error("Error writing document: ", error)
-      })
-    // this.sendEmail(dbName, dbEmail);
+    const timeNowISO = new Date().toISOString()
+
+    var params = {
+      TableName: "ArianaBraving-Email-Subscription-EN",
+      Item: {
+        email: { S: dbEmail },
+        name: { S: dbName },
+        verified: { BOOL: false },
+        createdAt: { S: timeNowISO },
+        country_name: { S: dbClientInfo.country_name },
+        region: { S: dbClientInfo.region },
+        city: { S: dbClientInfo.city },
+        region: { S: dbClientInfo.region },
+        ip: { S: dbClientInfo.ip },
+        provider: { S: dbClientInfo.provider },
+      },
+    }
+    DDB.putItem(params, function(err, data) {
+      if (err) {
+        console.log("Error", err)
+      } else {
+        // console.log("Success", data)
+      }
+    })
+
+    // const timeNow = firebase.firestore.FieldValue.serverTimestamp()
+    // var refDoc = db
+    //   .collection("Unverified-Emails-EN")
+    //   .doc()
+    // refDoc
+    //   .set({
+    //     docId: refDoc.id,
+    //     email: dbEmail,
+    //     name: dbName,
+    //     verified: false,
+    //     createdAt: timeNow,
+    //     clientInfo: dbClientInfo,
+    //   })
+    //   .then(function() {
+    //   })
+    //   .catch(function(error) {
+    //     console.error("Error writing document: ", error)
+    //   })
   }
 
   // sendEmail = (name, email) => {

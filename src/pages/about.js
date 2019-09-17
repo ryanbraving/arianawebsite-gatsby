@@ -12,6 +12,7 @@ import AboutTabAboutArianaEN from "../components/aboutPage/AboutTab_AboutAriana_
 import AboutTabEducationFR from "../components/aboutPage/AboutTab_Education_FR"
 import AboutTabEducationEN from "../components/aboutPage/AboutTab_Education_EN"
 import LandingCheck from "../components/LandingCheck"
+import ImageAbout from "../images/images_JS/imageAbout"
 
 // import img from "../images/bcg/aboutBcg.jpeg"
 
@@ -60,7 +61,21 @@ class AboutPage extends Component {
   tabNo = no => {
     this.setState({
       tabNo: no,
+      windowWidth: undefined,
     })
+  }
+
+  handleResize = () => {
+    this.setState({
+      windowWidth: window.innerWidth,
+    })
+  }
+  componentDidMount() {
+    this.handleResize()
+    window.addEventListener("resize", this.handleResize)
+  }
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.handleResize)
   }
 
   render() {
@@ -85,7 +100,11 @@ class AboutPage extends Component {
           <AboutWrapper>
             {landingDone ? (
               <Layout>
-                <ImageWrapper img={data.getImage.childImageSharp.fluid} />
+                {this.state.windowWidth >= 980 ? (
+                  <ImageWrapper img={data.getImage.childImageSharp.fluid} />
+                ) : (
+                  <ImageAbout />
+                )}
                 <AboutTabs tabNo={this.tabNo} link_tabNo={link_tabNo} />
                 {isFarsi && this.state.tabNo === 0 ? (
                   <AboutTabAboutArianaFR />

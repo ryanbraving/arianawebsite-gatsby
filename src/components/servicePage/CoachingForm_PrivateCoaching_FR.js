@@ -10,9 +10,12 @@ import TextField from "@material-ui/core/TextField"
 import purple from "@material-ui/core/colors/purple"
 import styled from "styled-components"
 import { styles, SectionButton, RTL, Section } from "../../utils"
-import firebase from "../../firebase/FirebaseConfigs"
+import DDB from "../../aws/AWS_Config"
+import uuid from "uuid"
 
-const db = firebase.firestore()
+// import firebase from "../../firebase/FirebaseConfigs"
+
+// const db = firebase.firestore()
 const colorPick = styles.colors.mainYellow
 const stylesMaterialui = theme => ({
   container: {
@@ -119,14 +122,18 @@ class OutlinedTextFields extends React.Component {
     e.preventDefault()
     const dbName = this.state.name
     const dbCountry = this.state.country
-    const dbEmail = this.state.email
-    const dbPhoneNo = this.state.phoneNo
-    const dbTelegramId = this.state.telegramId
+    var dbEmail = this.state.email
+    if (dbEmail === "") dbEmail = "None"
+    var dbPhoneNo = this.state.phoneNo
+    if (dbPhoneNo === "") dbPhoneNo = "None"
+    var dbTelegramId = this.state.telegramId
+    if (dbTelegramId === "") dbTelegramId = "None"
     const dbHowFindAriana = this.state.howFindAriana
     const dbWhyCoaching = this.state.whyCoaching
     const dbExplaination = this.state.explaination
     const dbMainProblem = this.state.mainProblem
-    const dbOtherProblem = this.state.otherProblem
+    var dbOtherProblem = this.state.otherProblem
+    if (dbOtherProblem === "") dbOtherProblem = "None"
     const dbExpectation = this.state.expectation
     const dbObstacle = this.state.obstacle
     const dbClientInfo = this.state.clientInfo
@@ -136,7 +143,7 @@ class OutlinedTextFields extends React.Component {
       name: "",
       country: "",
       email: "",
-      phoneNo: 0,
+      phoneNo: "",
       telegramId: "",
       howFindAriana: "",
       whyCoaching: "",
@@ -149,37 +156,69 @@ class OutlinedTextFields extends React.Component {
       coachingTypeRequest: "",
     })
 
-    const timeNow = firebase.firestore.FieldValue.serverTimestamp()
-    var refDoc = db
-      .collection("Request-PrivateCoaching-FR")
-      // .doc(dbEmail.toLowerCase());
-      .doc()
-    refDoc
-      .set({
-        docId: refDoc.id,
-        name: dbName,
-        country: dbCountry,
-        email: dbEmail,
-        phone: dbPhoneNo,
-        telegram: dbTelegramId,
-        howFindAriana: dbHowFindAriana,
-        whyCoaching: dbWhyCoaching,
-        explaination: dbExplaination,
-        mainProblem: dbMainProblem,
-        otherProblem: dbOtherProblem,
-        expectation: dbExpectation,
-        obstacle: dbObstacle,
-        coachingTypeRequest: dbCoachingTypeRequest,
-        createdAt: timeNow,
-        clientInfo: dbClientInfo,
-      })
-      .then(function() {
-        // console.log("Document successfully written!");
-      })
-      .catch(function(error) {
-        console.error("Error writing document: ", error)
-      })
-    // this.sendEmail(dbName, dbEmail);
+    const timeNowISO = new Date().toISOString()
+
+    var params = {
+      TableName: "ArianaBraving-Request-PrivateCoaching-FR",
+      Item: {
+        id: { S: uuid() },
+        name: { S: dbName },
+        country: { S: dbCountry },
+        email: { S: dbEmail },
+        phone: { S: dbPhoneNo },
+        telegram: { S: dbTelegramId },
+        howFindAriana: { S: dbHowFindAriana },
+        whyCoaching: { S: dbWhyCoaching },
+        explaination: { S: dbExplaination },
+        mainProblem: { S: dbMainProblem },
+        otherProblem: { S: dbOtherProblem },
+        expectation: { S: dbExpectation },
+        obstacle: { S: dbObstacle },
+        coachingTypeRequest: { S: dbCoachingTypeRequest },
+        createdAt: { S: timeNowISO },
+        api_country_name: { S: dbClientInfo.country_name },
+        api_region: { S: dbClientInfo.region },
+        api_city: { S: dbClientInfo.city },
+        api_ip: { S: dbClientInfo.ip },
+        api_provider: { S: dbClientInfo.provider },
+      },
+    }
+    DDB.putItem(params, function(err, data) {
+      if (err) {
+        console.log("Error", err)
+      } else {
+        // console.log("Success", data)
+      }
+    })
+
+    // const timeNow = firebase.firestore.FieldValue.serverTimestamp()
+    // var refDoc = db
+    //   .collection("Request-PrivateCoaching-FR")
+    //   .doc()
+    // refDoc
+    //   .set({
+    //     docId: refDoc.id,
+    //     name: dbName,
+    //     country: dbCountry,
+    //     email: dbEmail,
+    //     phone: dbPhoneNo,
+    //     telegram: dbTelegramId,
+    //     howFindAriana: dbHowFindAriana,
+    //     whyCoaching: dbWhyCoaching,
+    //     explaination: dbExplaination,
+    //     mainProblem: dbMainProblem,
+    //     otherProblem: dbOtherProblem,
+    //     expectation: dbExpectation,
+    //     obstacle: dbObstacle,
+    //     coachingTypeRequest: dbCoachingTypeRequest,
+    //     createdAt: timeNow,
+    //     clientInfo: dbClientInfo,
+    //   })
+    //   .then(function() {
+    //   })
+    //   .catch(function(error) {
+    //     console.error("Error writing document: ", error)
+    //   })
   }
 
   // sendEmail = (name, email) => {
@@ -285,7 +324,7 @@ class OutlinedTextFields extends React.Component {
                     }}
                   />
                   <TextField
-                    id="outlined-number"
+                    id="outlined-helperText"
                     label="تلفن"
                     helperText=""
                     value={this.state.phoneNo}

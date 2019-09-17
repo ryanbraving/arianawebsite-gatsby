@@ -5,6 +5,8 @@ import styled from "styled-components"
 import ContextConsumer from "../components/Context"
 import CoachingFormFR from "../components/servicePage/CoachingForm_PrivateCoaching_FR"
 import CoachingFormEN from "../components/servicePage/CoachingForm_PrivateCoaching_EN"
+import LandingCheck from "../components/LandingCheck"
+
 export default class SubscribeInfo extends Component {
   render() {
     const { location } = this.props
@@ -15,58 +17,69 @@ export default class SubscribeInfo extends Component {
 
     return (
       <ContextConsumer>
-        {({ isFarsi }) => (
-          <Layout>
-            <Section style={{ paddingTop: "100px" }}>
-              {isFarsi ? (
-                <div>
-                  <Title
-                    title="فرم زیر را پر کنید"
-                    message="درخواست کوچینگ و مشاوره با آریانا"
-                  />
-                  <h3
-                    style={{
-                      textAlign: "center",
-                      color: `${styles.colors.mainGrey}`,
-                    }}
-                  >
-                    پس از تکمیل و ارسال فرم زیر نحوه کار با آریانا و هزینه های
-                    مرتبط برای شما فرستاده می شود
-                  </h3>
-                </div>
-              ) : (
-                <div>
-                  <Title
-                    title="fill up the following form"
-                    message="To be coached with Ariana"
-                  />
-                  <h3
-                    style={{
-                      textAlign: "center",
-                      color: `${styles.colors.mainGrey}`,
-                    }}
-                  >
-                    After submitting this form, you will be notified of the next step and the associated costs.
-                  </h3>
-                </div>
-              )}
+        {({ landingDone, isFarsi }) => (
+          <React.Fragment>
+            {landingDone ? (
+              <Layout>
+                <Section style={{ paddingTop: "100px" }}>
+                  {isFarsi ? (
+                    <div>
+                      <Title
+                        title="فرم زیر را پر کنید"
+                        message="درخواست کوچینگ و مشاوره با آریانا"
+                      />
+                      <h3
+                        style={{
+                          textAlign: "center",
+                          color: `${styles.colors.mainGrey}`,
+                        }}
+                      >
+                        پس از تکمیل و ارسال فرم زیر نحوه کار با آریانا و هزینه
+                        های مرتبط برای شما فرستاده می شود
+                      </h3>
+                    </div>
+                  ) : (
+                    <div>
+                      <Title
+                        title="fill up the following form"
+                        message="To be coached with Ariana"
+                      />
+                      <h3
+                        style={{
+                          textAlign: "center",
+                          color: `${styles.colors.mainGrey}`,
+                        }}
+                      >
+                        After submitting this form, you will be notified of the
+                        next step and the associated costs.
+                      </h3>
+                    </div>
+                  )}
 
-              <CoachingWrapper>
-                {/* <h1 className="text">
+                  <CoachingWrapper>
+                    {/* <h1 className="text">
             Subscribe to stay updated and receive freebies!
           </h1> */}
-                {/* <SectionButton style={{ margin: "2rem auto" }}>
+                    {/* <SectionButton style={{ margin: "2rem auto" }}>
             {" "}
             subscrib{" "}
           </SectionButton> */}
-                {isFarsi ? (
-                  <CoachingFormFR coachingTypeRequest={coachingTypeRequest} />
-                ) : (
-                  <CoachingFormEN coachingTypeRequest={coachingTypeRequest} />
-                )}
-              </CoachingWrapper>
-            </Section>
-          </Layout>
+                    {isFarsi ? (
+                      <CoachingFormFR
+                        coachingTypeRequest={coachingTypeRequest}
+                      />
+                    ) : (
+                      <CoachingFormEN
+                        coachingTypeRequest={coachingTypeRequest}
+                      />
+                    )}
+                  </CoachingWrapper>
+                </Section>
+              </Layout>
+            ) : (
+              <LandingCheck />
+            )}
+          </React.Fragment>
         )}
       </ContextConsumer>
     )

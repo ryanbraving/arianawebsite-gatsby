@@ -9,6 +9,7 @@ import ResourceTabWeblogFR from "./ResourceTab_Weblog_FR"
 import ResourceTabVideocastFR from "./ResourceTab_Videocast_FR"
 import ResourceTabPodcastFR from "./ResourceTab_Podcast_FR"
 import ResourceTabInspirationalQuotesFR from "./ResourceTab_InspirationalQuotes_FR"
+import ImageResources from "../../images/images_JS/imageResources"
 
 // import img from "../images/bcg/aboutBcg.jpeg"
 
@@ -57,7 +58,21 @@ class Resources extends Component {
   tabNo = no => {
     this.setState({
       tabNo: no,
+      windowWidth: undefined,
     })
+  }
+
+  handleResize = () => {
+    this.setState({
+      windowWidth: window.innerWidth,
+    })
+  }
+  componentDidMount() {
+    this.handleResize()
+    window.addEventListener("resize", this.handleResize)
+  }
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.handleResize)
   }
 
   render() {
@@ -74,7 +89,11 @@ class Resources extends Component {
             render={data => {
               return (
                 <ResourceWrapper>
-                  <ImageWrapper img={data.getImage.childImageSharp.fluid} />
+                  {this.state.windowWidth >= 980 ? (
+                    <ImageWrapper img={data.getImage.childImageSharp.fluid} />
+                  ) : (
+                    <ImageResources />
+                  )}
                   <ResourceTabs tabNo={this.tabNo} />
 
                   {isFarsi && this.state.tabNo === 0 ? (

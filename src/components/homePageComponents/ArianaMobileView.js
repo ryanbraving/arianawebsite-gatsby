@@ -3,7 +3,7 @@ import styled from "styled-components"
 import { styles } from "../../utils"
 import { Link } from "gatsby"
 import ContextConsumer from "../Context"
-import ImageMobileAriana from "../../components/imageMobileAriana"
+import ImageMobileAriana from "../../images/images_JS/imageMobileAriana"
 
 export default function ArianaMobileView() {
   return (

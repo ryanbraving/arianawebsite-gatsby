@@ -127,7 +127,6 @@ class OutlinedTextFields extends React.Component {
         country_name: { S: dbClientInfo.country_name },
         region: { S: dbClientInfo.region },
         city: { S: dbClientInfo.city },
-        region: { S: dbClientInfo.region },
         ip: { S: dbClientInfo.ip },
         provider: { S: dbClientInfo.provider },
       },

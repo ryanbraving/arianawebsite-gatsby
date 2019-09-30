@@ -84,29 +84,36 @@ function testimonyPage(props) {
                           >
                             {node.text.text}
                           </Typography>
-                          <Typography
-                            variant="h5"
-                            component="h3"
-                            className={classnames("name", "nameFR")}
+                          <div
+                            style={{
+                              display: "flex",
+                              justifyContent: "space-between",
+                            }}
                           >
-                            {node.name}
-                          </Typography>
-                          <Typography
-                            variant="h6"
-                            component="h3"
-                            className={classnames("country", "countryFR")}
-                          >
-                            <ReactCountryFlag
-                              styleProps={{
-                                width: "30px",
-                                height: "20px",
-                              }}
-                              code={node.countryCode}
-                              svg
-                            />
-                            &nbsp;
-                            {node.country}
-                          </Typography>
+                            <Typography
+                              variant="h6"
+                              component="h3"
+                              className={classnames("country", "countryFR")}
+                            >
+                              <ReactCountryFlag
+                                styleProps={{
+                                  width: "30px",
+                                  height: "20px",
+                                }}
+                                code={node.countryCode}
+                                svg
+                              />
+                              &nbsp;
+                              {node.country}
+                            </Typography>
+                            <Typography
+                              variant="h6"
+                              component="h3"
+                              className={classnames("name", "nameFR")}
+                            >
+                              {node.name}
+                            </Typography>
+                          </div>
                         </Paper>
                       )
                     })
@@ -120,29 +127,36 @@ function testimonyPage(props) {
                           <Typography component="p" className="text">
                             {node.text.text}
                           </Typography>
-                          <Typography
-                            variant="h5"
-                            component="h3"
-                            className="name"
+                          <div
+                            style={{
+                              display: "flex",
+                              justifyContent: "space-between",
+                            }}
                           >
-                            {node.name}
-                          </Typography>
-                          <Typography
-                            variant="h6"
-                            component="h3"
-                            className="country"
-                          >
-                            <ReactCountryFlag
-                              styleProps={{
-                                width: "30px",
-                                height: "20px",
-                              }}
-                              code={node.countryCode}
-                              svg
-                            />
-                            &nbsp;
-                            {node.country}
-                          </Typography>
+                            <Typography
+                              variant="h6"
+                              component="h3"
+                              className="name"
+                            >
+                              {node.name}
+                            </Typography>
+                            <Typography
+                              variant="h6"
+                              component="h3"
+                              className="country"
+                            >
+                              <ReactCountryFlag
+                                styleProps={{
+                                  width: "30px",
+                                  height: "20px",
+                                }}
+                                code={node.countryCode}
+                                svg
+                              />
+                              &nbsp;
+                              {node.country}
+                            </Typography>
+                          </div>
                         </Paper>
                       )
                     })}
@@ -197,7 +211,7 @@ const TestimonyPageWrapper = styled.div`
     font-family: "Vazir";
   }
   .country {
-    margin-top: 0.3rem;
+    margin-top: 1rem;
     /* font-size: 1.2rem; */
     text-align: right;
   }

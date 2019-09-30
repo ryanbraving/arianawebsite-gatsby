@@ -174,7 +174,7 @@ class CenteredTabs extends Component {
                     />
                     <Tab
                       classes={{ root: classes.tabRoot }}
-                      label="Clients' Experiences"
+                      label="What Others Say"
                       onClick={() => {
                         tabNo(3)
                       }}

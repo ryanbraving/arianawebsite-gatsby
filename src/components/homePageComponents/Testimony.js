@@ -181,7 +181,7 @@ export default class Testimony1 extends Component {
                         to="/services"
                         style={{ textDecoration: "none" }}
                         state={{
-                          link_tabNo: 4,
+                          link_tabNo: 3,
                         }}
                       >
                           <ServiceButton
@@ -196,7 +196,7 @@ export default class Testimony1 extends Component {
                               to="/services"
                               style={{ textDecoration: "none" }}
                               state={{
-                                link_tabNo: 4,
+                                link_tabNo: 3,
                               }}
                             >
                           <ServiceButton

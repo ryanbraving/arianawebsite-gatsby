@@ -120,24 +120,36 @@ class OutlinedTextFields extends React.Component {
 
   addCoachingRequest = e => {
     e.preventDefault()
-    const dbName = this.state.name
-    const dbCountry = this.state.country
+    var dbName = this.state.name
+    var dbCountry = this.state.country
     var dbEmail = this.state.email
-    if (dbEmail === "") dbEmail = "None"
     var dbPhoneNo = this.state.phoneNo
-    if (dbPhoneNo === "") dbPhoneNo = "None"
     var dbTelegramId = this.state.telegramId
-    if (dbTelegramId === "") dbTelegramId = "None"
-    const dbHowFindAriana = this.state.howFindAriana
-    const dbExplaination = this.state.explaination
-    const dbIdealLife = this.state.idealLife
+    var dbHowFindAriana = this.state.howFindAriana
+    var dbExplaination = this.state.explaination
+    var dbIdealLife = this.state.idealLife
     var dbOtherProblem = this.state.otherProblem
+    var dbWhatActions = this.state.whatActions
+    var dbObstacle = this.state.obstacle
+    var dbRegistrationGoal = this.state.registrationGoal
+    var dbClientInfo = this.state.clientInfo
+    var dbCoachingTypeRequest = this.state.coachingTypeRequest
+
+    if (dbName === "") dbName = "None"
+    if (dbCountry === "") dbCountry = "None"
+    if (dbEmail === "") dbEmail = "None"
+    if (dbPhoneNo === "") dbPhoneNo = "None"
+    if (dbTelegramId === "") dbTelegramId = "None"
+    if (dbHowFindAriana === "") dbHowFindAriana = "None"
+    if (dbExplaination === "") dbExplaination = "None"
+    if (dbIdealLife === "") dbIdealLife = "None"
     if (dbOtherProblem === "") dbOtherProblem = "None"
-    const dbWhatActions = this.state.whatActions
-    const dbObstacle = this.state.obstacle
-    const dbRegistrationGoal = this.state.registrationGoal
-    const dbClientInfo = this.state.clientInfo
-    const dbCoachingTypeRequest = this.state.coachingTypeRequest
+    if (dbWhatActions === "") dbWhatActions = "None"
+    if (dbObstacle === "") dbObstacle = "None"
+    if (dbRegistrationGoal === "") dbRegistrationGoal = "None"
+    if (dbClientInfo === "") dbClientInfo = "None"
+    if (dbCoachingTypeRequest === "" || dbCoachingTypeRequest === undefined) dbCoachingTypeRequest = "None"
+
     this.setState({
       thankName: this.state.name,
       name: "",
@@ -186,6 +198,7 @@ class OutlinedTextFields extends React.Component {
     DDB.putItem(params, function(err, data) {
       if (err) {
         console.log("Error", err)
+        console.log(params)
       }
     })
 
